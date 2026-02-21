@@ -1,10 +1,10 @@
 # Solutions Index
 
-按技术分类索引所有整理的技术方案。
+按第一性原理与技术本质分类索引所有整理的技术方案。
 
 ---
 
-## Surveys
+## Surveys (综述与理论)
 
 | 文档                                                                  | 来源               | 关注点                                         |
 | --------------------------------------------------------------------- | ------------------ | ---------------------------------------------- |
@@ -17,41 +17,125 @@
 
 ---
 
+# Ⅰ. 逃避问题：工程外挂与工作流架构 (Evasion)
+
+此类方案试图绕过灾难性遗忘，通过长上下文、外部数据库及多智能体工作流等系统层面调度，实现“假学习”（本质上为信息检索或外部保存）。
+
 ## Token-level Memory
 
 ### Flat (1D) — 无拓扑
 
-| 文档                                                     | 核心机制                                             |
-| -------------------------------------------------------- | ---------------------------------------------------- |
-| [memgpt](token-level-memory/memgpt.md)                   | OS隐喻，Main/External Context虚拟内存层次            |
-| [mem0](token-level-memory/mem0.md)                       | 标准化记忆CRUD操作，图+向量混合存储                  |
-| [think-in-memory](token-level-memory/think-in-memory.md) | 归纳性thoughts的hash table存储，cluster-level fusion |
-| [comedy](token-level-memory/comedy.md)                   | 单模型完成记忆生成、压缩和复用                       |
-| [openclaw](token-level-memory/openclaw.md)               | 跨会话个性化记忆工程方案                             |
+| 文档                                                             | 核心机制                                             |
+| ---------------------------------------------------------------- | ---------------------------------------------------- |
+| [memgpt](evasion/token-level-memory/memgpt.md)                   | OS隐喻，Main/External Context虚拟内存层次            |
+| [mem0](evasion/token-level-memory/mem0.md)                       | 标准化记忆CRUD操作，图+向量混合存储                  |
+| [think-in-memory](evasion/token-level-memory/think-in-memory.md) | 归纳性thoughts的hash table存储，cluster-level fusion |
+| [comedy](evasion/token-level-memory/comedy.md)                   | 单模型完成记忆生成、压缩和复用                       |
+| [openclaw](evasion/token-level-memory/openclaw.md)               | 跨会话个性化记忆工程方案                             |
 
 ### Planar (2D) — 单层结构化
 
-| 文档                                     | 核心机制                                 |
-| ---------------------------------------- | ---------------------------------------- |
-| [hat](token-level-memory/hat.md)         | 层次化聚合树，coarse-to-fine检索         |
-| [memtree](token-level-memory/memtree.md) | 动态层次schema，自底向上摘要更新         |
-| [a-mem](token-level-memory/a-mem.md)     | 卡片式记忆单元，语义链接构建记忆网络     |
-| [d-smart](token-level-memory/d-smart.md) | KG + 推理树混合，neuro-symbolic pipeline |
+| 文档                                             | 核心机制                                 |
+| ------------------------------------------------ | ---------------------------------------- |
+| [hat](evasion/token-level-memory/hat.md)         | 层次化聚合树，coarse-to-fine检索         |
+| [memtree](evasion/token-level-memory/memtree.md) | 动态层次schema，自底向上摘要更新         |
+| [a-mem](evasion/token-level-memory/a-mem.md)     | 卡片式记忆单元，语义链接构建记忆网络     |
+| [d-smart](evasion/token-level-memory/d-smart.md) | KG + 推理树混合，neuro-symbolic pipeline |
 
 ### Hierarchical (3D) — 多层互联
 
-| 文档                                                                   | 核心机制                                          |
-| ---------------------------------------------------------------------- | ------------------------------------------------- |
-| [graphrag](token-level-memory/graphrag.md)                             | 社区检测递归聚合，多层图索引                      |
-| [hipporag](token-level-memory/hipporag.md)                             | 神经生物学启发，dual-layer graph + PageRank检索   |
-| [arigraph](token-level-memory/arigraph.md)                             | 统一图中semantic KG + episodic component          |
-| [zep](token-level-memory/zep.md)                                       | 三层时序KG（Episodic/Semantic/Community）         |
-| [g-memory](token-level-memory/g-memory.md)                             | 三层图（interaction/query/insight），多智能体共享 |
-| [lyfe-agents](token-level-memory/lyfe-agents.md)                       | Working/Short-term/Long-term三层社交模拟          |
-| [inside-out-personatree](token-level-memory/inside-out-personatree.md) | PersonaTree分层记忆schema与操作更新               |
-| [hipporag-2](token-level-memory/hipporag-2.md)                         | 从RAG向类海马体多跳检索和长期记忆系统演进         |
+| 文档                                                                           | 核心机制                                          |
+| ------------------------------------------------------------------------------ | ------------------------------------------------- |
+| [graphrag](evasion/token-level-memory/graphrag.md)                             | 社区检测递归聚合，多层图索引                      |
+| [hipporag](evasion/token-level-memory/hipporag.md)                             | 神经生物学启发，dual-layer graph + PageRank检索   |
+| [arigraph](evasion/token-level-memory/arigraph.md)                             | 统一图中semantic KG + episodic component          |
+| [zep](evasion/token-level-memory/zep.md)                                       | 三层时序KG（Episodic/Semantic/Community）         |
+| [g-memory](evasion/token-level-memory/g-memory.md)                             | 三层图（interaction/query/insight），多智能体共享 |
+| [lyfe-agents](evasion/token-level-memory/lyfe-agents.md)                       | Working/Short-term/Long-term三层社交模拟          |
+| [inside-out-personatree](evasion/token-level-memory/inside-out-personatree.md) | PersonaTree分层记忆schema与操作更新               |
+| [hipporag-2](evasion/token-level-memory/hipporag-2.md)                         | 从RAG向类海马体多跳检索和长期记忆系统演进         |
 
 ---
+
+## Experiential Memory
+
+### Case-based — 原始轨迹/解决方案
+
+| 文档                                              | 核心机制                              |
+| ------------------------------------------------- | ------------------------------------- |
+| [expel](evasion/experiential-memory/expel.md)     | Trial-and-error积累，轨迹+洞见混合    |
+| [synapse](evasion/experiential-memory/synapse.md) | 抽象state-action episodes作上下文示例 |
+
+### Strategy-based — 洞见/工作流/模式
+
+| 文档                                                                    | 核心机制                                      |
+| ----------------------------------------------------------------------- | --------------------------------------------- |
+| [reflexion](evasion/experiential-memory/reflexion.md)                   | 短期trajectory + 长期self-reflection feedback |
+| [buffer-of-thoughts](evasion/experiential-memory/buffer-of-thoughts.md) | Meta-buffer思维模板检索与实例化               |
+| [awm](evasion/experiential-memory/awm.md)                               | 从成功轨迹提取可复用工作流                    |
+
+### Skill-based — 可执行代码/函数/API
+
+| 文档                                                                        | 核心机制                              |
+| --------------------------------------------------------------------------- | ------------------------------------- |
+| [voyager](evasion/experiential-memory/voyager.md)                           | Minecraft中不断增长的可执行技能代码库 |
+| [darwin-godel-machine](evasion/experiential-memory/darwin-godel-machine.md) | 安全自重写代码，递归自修改            |
+
+### Meta-evolution
+
+| 文档                                                  | 核心机制                       |
+| ----------------------------------------------------- | ------------------------------ |
+| [memevolve](evasion/experiential-memory/memevolve.md) | 联合进化经验知识和底层记忆架构 |
+
+---
+
+## Working Memory
+
+### Single-turn — 输入压缩
+
+| 文档                                             | 核心机制                           |
+| ------------------------------------------------ | ---------------------------------- |
+| [llmlingua](evasion/working-memory/llmlingua.md) | Token perplexity估计丢弃可预测内容 |
+
+### Multi-turn — 状态维护
+
+| 文档                                                         | 核心机制                           |
+| ------------------------------------------------------------ | ---------------------------------- |
+| [mem1](evasion/working-memory/mem1.md)                       | 共享内部状态 + PPO优化摘要         |
+| [memagent](evasion/working-memory/memagent.md)               | 固定预算循环记忆 + GRPO优化        |
+| [resum](evasion/working-memory/resum.md)                     | 周期性历史蒸馏为推理状态           |
+| [hiagent](evasion/working-memory/hiagent.md)                 | 子目标中心层次化工作记忆           |
+| [context-folding](evasion/working-memory/context-folding.md) | 可学习折叠策略，自主决定分支与抽象 |
+| [lightmem](evasion/working-memory/lightmem.md)               | Agent的高效长短期记忆机制构建      |
+
+---
+
+## Multi-Agent Memory
+
+| 文档                                                                 | 核心机制                                         |
+| -------------------------------------------------------------------- | ------------------------------------------------ |
+| [generative-agents](evasion/multi-agent-memory/generative-agents.md) | 社交模拟，recency/importance/relevance三因素检索 |
+| [bmam](evasion/multi-agent-memory/bmam.md)                           | 海马-新皮层双系统多智能体记忆框架                |
+| [g-designer](evasion/multi-agent-memory/g-designer.md)               | Graph Neural Networks 自适应多智能体通信拓扑     |
+| [masrouter](evasion/multi-agent-memory/masrouter.md)                 | 基于路由资源的动态代理条件搜索机制               |
+
+---
+
+## Frameworks — 开源记忆框架
+
+| 文档                                                           | 核心抽象                             |
+| -------------------------------------------------------------- | ------------------------------------ |
+| [memos-framework](evasion/frameworks/memos-framework.md)       | MemOS — MemScheduler动态选择记忆类型 |
+| [memoryos-framework](evasion/frameworks/memoryos-framework.md) | MemoryOS — 层次化S/M/LTM架构         |
+| [memobase-framework](evasion/frameworks/memobase-framework.md) | Memobase — 结构化profiles            |
+| [langmem-framework](evasion/frameworks/langmem-framework.md)   | LangMem — Core API + manager         |
+| [cognee-framework](evasion/frameworks/cognee-framework.md)     | Cognee — Knowledge graph-based       |
+
+---
+
+# Ⅱ. 直面问题：参数更新与隐状态表征 (Direct-Facing)
+
+此类方案正面迎击灾难性遗忘。通过显式修改权重（内部参数、适配器）、优化隐空间表征结构、或从训练阶段革新梯度更新机制，尝试触达神经生物学中网络参数级的长程学习目标。
 
 ## Parametric Memory
 
@@ -59,49 +143,49 @@
 
 **Pre-Train / Mid-Train:**
 
-| 文档                                              | 核心机制                                 |
-| ------------------------------------------------- | ---------------------------------------- |
-| [lmlm](parametric-memory/lmlm.md)                 | 将知识检索记忆存模型中，知识本身在外部库 |
-| [streamingllm](parametric-memory/streamingllm.md) | Attention Sink机制优化长窗口记忆         |
+| 文档                                                            | 核心机制                                 |
+| --------------------------------------------------------------- | ---------------------------------------- |
+| [lmlm](direct-facing/parametric-memory/lmlm.md)                 | 将知识检索记忆存模型中，知识本身在外部库 |
+| [streamingllm](direct-facing/parametric-memory/streamingllm.md) | Attention Sink机制优化长窗口记忆         |
 
 **Post-Train — Knowledge Editing:**
 
-| 文档                                                      | 核心机制                                 |
-| --------------------------------------------------------- | ---------------------------------------- |
-| [rome](parametric-memory/rome.md)                         | Causal tracing定位 + rank-one update注入 |
-| [memit](parametric-memory/memit.md)                       | 多层残差分布批量编辑数千事实             |
-| [mend](parametric-memory/mend.md)                         | 辅助网络分解梯度实现快速单步编辑         |
-| [alphaedit](parametric-memory/alphaedit.md)               | 零空间约束的知识编辑                     |
-| [knowledge-editor](parametric-memory/knowledge-editor.md) | 定向内部参数修改                         |
+| 文档                                                                    | 核心机制                                 |
+| ----------------------------------------------------------------------- | ---------------------------------------- |
+| [rome](direct-facing/parametric-memory/rome.md)                         | Causal tracing定位 + rank-one update注入 |
+| [memit](direct-facing/parametric-memory/memit.md)                       | 多层残差分布批量编辑数千事实             |
+| [mend](direct-facing/parametric-memory/mend.md)                         | 辅助网络分解梯度实现快速单步编辑         |
+| [alphaedit](direct-facing/parametric-memory/alphaedit.md)               | 零空间约束的知识编辑                     |
+| [knowledge-editor](direct-facing/parametric-memory/knowledge-editor.md) | 定向内部参数修改                         |
 
 **Post-Train — Other:**
 
-| 文档                                              | 核心机制                              |
-| ------------------------------------------------- | ------------------------------------- |
-| [self-param](parametric-memory/self-param.md)     | KL divergence蒸馏注入知识，无额外参数 |
-| [character-lm](parametric-memory/character-lm.md) | SFT微调注入角色特征/人格              |
+| 文档                                                            | 核心机制                              |
+| --------------------------------------------------------------- | ------------------------------------- |
+| [self-param](direct-facing/parametric-memory/self-param.md)     | KL divergence蒸馏注入知识，无额外参数 |
+| [character-lm](direct-facing/parametric-memory/character-lm.md) | SFT微调注入角色特征/人格              |
 
 ### External — 附加参数模块
 
 **Adapter-based:**
 
-| 文档                                                    | 核心机制                                    |
-| ------------------------------------------------------- | ------------------------------------------- |
-| [k-adapter](parametric-memory/k-adapter.md)             | 任务特定adapter，backbone冻结               |
-| [wise](parametric-memory/wise.md)                       | 双参数记忆 + 动态路由选择                   |
-| [elder](parametric-memory/elder.md)                     | 多LoRA模块 + 语义路由函数                   |
-| [t-patcher](parametric-memory/t-patcher.md)             | 识别并修补"值得修补的神经元"                |
-| [memory-decoder](parametric-memory/memory-decoder.md)   | 即插即用，兼具外部RAG灵活性和参数化推理速度 |
-| [memlora](parametric-memory/memlora.md)                 | 蒸馏专家adapter实现记忆增强                 |
-| [meta-smf](parametric-memory/meta-smf.md)               | 稀疏记忆池，1.3B+1B params，89%→11%遗忘     |
-| [engram-deepseek](parametric-memory/engram-deepseek.md) | 条件记忆O(1)查找模块                        |
+| 文档                                                                  | 核心机制                                    |
+| --------------------------------------------------------------------- | ------------------------------------------- |
+| [k-adapter](direct-facing/parametric-memory/k-adapter.md)             | 任务特定adapter，backbone冻结               |
+| [wise](direct-facing/parametric-memory/wise.md)                       | 双参数记忆 + 动态路由选择                   |
+| [elder](direct-facing/parametric-memory/elder.md)                     | 多LoRA模块 + 语义路由函数                   |
+| [t-patcher](direct-facing/parametric-memory/t-patcher.md)             | 识别并修补"值得修补的神经元"                |
+| [memory-decoder](direct-facing/parametric-memory/memory-decoder.md)   | 即插即用，兼具外部RAG灵活性和参数化推理速度 |
+| [memlora](direct-facing/parametric-memory/memlora.md)                 | 蒸馏专家adapter实现记忆增强                 |
+| [meta-smf](direct-facing/parametric-memory/meta-smf.md)               | 稀疏记忆池，1.3B+1B params，89%→11%遗忘     |
+| [engram-deepseek](direct-facing/parametric-memory/engram-deepseek.md) | 条件记忆O(1)查找模块                        |
 
 **Auxiliary LM-based:**
 
-| 文档                                            | 核心机制                                         |
-| ----------------------------------------------- | ------------------------------------------------ |
-| [mac](parametric-memory/mac.md)                 | Amortization network压缩文档为compact modulation |
-| [retroformer](parametric-memory/retroformer.md) | 学习过去任务执行的成败经验                       |
+| 文档                                                          | 核心机制                                         |
+| ------------------------------------------------------------- | ------------------------------------------------ |
+| [mac](direct-facing/parametric-memory/mac.md)                 | Amortization network压缩文档为compact modulation |
+| [retroformer](direct-facing/parametric-memory/retroformer.md) | 学习过去任务执行的成败经验                       |
 
 ---
 
@@ -111,123 +195,82 @@
 
 **Single Modal:**
 
-| 文档                                                                        | 核心机制                                              |
-| --------------------------------------------------------------------------- | ----------------------------------------------------- |
-| [gist-tokens](latent-memory/gist-tokens.md)                                 | 长prompt压缩为gist tokens                             |
-| [autocompressor](latent-memory/autocompressor.md)                           | 长文档编码为summary vectors作soft prompts             |
-| [memorag](latent-memory/memorag.md)                                         | LLM生成全局语义隐状态 + hypothetical document查询重写 |
-| [memoryllm](latent-memory/memoryllm.md)                                     | 潜在空间内嵌入自更新memory tokens                     |
-| [m-plus](latent-memory/m-plus.md)                                           | 跨层长期记忆token池                                   |
-| [lm2](latent-memory/lm2.md)                                                 | 每层矩阵形状潜在记忆slot                              |
-| [titans](latent-memory/titans.md)                                           | 长程信息压缩为在线更新MLP权重                         |
-| [memgen](latent-memory/memgen.md)                                           | 解码时动态生成潜在记忆（Memory Trigger + Weaver）     |
-| [emu](latent-memory/emu.md)                                                 | 带return标注的state encoder嵌入                       |
-| [memoria-park](latent-memory/memoria-park.md)                               | 三层记忆with engrams（生物学启发）                    |
-| [google-nested-learning-hope](latent-memory/google-nested-learning-hope.md) | Nested Optimization                                   |
+| 文档                                                                                      | 核心机制                                              |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| [gist-tokens](direct-facing/latent-memory/gist-tokens.md)                                 | 长prompt压缩为gist tokens                             |
+| [autocompressor](direct-facing/latent-memory/autocompressor.md)                           | 长文档编码为summary vectors作soft prompts             |
+| [memorag](direct-facing/latent-memory/memorag.md)                                         | LLM生成全局语义隐状态 + hypothetical document查询重写 |
+| [memoryllm](direct-facing/latent-memory/memoryllm.md)                                     | 潜在空间内嵌入自更新memory tokens                     |
+| [m-plus](direct-facing/latent-memory/m-plus.md)                                           | 跨层长期记忆token池                                   |
+| [lm2](direct-facing/latent-memory/lm2.md)                                                 | 每层矩阵形状潜在记忆slot                              |
+| [titans](direct-facing/latent-memory/titans.md)                                           | 长程信息压缩为在线更新MLP权重                         |
+| [memgen](direct-facing/latent-memory/memgen.md)                                           | 解码时动态生成潜在记忆（Memory Trigger + Weaver）     |
+| [emu](direct-facing/latent-memory/emu.md)                                                 | 带return标注的state encoder嵌入                       |
+| [memoria-park](direct-facing/latent-memory/memoria-park.md)                               | 三层记忆with engrams（生物学启发）                    |
+| [google-nested-learning-hope](direct-facing/latent-memory/google-nested-learning-hope.md) | Nested Optimization                                   |
 
 **Multimodal:**
 
-| 文档                            | 核心机制                                   |
-| ------------------------------- | ------------------------------------------ |
-| [comem](latent-memory/comem.md) | Q-Former压缩vision-language为固定长度token |
-| [xmem](latent-memory/xmem.md)   | 视频对象分割的多阶段KV嵌入记忆             |
+| 文档                                          | 核心机制                                   |
+| --------------------------------------------- | ------------------------------------------ |
+| [comem](direct-facing/latent-memory/comem.md) | Q-Former压缩vision-language为固定长度token |
+| [xmem](direct-facing/latent-memory/xmem.md)   | 视频对象分割的多阶段KV嵌入记忆             |
 
 ### Reuse — 直接复用计算状态
 
-| 文档                                                                | 核心机制                                |
-| ------------------------------------------------------------------- | --------------------------------------- |
-| [memorizing-transformers](latent-memory/memorizing-transformers.md) | 存储过去KV对，KNN搜索检索               |
-| [fot](latent-memory/fot.md)                                         | Memory-attention layers + KNN检索额外KV |
-| [longmem](latent-memory/longmem.md)                                 | Residual SideNet持久化历史KV嵌入        |
+| 文档                                                                              | 核心机制                                |
+| --------------------------------------------------------------------------------- | --------------------------------------- |
+| [memorizing-transformers](direct-facing/latent-memory/memorizing-transformers.md) | 存储过去KV对，KNN搜索检索               |
+| [fot](direct-facing/latent-memory/fot.md)                                         | Memory-attention layers + KNN检索额外KV |
+| [longmem](direct-facing/latent-memory/longmem.md)                                 | Residual SideNet持久化历史KV嵌入        |
 
 ### Transform — 压缩/重组现有状态
 
-| 文档                                              | 核心机制                                       |
-| ------------------------------------------------- | ---------------------------------------------- |
-| [scissorhands](latent-memory/scissorhands.md)     | 基于attention scores修剪KV cache               |
-| [snapkv](latent-memory/snapkv.md)                 | Head-wise voting聚合高重要性前缀KV             |
-| [pyramidkv](latent-memory/pyramidkv.md)           | 跨层重新分配KV预算                             |
-| [h2o](latent-memory/h2o.md)                       | Heavy-Hitter Oracle淘汰策略                    |
-| [razorattention](latent-memory/razorattention.md) | Effective attention span + compensation tokens |
-| [r3mem](latent-memory/r3mem.md)                   | 虚拟记忆tokens + 可逆压缩                      |
+| 文档                                                            | 核心机制                                       |
+| --------------------------------------------------------------- | ---------------------------------------------- |
+| [scissorhands](direct-facing/latent-memory/scissorhands.md)     | 基于attention scores修剪KV cache               |
+| [snapkv](direct-facing/latent-memory/snapkv.md)                 | Head-wise voting聚合高重要性前缀KV             |
+| [pyramidkv](direct-facing/latent-memory/pyramidkv.md)           | 跨层重新分配KV预算                             |
+| [h2o](direct-facing/latent-memory/h2o.md)                       | Heavy-Hitter Oracle淘汰策略                    |
+| [razorattention](direct-facing/latent-memory/razorattention.md) | Effective attention span + compensation tokens |
+| [r3mem](direct-facing/latent-memory/r3mem.md)                   | 虚拟记忆tokens + 可逆压缩                      |
 
 ---
 
-## Experiential Memory
+## Continual Pre-Training (CPT)
 
-### Case-based — 原始轨迹/解决方案
+### Domain / Cross-Lingual & Mixture
 
-| 文档                                      | 核心机制                              |
-| ----------------------------------------- | ------------------------------------- |
-| [expel](experiential-memory/expel.md)     | Trial-and-error积累，轨迹+洞见混合    |
-| [synapse](experiential-memory/synapse.md) | 抽象state-action episodes作上下文示例 |
-
-### Strategy-based — 洞见/工作流/模式
-
-| 文档                                                            | 核心机制                                      |
-| --------------------------------------------------------------- | --------------------------------------------- |
-| [reflexion](experiential-memory/reflexion.md)                   | 短期trajectory + 长期self-reflection feedback |
-| [buffer-of-thoughts](experiential-memory/buffer-of-thoughts.md) | Meta-buffer思维模板检索与实例化               |
-| [awm](experiential-memory/awm.md)                               | 从成功轨迹提取可复用工作流                    |
-
-### Skill-based — 可执行代码/函数/API
-
-| 文档                                                                | 核心机制                              |
-| ------------------------------------------------------------------- | ------------------------------------- |
-| [voyager](experiential-memory/voyager.md)                           | Minecraft中不断增长的可执行技能代码库 |
-| [darwin-godel-machine](experiential-memory/darwin-godel-machine.md) | 安全自重写代码，递归自修改            |
-
-### Meta-evolution
-
-| 文档                                          | 核心机制                       |
-| --------------------------------------------- | ------------------------------ |
-| [memevolve](experiential-memory/memevolve.md) | 联合进化经验知识和底层记忆架构 |
+| 文档                                                           | 核心机制                                      |
+| -------------------------------------------------------------- | --------------------------------------------- |
+| [finpythia](direct-facing/continual-pre-training/finpythia.md) | 严选语料用于特定领域(金融)的 CPT              |
+| [swallow](direct-facing/continual-pre-training/swallow.md)     | 通过扩展词表和日文高质量语料跨语言 CPT        |
+| [doremi](direct-facing/continual-pre-training/doremi.md)       | Proxy 模型预估领域权重，优化超大规模数据混合  |
+| [rho-1](direct-facing/continual-pre-training/rho-1.md)         | 选择性语言建模(SLM)，基于价值选择预训练 Token |
 
 ---
 
-## Working Memory
+## Continual Instruction Tuning (CIT)
 
-### Single-turn — 输入压缩
-
-| 文档                                     | 核心机制                           |
-| ---------------------------------------- | ---------------------------------- |
-| [llmlingua](working-memory/llmlingua.md) | Token perplexity估计丢弃可预测内容 |
-
-### Multi-turn — 状态维护
-
-| 文档                                                 | 核心机制                           |
-| ---------------------------------------------------- | ---------------------------------- |
-| [mem1](working-memory/mem1.md)                       | 共享内部状态 + PPO优化摘要         |
-| [memagent](working-memory/memagent.md)               | 固定预算循环记忆 + GRPO优化        |
-| [resum](working-memory/resum.md)                     | 周期性历史蒸馏为推理状态           |
-| [hiagent](working-memory/hiagent.md)                 | 子目标中心层次化工作记忆           |
-| [context-folding](working-memory/context-folding.md) | 可学习折叠策略，自主决定分支与抽象 |
-| [lightmem](working-memory/lightmem.md)               | Agent的高效长短期记忆机制构建      |
+| 文档                                                             | 核心机制                                        |
+| ---------------------------------------------------------------- | ----------------------------------------------- |
+| [sapt](direct-facing/continual-instruction-tuning/sapt.md)       | 为新增任务分配多专家 LLM / Adapter 进行隔离微调 |
+| [toolllm](direct-facing/continual-instruction-tuning/toolllm.md) | 在工具使用能力(Tools/APIs)上的增量调整学习      |
+| [moelora](direct-facing/continual-instruction-tuning/moelora.md) | MoE结合LoRA在多模态上的无干扰增量微调架构       |
 
 ---
 
-## Multi-Agent Memory
+## Continual Alignment (CA)
 
-| 文档                                                         | 核心机制                                         |
-| ------------------------------------------------------------ | ------------------------------------------------ |
-| [generative-agents](multi-agent-memory/generative-agents.md) | 社交模拟，recency/importance/relevance三因素检索 |
-| [bmam](multi-agent-memory/bmam.md)                           | 海马-新皮层双系统多智能体记忆框架                |
-| [g-designer](multi-agent-memory/g-designer.md)               | Graph Neural Networks 自适应多智能体通信拓扑     |
-| [masrouter](multi-agent-memory/masrouter.md)                 | 基于路由资源的动态代理条件搜索机制               |
-
----
-
-## Frameworks — 开源记忆框架
-
-| 文档                                                   | 核心抽象                             |
-| ------------------------------------------------------ | ------------------------------------ |
-| [memos-framework](frameworks/memos-framework.md)       | MemOS — MemScheduler动态选择记忆类型 |
-| [memoryos-framework](frameworks/memoryos-framework.md) | MemoryOS — 层次化S/M/LTM架构         |
-| [memobase-framework](frameworks/memobase-framework.md) | Memobase — 结构化profiles            |
-| [langmem-framework](frameworks/langmem-framework.md)   | LangMem — Core API + manager         |
-| [cognee-framework](frameworks/cognee-framework.md)     | Cognee — Knowledge graph-based       |
+| 文档                                              | 核心机制                                        |
+| ------------------------------------------------- | ----------------------------------------------- |
+| [cppo](direct-facing/continual-alignment/cppo.md) | 防止 RLHF 发生遗忘，结合得分概率与 Retention    |
+| [rlvf](direct-facing/continual-alignment/rlvf.md) | 使用DPO+SCD避免Prompt微调带来的偏好过度泛化问题 |
+| [ama](direct-facing/continual-alignment/ama.md)   | 自适应模型平滑插值/平均化来缓解 Alignment Tax   |
 
 ---
+
+# Ⅲ. 评估与待办 (Eval & Pending)
 
 ## Eval — 评估基准
 
@@ -237,39 +280,6 @@
 | [freshqa](eval/freshqa.md)           | 时效知识记忆的吸收测试评测           |
 | [unseentimeqa](eval/unseentimeqa.md) | 长跨度及多元化的未见时效 QA 测试     |
 | [ckl](eval/ckl.md)                   | Invariant、New、UpdatedLAMA知识测试  |
-
----
-
-## Continual Pre-Training (CPT)
-
-### Domain / Cross-Lingual & Mixture
-
-| 文档                                             | 核心机制                                      |
-| ------------------------------------------------ | --------------------------------------------- |
-| [finpythia](continual-pre-training/finpythia.md) | 严选语料用于特定领域(金融)的 CPT              |
-| [swallow](continual-pre-training/swallow.md)     | 通过扩展词表和日文高质量语料跨语言 CPT        |
-| [doremi](continual-pre-training/doremi.md)       | Proxy 模型预估领域权重，优化超大规模数据混合  |
-| [rho-1](continual-pre-training/rho-1.md)         | 选择性语言建模(SLM)，基于价值选择预训练 Token |
-
----
-
-## Continual Instruction Tuning (CIT)
-
-| 文档                                               | 核心机制                                        |
-| -------------------------------------------------- | ----------------------------------------------- |
-| [sapt](continual-instruction-tuning/sapt.md)       | 为新增任务分配多专家 LLM / Adapter 进行隔离微调 |
-| [toolllm](continual-instruction-tuning/toolllm.md) | 在工具使用能力(Tools/APIs)上的增量调整学习      |
-| [moelora](continual-instruction-tuning/moelora.md) | MoE结合LoRA在多模态上的无干扰增量微调架构       |
-
----
-
-## Continual Alignment (CA)
-
-| 文档                                | 核心机制                                        |
-| ----------------------------------- | ----------------------------------------------- |
-| [cppo](continual-alignment/cppo.md) | 防止 RLHF 发生遗忘，结合得分概率与 Retention    |
-| [rlvf](continual-alignment/rlvf.md) | 使用DPO+SCD避免Prompt微调带来的偏好过度泛化问题 |
-| [ama](continual-alignment/ama.md)   | 自适应模型平滑插值/平均化来缓解 Alignment Tax   |
 
 ---
 
