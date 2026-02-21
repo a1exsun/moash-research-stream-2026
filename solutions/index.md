@@ -12,6 +12,8 @@
 | [survey-ai-memory-baijia](surveys/survey-ai-memory-baijia.md)         | 机器之心Pro W07    | 4W分类体系，三层AI Memory划分                  |
 | [survey-human-to-ai-memory](surveys/survey-human-to-ai-memory.md)     | 机器之心Pro W07    | 认知科学视角的记忆类比框架                     |
 | [survey-ai-meets-brain](surveys/survey-ai-meets-brain.md)             | 机器之心Pro W07    | 人脑与Agent Memory统一视角                     |
+| [tutorial-cl-of-llm](surveys/tutorial-cl-of-llm.md)                   | 教程分享           | 纵向/水平 CL 教程及 Continual Alignment 介绍   |
+| [survey-cl-of-llm](surveys/survey-cl-of-llm.md)                       | 综述分享           | 区分 Vertical 和 Horizontal 的 CL 大模型综述   |
 
 ---
 
@@ -47,6 +49,7 @@
 | [g-memory](token-level-memory/g-memory.md)                             | 三层图（interaction/query/insight），多智能体共享 |
 | [lyfe-agents](token-level-memory/lyfe-agents.md)                       | Working/Short-term/Long-term三层社交模拟          |
 | [inside-out-personatree](token-level-memory/inside-out-personatree.md) | PersonaTree分层记忆schema与操作更新               |
+| [hipporag-2](token-level-memory/hipporag-2.md)                         | 从RAG向类海马体多跳检索和长期记忆系统演进         |
 
 ---
 
@@ -199,6 +202,7 @@
 | [resum](working-memory/resum.md)                     | 周期性历史蒸馏为推理状态           |
 | [hiagent](working-memory/hiagent.md)                 | 子目标中心层次化工作记忆           |
 | [context-folding](working-memory/context-folding.md) | 可学习折叠策略，自主决定分支与抽象 |
+| [lightmem](working-memory/lightmem.md)               | Agent的高效长短期记忆机制构建      |
 
 ---
 
@@ -208,6 +212,8 @@
 | ------------------------------------------------------------ | ------------------------------------------------ |
 | [generative-agents](multi-agent-memory/generative-agents.md) | 社交模拟，recency/importance/relevance三因素检索 |
 | [bmam](multi-agent-memory/bmam.md)                           | 海马-新皮层双系统多智能体记忆框架                |
+| [g-designer](multi-agent-memory/g-designer.md)               | Graph Neural Networks 自适应多智能体通信拓扑     |
+| [masrouter](multi-agent-memory/masrouter.md)                 | 基于路由资源的动态代理条件搜索机制               |
 
 ---
 
@@ -228,6 +234,42 @@
 | 文档                                 | 核心机制                             |
 | ------------------------------------ | ------------------------------------ |
 | [evermembench](eval/evermembench.md) | 细粒度回忆/记忆意识/用户画像三维评估 |
+| [freshqa](eval/freshqa.md)           | 时效知识记忆的吸收测试评测           |
+| [unseentimeqa](eval/unseentimeqa.md) | 长跨度及多元化的未见时效 QA 测试     |
+| [ckl](eval/ckl.md)                   | Invariant、New、UpdatedLAMA知识测试  |
+
+---
+
+## Continual Pre-Training (CPT)
+
+### Domain / Cross-Lingual & Mixture
+
+| 文档                                             | 核心机制                                      |
+| ------------------------------------------------ | --------------------------------------------- |
+| [finpythia](continual-pre-training/finpythia.md) | 严选语料用于特定领域(金融)的 CPT              |
+| [swallow](continual-pre-training/swallow.md)     | 通过扩展词表和日文高质量语料跨语言 CPT        |
+| [doremi](continual-pre-training/doremi.md)       | Proxy 模型预估领域权重，优化超大规模数据混合  |
+| [rho-1](continual-pre-training/rho-1.md)         | 选择性语言建模(SLM)，基于价值选择预训练 Token |
+
+---
+
+## Continual Instruction Tuning (CIT)
+
+| 文档                                               | 核心机制                                        |
+| -------------------------------------------------- | ----------------------------------------------- |
+| [sapt](continual-instruction-tuning/sapt.md)       | 为新增任务分配多专家 LLM / Adapter 进行隔离微调 |
+| [toolllm](continual-instruction-tuning/toolllm.md) | 在工具使用能力(Tools/APIs)上的增量调整学习      |
+| [moelora](continual-instruction-tuning/moelora.md) | MoE结合LoRA在多模态上的无干扰增量微调架构       |
+
+---
+
+## Continual Alignment (CA)
+
+| 文档                                | 核心机制                                        |
+| ----------------------------------- | ----------------------------------------------- |
+| [cppo](continual-alignment/cppo.md) | 防止 RLHF 发生遗忘，结合得分概率与 Retention    |
+| [rlvf](continual-alignment/rlvf.md) | 使用DPO+SCD避免Prompt微调带来的偏好过度泛化问题 |
+| [ama](continual-alignment/ama.md)   | 自适应模型平滑插值/平均化来缓解 Alignment Tax   |
 
 ---
 
