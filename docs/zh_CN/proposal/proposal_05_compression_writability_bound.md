@@ -2,11 +2,11 @@
 
 ## 目标
 
-从第一性原理出发，形式化参数化系统中 compression 与 writability 的根本对抗关系，证明 single-regime 系统存在不可逾越的容量天花板，并展示 dual-regime architecture 可以突破该天花板。通过最小实验在 deep network 中验证理论预测。
+从第一性原理出发，形式化参数化系统中 compression 与 writability 的根本对抗关系，在明确假设下给出 single-regime 系统的容量上界，并展示 dual-regime architecture 在该框架下的突破条件。通过最小实验在 deep network 中检验理论预测。
 
 核心定位：
 - **不是提出新的 CL 方法**——而是建立 capacity bound
-- Single-regime 系统（包括 EWC/GPM/replay 等）有 **provable 的容量天花板**——这解释了它们在长序列上的退化
+- Single-regime 系统（包括 EWC/GPM/replay 等）在本文假设下存在 **provable 的容量天花板**——可解释其在长序列上的退化趋势
 - Dual-regime architecture 是突破该天花板的 **充分条件**（sufficient condition）
 - 理论在 restricted model class 上严格证明，在 deep network 上通过实验验证为 empirical conjecture
 
@@ -20,7 +20,7 @@ P01-P04 共享一个根本缺陷：**缺少理论根基**。
 
 - P01 (ablation) 和 P02 (SOTA sparse conversion)：围绕 weight sparsity 假说设计，但该假说在固定架构下 trivially true（详见 `20260224-0007.md`）
 - P03 (nanoGPT pretrain)：控制变量最干净，但外推性受限于规模
-- P04 (CDCL)：不改架构仅改 update rule，本质上是在 dense 全局参数空间做约束——根据本提议的理论，这类方法有 provable 的容量天花板
+- P04 (CDCL)：不改架构仅改 update rule，本质上是在 dense 全局参数空间做约束——根据本提议框架，这类方法预期受 single-regime 容量上界约束
 - P03-2 (interference phase diagram)：理论野心最大但操作化困难
 
 **核心问题**：这些提议都在回答"哪种方法更好"，而没有回答"持续学习的容量极限在哪里、能否被突破"。
@@ -43,7 +43,7 @@ P01-P04 共享一个根本缺陷：**缺少理论根基**。
 
 1. Activation sparsity 与 write interference 之间是否存在可证明的单调关系？
 2. 在固定 activation sparsity 的 single-regime 系统中，bounded forgetting 下的 capacity 是否存在 provable 上界（$C \cdot B$ bound）？
-3. Dual-regime architecture 是否能 provably 突破该上界？
+3. 在给定假设与巩固机制条件下，Dual-regime architecture 是否能构造性地突破该上界？
 
 ---
 
@@ -212,7 +212,7 @@ $$C(a, \epsilon) \cdot B(a) \leq \Phi(N)$$
 |---------|------------|
 | **Knoblauch et al. 2020** (Optimal CL is NP-hard) | 证明**计算复杂度**障碍；我们证明**容量/表征**层面的 bound。二者互补：即使算力无限，single-regime 仍有容量天花板 |
 | **Tsodyks & Feigelman 1988** (Sparse Hopfield capacity) | 证明了稀疏编码提升 Hopfield 存储容量。**本提议直接建立在此结果上**，将其重新 frame 为 CL 语境下的 $C \cdot B$ tradeoff bound |
-| **EWC / GPM / OGD 等正则化方法** | 在单一 regime 内操作。Theorem 2 解释为什么它们必然在足够长任务序列后失效——受 single-regime capacity ceiling 约束 |
+| **EWC / GPM / OGD 等正则化方法** | 在单一 regime 内操作。Theorem 2 提供一种解释框架：它们在足够长任务序列上可能受 single-regime capacity ceiling 约束而退化 |
 | **Shin et al. 2017** (Generative Replay) | CLS 灵感但 generator 与 learner 使用相同的 activation regime。本质上是 single-regime + 数据增强，不具备 regime differentiation |
 | **Stability-Plasticity Dilemma** (非形式化概念) | 我们将这个非形式化 dilemma 形式化为可证明的 capacity bound |
 | **CLS-inspired 双系统方法** (各类 dual-memory CL) | 大多使用非参数化 buffer（episodic memory），不是真正的参数化 CLS。本提议要求两个系统都是参数化的，且 activation sparsity 是关键分化维度 |
@@ -256,9 +256,9 @@ $$C(a, \epsilon) \cdot B(a) \leq \Phi(N)$$
 - 模型：小型 Transformer（~50-100M 参数级别，如 nanoGPT 规模）
 - 理由：理论验证不需要大规模，控制变量需要大量 runs（≥3 seeds × 多个 sparsity levels × 多个 task sequence lengths）
 
-### Exp 1: Activation Sparsity → Interference 曲线（验证 Theorem 1 在 deep network 中的成立性）
+### Exp 1: Activation Sparsity → Interference 曲线（检验 Theorem 1 在 deep network 中的 qualitative consistency）
 
-**目标**：在 Transformer 中建立 activation sparsity 与 write interference 的定量关系，验证 Hopfield 上证明的单调性是否推广到 deep network。
+**目标**：在 Transformer 中建立 activation sparsity 与 write interference 的定量关系，检验 Hopfield 上证明的单调性是否在 deep network 中保持定性一致。
 
 **设计**：
 - 固定模型架构和训练预算
@@ -275,7 +275,7 @@ $$C(a, \epsilon) \cdot B(a) \leq \Phi(N)$$
 
 **可证伪条件**：如果 $I(s)$ 非单调（存在中间 sparsity 反而 interference 更高），则 Theorem 1 不推广到 deep network。
 
-### Exp 2: 单一 Regime 容量天花板（验证 Theorem 2 在 deep network 中的成立性）
+### Exp 2: 单一 Regime 容量天花板（检验 Theorem 2 在 deep network 中的 qualitative consistency）
 
 **目标**：对每个 sparsity level 找到 bounded forgetting 下的最大任务数，验证 $C \cdot B$ tradeoff 在 Transformer 中存在。
 
@@ -291,7 +291,7 @@ $$C(a, \epsilon) \cdot B(a) \leq \Phi(N)$$
 **预测**：
 1. 高 $s$：大 $C$ 但小 $B$（能学很多任务但每个任务学习效果差）
 2. 低 $s$：小 $C$ 但大 $B$（每个任务学习效果好但很快遗忘）
-3. $C \cdot B$ 存在上界（可能在某个 $s^*$ 取最大值），改变 $s$ 无法突破该上界
+3. $C \cdot B$ 存在上界（可能在某个 $s^*$ 取最大值），改变 $s$ 难以系统性突破该上界
 
 **可证伪条件**：如果 $C \cdot B$ 随 $s$ 单调递增或递减（无 tradeoff），或不同 sparsity level 的 $C \cdot B$ 差异极大且无收敛趋势，则 Theorem 2 的 qualitative 结论不推广到 deep network。
 
@@ -320,22 +320,22 @@ $$C(a, \epsilon) \cdot B(a) \leq \Phi(N)$$
 
 ### 理论贡献
 
-1. **Compression-writability bound**：首次将 stability-plasticity dilemma 形式化为 provable capacity bound（Hopfield 上 exact，deep network 上 empirically validated conjecture）
-2. **Single-regime capacity ceiling**：证明在固定 activation sparsity 的系统中，$C$ 和 $B$ 之间存在不可逾越的 tradeoff
+1. **Compression-writability bound**：据我们所知，将 stability-plasticity dilemma 系统化为可检验的 capacity bound 框架（Hopfield 上 exact，deep network 上 empirically validated conjecture）
+2. **Single-regime capacity ceiling**：在 Layer 1 模型类中证明固定 activation sparsity 下 $C$ 和 $B$ 之间存在上界约束的 tradeoff
 3. **Dual-regime capacity advantage**：证明 dual-regime 是突破 single-regime ceiling 的**充分条件**
 
 注：本提议**不 claim necessity**——即不声称 dual-regime 是突破 ceiling 的唯一方式。其他可能的路径（如 MoE 的 conditional sparsity、参数增长型方法）需要另行分析。
 
 ### 实验贡献
 
-1. **Activation sparsity-interference 定量关系**：首次系统性地建立 $I(s)$ 曲线
+1. **Activation sparsity-interference 定量关系**：系统性地建立 $I(s)$ 曲线
 2. **单一 regime Pareto frontier**：展示 capacity-richness tradeoff 的具体形态
 3. **双 regime sanity check**：最小化实现初步验证理论预测的方向性
 
 ### 对 CL 领域的影响
 
 如果 Theorem 2 和 Proposition 1 成立：
-- 提供了 **定量解释** 为什么 EWC/GPM/replay 等 single-regime 方法在长序列上退化——它们受 $C \cdot B$ bound 约束
+- 提供了 **定量解释框架**：EWC/GPM/replay 等 single-regime 方法在长序列上可能受 $C \cdot B$ bound 约束而退化
 - 指出一个被忽视的研究方向：**activation sparsity 的 regime differentiation**（而非仅在单一 regime 内优化 update rule）
 - 提供 **可证伪的预测**：对任何 single-regime CL 方法，可以通过测量其 activation sparsity 预测其 capacity ceiling
 
@@ -481,7 +481,7 @@ k-WTA 的 hard constraint 可能引入训练不稳定，使实验结果反映 k-
 - **最后修改**：2026-02-24（基于第一性原理评审的重大修订）
 - **前序文档**：`docs/zh_CN/processing/20260224-0249.md`（第一性原理讨论记录）
 - **关联提议**：P01-P04（本提议解释为什么它们有 fundamental limitations）
-- **状态**：修订稿（v2）
+- **状态**：修订稿（v3）
 - **主要修订内容**：
   1. 放弃 "必要条件" 措辞 → 改为 capacity ceiling + sufficiency
   2. 理论框架改为分层证明（Hopfield exact → deep network conjecture）
@@ -490,3 +490,4 @@ k-WTA 的 hard constraint 可能引入训练不稳定，使实验结果反映 k-
   5. 补充 MoE、Progressive Networks 的讨论
   6. 移除 convergent evidence 的过度声明
   7. 加入论文结构概览
+  8. 进一步收敛 claim 强度（将强断言改为条件化/范围化表述）
