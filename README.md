@@ -29,20 +29,31 @@ Critical Research Peer. Thinking based on First Principles. Proactively challeng
 
 ```
 references/                  # External reference repository
+  README.md                  # Technical landscape classification index
   surveys/                   # Domain surveys and theories (contains PDF/LaTeX and corresponding MD notes)
-  methods/                   # Atomic notes for specific technical solutions
-    index.md                 # Master index for technical classification (Evasion/Direct-Facing)
-    direct-facing/           # Parameter-level solutions / Direct approaches to forgetting
-    evasion/                 # Engineering-driven / Evasion-based solutions for forgetting
-  code/                      # Reference implementations (e.g., nanochat/)
+  fundamental/               # Parameter-level solutions / Direct approaches to forgetting
+    continual-pre-training/
+    continual-instruction-tuning/
+    continual-alignment/
+    parametric-memory/
+    latent-memory/
+  engineering/               # Engineering-driven / Evasion-based solutions for forgetting
+    experiential-memory/
+    frameworks/
+    multi-agent-memory/
+    token-level-memory/
+    working-memory/
+  eval/                      # Evaluation benchmarks and metrics
+code/                        # Reference implementations (e.g., nanochat/)
 docs/                        # Original research documentation
   zh_CN/
-    processing/              # Research logs and decision records
+    progressing/             # Research logs and decision records
     proposal/                # Research proposal drafts
+  en/
+    progressing/             # English translations of progress reports
+    proposals/               # English translations of proposals
 experiments/                 # Core hypothesis validation experiments
   README.md                  # Experimental design guidelines
-  scripts/                   # Experimental scripts
-  configs/                   # Experimental configurations
 ```
 
 ## Living Documents
@@ -50,4 +61,4 @@ experiments/                 # Core hypothesis validation experiments
 The following documents are updated continuously as the research progresses:
 
 - `references/README.md` — Technical landscape classification index.
-- `docs/zh_CN/processing/[Date].md` — Research progress timeline and key decisions.
+- `docs/zh_CN/progressing/[Date].md` — Research progress timeline and key decisions.
