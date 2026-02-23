@@ -1,13 +1,14 @@
-# Proposal 05: Compression-Writability Bound 与 Representational Regime Differentiation 的必要性
+# Proposal 05: Compression-Writability Bound — 持续学习的容量天花板与突破条件
 
 ## 目标
 
-从第一性原理出发，形式化参数化系统中 compression 与 writability 的根本对抗关系，证明 multi-regime architecture（即参数化 CLS）是持续学习的**必要架构条件**，并通过最小实验验证理论预测。
+从第一性原理出发，形式化参数化系统中 compression 与 writability 的根本对抗关系，证明 single-regime 系统存在不可逾越的容量天花板，并展示 dual-regime architecture 可以突破该天花板。通过最小实验在 deep network 中验证理论预测。
 
 核心定位：
-- **不是提出新的 CL 方法**——而是建立一个 necessary condition
-- 任何不满足此条件的 CL 系统都有一个**理论上可证明的容量天花板**
-- 为后续所有 CL 架构设计提供可证伪的理论约束
+- **不是提出新的 CL 方法**——而是建立 capacity bound
+- Single-regime 系统（包括 EWC/GPM/replay 等）有 **provable 的容量天花板**——这解释了它们在长序列上的退化
+- Dual-regime architecture 是突破该天花板的 **充分条件**（sufficient condition）
+- 理论在 restricted model class 上严格证明，在 deep network 上通过实验验证为 empirical conjecture
 
 ---
 
@@ -22,7 +23,7 @@ P01-P04 共享一个根本缺陷：**缺少理论根基**。
 - P04 (CDCL)：不改架构仅改 update rule，本质上是在 dense 全局参数空间做约束——根据本提议的理论，这类方法有 provable 的容量天花板
 - P03-2 (interference phase diagram)：理论野心最大但操作化困难
 
-**核心问题**：这些提议都在回答"哪种方法更好"，而没有回答"什么是持续学习的结构性必要条件"。
+**核心问题**：这些提议都在回答"哪种方法更好"，而没有回答"持续学习的容量极限在哪里、能否被突破"。
 
 ### 从 processing doc (20260224-0249) 的理论演进
 
@@ -32,17 +33,17 @@ P01-P04 共享一个根本缺陷：**缺少理论根基**。
 2. **Superposition 是问题根源**：高压缩（重度 superposition）提供容量但摧毁可写性
 3. **CLS 的正确类比**：海马体 ≠ RAG，而是第二参数化系统——整个 CLS 过程纯参数化
 4. **Activation sparsity 是关键**：海马体通过极端 activation sparsity（DG ~2-5%）实现 pattern separation，而非 weight sparsity
-5. **研究问题转向**：从"是否需要 weight sparsity"到"什么样的 representational regime differentiation 是必要的"
+5. **研究问题转向**：从"是否需要 weight sparsity"到"activation sparsity 如何决定持续学习的容量极限"
 
-本提议的目标是将第 5 点**形式化为可证明的定理**。
+本提议的目标是将第 5 点**形式化为可证明的 capacity bound**，并通过实验验证。
 
 ---
 
 ## 研究问题
 
-1. Compression-writability tradeoff 能否被形式化为一个 information-theoretic bound？
-2. 在单一 activation sparsity regime 下，bounded forgetting 的 capacity 是否存在 provable 的上界？
-3. Dual-regime architecture（两个不同 activation sparsity 水平 + 巩固机制）是否能 provably 突破该上界？
+1. Activation sparsity 与 write interference 之间是否存在可证明的单调关系？
+2. 在固定 activation sparsity 的 single-regime 系统中，bounded forgetting 下的 capacity 是否存在 provable 上界（$C \cdot B$ bound）？
+3. Dual-regime architecture 是否能 provably 突破该上界？
 
 ---
 
@@ -113,57 +114,93 @@ $$I(s) = \mathbb{E}_{t \neq t'} \left[ \left| \nabla_\theta L_t(\theta) \cdot \n
 $$C(s, \epsilon) = \max\left\{ T \in \mathbb{N} : \exists \text{ update rule } \mathcal{U} \text{ s.t. } \forall t \leq T, \, F_t(\theta_T) \leq \epsilon \right\}$$
 在给定 sparsity $s$ 和 forgetting bound $\epsilon$ 下的最大可学任务数。
 
-**Per-task information**：
-$$B(s) = \mathbb{E}_t \left[ I(f_{\theta_t^*}; \mathcal{D}_t) - I(f_{\theta_{t-1}}; \mathcal{D}_t) \right]$$
-学习一个任务带来的 mutual information 增量。
+**Per-task richness**：
+$$B(s) = \mathbb{E}_t \left[ L_t(\theta_{t-1}) - L_t(\theta_t^*) \right]$$
+学习一个任务带来的 loss reduction（即单任务可达到的学习效果）。
 
-### 证明策略
+注：此前版本使用 mutual information 增量定义 $B(s)$，但该定义的可操作性差（$I(f_{\theta}; \mathcal{D}_t)$ 的计算在 deep network 中不 tractable）。改用 loss reduction 作为 proxy，与实验中的 task-specific evaluation accuracy 直接对应，且在 Hopfield network 上可精确关联到 pattern 容量。
 
-**P1 (H1) 的证明路径**：
+### 证明策略：分层次建立
 
-利用 activation pattern 的 overlap 与梯度 inner product 的关系。设任务 $t$ 的激活 pattern 为 $a_t(x) \in \{0,1\}^m$。
+本提议的理论结果按模型类分三个层次。**核心贡献是 Layer 1 的严格证明**，Layer 2 和 3 通过实验验证。
 
-在一类模型中（如 ReLU 网络），梯度关于参数 $\theta_j$ 的非零分量仅出现在 $j$ 所连接的 neuron 处于激活状态时。因此：
+#### Layer 1: Hopfield Network 上的严格证明（主定理）
 
-$$\nabla_\theta L_t \cdot \nabla_\theta L_{t'} \propto \mathbb{E}_{x_t, x_{t'}} \left[ a_t(x_t)^T a_{t'}(x_{t'}) \right]$$
+选择 Hopfield network 作为理论基础，原因：
+1. 稀疏编码容量理论已有严格结果可直接利用（Tsodyks & Feigelman, 1988）
+2. 存储与检索有精确数学描述，$C$ 和 $B$ 均可 closed-form 定义
+3. Sequential pattern storage 是 CL 的自然简化模型
 
-当 activation sparsity 增加时，$\|a_t\|_0$ 和 $\|a_{t'}\|_0$ 均减小。如果 active neurons 是从 $m$ 个 neurons 中均匀采样的（pattern separation 的理想情形），则：
+**已有基础**：Tsodyks & Feigelman (1988) 证明了稀疏 Hopfield network 的最大存储容量：
 
-$$\mathbb{E}[a_t^T a_{t'}] = m \cdot (1-s)^2$$
+$$p_{\max} \propto \frac{a}{\ln(1/a)} \cdot N$$
 
-因此 $I(s) \propto (1-s)^2$，关于 $s$ 严格递减。$\square$
+其中 $a$ 为 activity level（$a = 1 - s$），$N$ 为 neuron 数。该结果意味着：
+- 当 $a \to 0$（极端稀疏），$p_{\max}$ 增长但每个 pattern 的信息量 $\propto a \log(1/a) \cdot N$ bits 减小
+- 存在 total information throughput 的 bound
 
-注：真实网络中激活 pattern 非均匀，但单调性在 mild conditions 下仍然成立。
+**本提议在此基础上需要证明的新结果**：
 
-**P2 (H2) 的证明路径**：
+**Theorem 1 (H1, Interference-Sparsity Monotonicity)**：
 
-两个 competing constraints：
+在 Hopfield network 中，sequential pattern storage 的 write interference（定义为新 pattern 对已存 pattern 的 overlap corruption）是 activity level $a$ 的严格递增函数（即 sparsity $s$ 的严格递减函数）。
 
-1. **Forgetting constraint**：要使 $F_t \leq \epsilon$，需要 $I(s) \leq g(\epsilon, T)$，其中 $g$ 是关于 $\epsilon$ 和 $T$ 的递减函数。由 P1，这要求 $s \geq s_{\min}(\epsilon, T)$。
-2. **Capacity constraint**：每个 neuron 在 sparsity $s$ 下只有 $(1-s)$ 的概率被激活。可编码的独立 pattern 数上界为 $\binom{m}{\lfloor(1-s)m\rfloor}$，每个 pattern 承载 $O((1-s)m \log m)$ bits。
+证明路径：Hopfield 的 Hebbian 更新 $\Delta W = \frac{1}{N} \xi^t (\xi^t)^T$ 对已存 pattern $\xi^{t'}$ 的干扰为 $\frac{1}{N} \xi^{t'} \cdot \xi^t$。对于 activity level $a$ 的稀疏 binary pattern：
 
-在高 $s$（满足 forgetting bound）下，$B(s)$ 被 $(1-s)$ 压缩。因此：
+$$\mathbb{E}[\xi_i^t \xi_i^{t'}] = a^2, \quad \text{Var}[\xi_i^t \xi_i^{t'}] = a^2(1-a^2)$$
 
-$$C(s, \epsilon) \cdot B(s) \leq \Phi(d, m)$$
+干扰 noise 的方差 $\propto p \cdot a^2(1-a^2) / N$，在 $a \ll 1$ 时 $\approx p \cdot a^2 / N$，关于 $a$ 严格递增。$\square$
 
-其中 $\Phi$ 独立于 $s$。**这是一个 constant——改变 $s$ 只是在 $C$ 和 $B$ 之间重新分配，无法增加乘积。**
+**Theorem 2 (H2, Single-Regime Capacity Bound)**：
 
-**P3 (H3) 的证明路径**：
+在 Hopfield network 中，activity level 固定为 $a$ 时，bounded retrieval error（$\leq \epsilon$）下的最大 pattern 数 $C(a, \epsilon)$ 与每 pattern 信息量 $B(a)$ 满足：
 
-双 regime 系统的关键 insight：巩固过程不受 online learning 的 interference constraint 限制。
+$$C(a, \epsilon) \cdot B(a) \leq \Phi(N)$$
 
-设：
-- 快速区 sparsity $s_1$，容量 $C_1 = C(s_1, \epsilon)$（小但够用于短期缓冲）
-- 慢速区 sparsity $s_2 < s_1$，per-task capacity $B(s_2) > B(s_1)$
-- 巩固过程 $\mathcal{C}$：replay-based，从快速区生成 synthetic data → interleaved training 到慢速区
+其中 $\Phi(N)$ 独立于 $a$。
 
-巩固过程中的 forgetting 可控，因为：
-- Replay 同时包含新旧知识的 synthetic examples
-- 相当于 multi-task joint training（已知 forgetting 可 bounded）
+证明路径：
+1. 由 Tsodyks & Feigelman, $C(a, \epsilon) \leq \frac{\alpha(\epsilon) \cdot a}{\ln(1/a)} \cdot N$，其中 $\alpha(\epsilon)$ 仅依赖于 error tolerance
+2. 每 pattern 信息量 $B(a) = N \cdot [a \log(1/a) + (1-a)\log(1/(1-a))]$（binary pattern 的 entropy）
+3. 当 $a \ll 1$，$B(a) \approx N \cdot a \log(1/a)$
+4. 因此 $C \cdot B \leq \alpha(\epsilon) \cdot a / \ln(1/a) \cdot N \cdot N \cdot a \ln(1/a) = \alpha(\epsilon) \cdot a^2 \cdot N^2$
 
-因此慢速区的 effective capacity 不受 sequential 的 interference bound 限制，其容量由 $C(s_2, \epsilon') \cdot B(s_2)$ 决定（$\epsilon'$ 为巩固阶段的 forgetting tolerance）。
+注：上述推导表明 $C \cdot B$ 在 Hopfield 中不是严格 constant，而是关于 $a$ 有弱依赖（$\propto a^2$）。这意味着**极端稀疏并非最优**——存在一个最大化 $C \cdot B$ 的 optimal $a^*$。但关键点不变：**给定任何固定 $a$，$C$ 和 $B$ 之间存在 tradeoff，且 $C \cdot B$ 有上界 $\Phi(N)$**。
 
-只要 $s_2 < s_1$，慢速区的 $B(s_2) > B(s_1)$，且其容量不被 online sequential learning 的 interference 约束，总 capacity 超过任何单一 regime。$\square$
+需要进一步精确化的地方：
+- $\alpha(\epsilon)$ 的具体形式
+- Bound 的 tightness（是否可达？）
+- 从 binary Hopfield 到 continuous-valued modern Hopfield 的推广
+
+**Proposition 1 (H3, Dual-Regime Capacity Advantage)**：
+
+存在一个双 regime Hopfield 系统，其 effective capacity 超过任何 single-regime 系统。
+
+证明思路（constructive）：
+- 快速区：activity level $a_1$（高稀疏），容量 $C_1$，用于 sequential 暂存
+- 慢速区：activity level $a_2 > a_1$，per-pattern 信息量 $B(a_2) > B(a_1)$
+- 巩固：每 $C_1$ 个 pattern 后，用 pseudo-rehearsal 将快速区 pattern 同时写入慢速区（joint storage，非 sequential）
+- Joint storage 的干扰可控：$C_1$ 个 pattern 同时写入等价于 batch Hebbian update，不受 sequential interference 约束
+- 快速区 reset 后释放容量，重复循环
+- Total capacity = $\lfloor T / C_1 \rfloor \cdot C_1$ 个 patterns stored in slow region with bounded error
+
+关键假设：巩固过程中 joint storage 的 forgetting 可 bounded。这在 Hopfield network 中对应于经典的 batch 容量结果（$p_{\max} \propto N$ for standard Hopfield），因此成立。
+
+注：此处证明的是 **sufficiency**（dual regime 能 exceed single regime bound），不是 necessity（dual regime 是唯一方式）。
+
+#### Layer 2: Linear Network 上的推广（扩展定理）
+
+将 Layer 1 的结果推广到 linear network，利用 activation pattern 的 subspace 结构。
+
+状态：待完成。预期可通过 gradient subspace overlap 分析获得类似的 $C \cdot B$ bound。
+
+#### Layer 3: Deep Nonlinear Network 上的经验验证（Conjecture）
+
+**Conjecture**：Layer 1 和 2 的 qualitative 结论——single-regime $C \cdot B$ bound 存在且 dual-regime 可突破——在 deep Transformer 中仍然成立。
+
+验证方式：Exp 1 和 Exp 2（见实验设计节）。
+
+注：不声称 Hopfield 的 quantitative bound 直接适用于 Transformer。Claim 的范围是 **qualitative structure**（tradeoff 的存在性和 dual-regime 的优越性），不是 exact scaling。
 
 ---
 
@@ -173,11 +210,26 @@ $$C(s, \epsilon) \cdot B(s) \leq \Phi(d, m)$$
 
 | 现有工作 | 本提议的区别 |
 |---------|------------|
-| **Knoblauch et al. 2020** (Optimal CL is NP-hard) | 证明**计算复杂度**障碍；我们证明**架构/表征**的必要条件。即使有无限算力，单一 regime 仍有容量天花板 |
-| **EWC / GPM / OGD 等正则化方法** | 在单一 regime 内操作。P2 解释为什么它们必然在足够长任务序列后失效 |
-| **Shin et al. 2017** (Generative Replay) | CLS 灵感但缺少关键机制：生成器不具备 extreme activation sparsity / pattern separation。本质上是 single-regime + 数据增强 |
+| **Knoblauch et al. 2020** (Optimal CL is NP-hard) | 证明**计算复杂度**障碍；我们证明**容量/表征**层面的 bound。二者互补：即使算力无限，single-regime 仍有容量天花板 |
+| **Tsodyks & Feigelman 1988** (Sparse Hopfield capacity) | 证明了稀疏编码提升 Hopfield 存储容量。**本提议直接建立在此结果上**，将其重新 frame 为 CL 语境下的 $C \cdot B$ tradeoff bound |
+| **EWC / GPM / OGD 等正则化方法** | 在单一 regime 内操作。Theorem 2 解释为什么它们必然在足够长任务序列后失效——受 single-regime capacity ceiling 约束 |
+| **Shin et al. 2017** (Generative Replay) | CLS 灵感但 generator 与 learner 使用相同的 activation regime。本质上是 single-regime + 数据增强，不具备 regime differentiation |
 | **Stability-Plasticity Dilemma** (非形式化概念) | 我们将这个非形式化 dilemma 形式化为可证明的 capacity bound |
 | **CLS-inspired 双系统方法** (各类 dual-memory CL) | 大多使用非参数化 buffer（episodic memory），不是真正的参数化 CLS。本提议要求两个系统都是参数化的，且 activation sparsity 是关键分化维度 |
+
+### 需要讨论的重要相关工作
+
+**Mixture of Experts (MoE)**：MoE 通过 routing 实现 **conditional activation sparsity**——不同输入激活不同 expert subsets。这是否已经构成了一种 regime differentiation？
+
+初步分析：
+- MoE 的 sparsity 是 **input-conditional** 的（不同输入激活不同 experts），而本提议的 dual-regime 是 **function-conditional** 的（快速区 vs 慢速区有不同的 sparsity level 和学习动力学）
+- MoE 缺少 consolidation 机制——没有从 sparse experts 到 dense shared representation 的知识转移
+- 但如果 MoE 在 CL 中展现出 capacity 优势，这将支持 activation sparsity 理论的核心预测
+- **实验建议**：在 Exp 2 中加入 MoE baseline，检查其 $C \cdot B$ 是否超过 single-regime ceiling
+
+**Progressive Neural Networks (Rusu et al. 2016)**：通过增长架构避免遗忘。
+- 有效 capacity 随参数量线性增长——绕过而非突破 $C \cdot B$ bound（因为 $\Phi(d)$ 随 $d$ 增长）
+- 本提议的 bound 假设 $d$ 固定。Progressive Networks 属于 "增加 $\Phi$" 的路线，与 "在固定 $\Phi$ 下突破 single-regime ceiling" 是不同的问题
 
 ### 与原始 CLS 理论的对应
 
@@ -189,7 +241,7 @@ $$C(s, \epsilon) \cdot B(s) \leq \Phi(d, m)$$
 | Pattern separation via sparsity | DG granule cell sparse coding | Chawla et al. 2005 |
 | Capacity-interference tradeoff | 海马体有限容量 vs 新皮层高容量 | Kumaran et al. 2016 |
 
-关键点：这个对应不是我们选择的设计灵感，而是**从 information-theoretic bound 推导出的唯一结构解**恰好与生物系统同构。这提供了 convergent evidence——进化在生物基质上找到了相同的最优解。
+**关于 convergent evidence 的诚实声明**：本提议的理论构建过程受 CLS 理论启发（见 `20260224-0249.md`）。因此，理论结论与 CLS 的对应**不能被视为独立的 convergent evidence**。但理论的核心结果（$C \cdot B$ bound）不依赖于 CLS 类比——它从 activation sparsity 与 interference 的数学关系直接推导，CLS 对应只是事后的 interpretive framework。
 
 ---
 
@@ -204,63 +256,63 @@ $$C(s, \epsilon) \cdot B(s) \leq \Phi(d, m)$$
 - 模型：小型 Transformer（~50-100M 参数级别，如 nanoGPT 规模）
 - 理由：理论验证不需要大规模，控制变量需要大量 runs（≥3 seeds × 多个 sparsity levels × 多个 task sequence lengths）
 
-### Exp 1: Activation Sparsity → Interference 曲线（验证 H1）
+### Exp 1: Activation Sparsity → Interference 曲线（验证 Theorem 1 在 deep network 中的成立性）
 
-**目标**：建立 activation sparsity 与 write interference 的定量关系。
+**目标**：在 Transformer 中建立 activation sparsity 与 write interference 的定量关系，验证 Hopfield 上证明的单调性是否推广到 deep network。
 
 **设计**：
 - 固定模型架构和训练预算
-- 通过 k-Winners-Take-All (k-WTA) 激活函数控制 activation sparsity：$s = 1 - k/m$
+- Activation sparsity 控制：主方案使用 k-Winners-Take-All (k-WTA)；辅助方案使用 L1 regularization on activations 作为 robustness check（排除 k-WTA artifact）
 - 扫描 $k/m \in \{0.02, 0.05, 0.10, 0.20, 0.50, 1.0\}$（$s$ 从 0.98 到 0.0）
 - 固定 5-task sequence
 - 报告：
   - 直接度量 $I(s) = \mathbb{E}_{t \neq t'}[|\nabla L_t \cdot \nabla L_{t'}|]$（梯度 inner product）
   - Average Forgetting $\bar{F}(s)$
   - 两者关于 $s$ 的关系曲线
+  - k-WTA 与 L1 两种实现的一致性
 
 **预测**：$I(s)$ 和 $\bar{F}(s)$ 关于 $s$ 单调递减，且 $\bar{F} \propto I$ 近似线性。
 
-**可证伪条件**：如果 $I(s)$ 非单调（存在中间 sparsity 反而 interference 更高），则 H1 不成立。
+**可证伪条件**：如果 $I(s)$ 非单调（存在中间 sparsity 反而 interference 更高），则 Theorem 1 不推广到 deep network。
 
-### Exp 2: 单一 Regime 容量天花板（验证 H2）
+### Exp 2: 单一 Regime 容量天花板（验证 Theorem 2 在 deep network 中的成立性）
 
-**目标**：对每个 sparsity level 找到 bounded forgetting 下的最大任务数，验证 $C \cdot B$ 存在不可逾越的上界。
+**目标**：对每个 sparsity level 找到 bounded forgetting 下的最大任务数，验证 $C \cdot B$ tradeoff 在 Transformer 中存在。
 
 **设计**：
 - 对 Exp 1 的每个 sparsity level，逐步增加任务数（$T = 5, 10, 20, 50$）
 - 对每个 $(s, T)$ 组合，记录：
   - 是否所有任务 $F_t \leq \epsilon$（$\epsilon$ 预设为 baseline performance 的 10%）
   - 如果否，$C(s, \epsilon) = \max T$ s.t. 条件满足
-- Per-task information $B(s)$：用 task-specific evaluation accuracy 作为 proxy
+- Per-task richness $B(s)$：用 task-specific evaluation loss reduction（$L_t(\theta_{t-1}) - L_t(\theta_t^*)$）度量
 - 绘制 Pareto frontier: $C(s, \epsilon)$ vs $B(s)$
+- 计算 $C \cdot B$ 作为 $s$ 的函数，检查是否存在上界
 
 **预测**：
-1. 高 $s$：大 $C$ 但小 $B$（能学很多任务但每个任务性能低）
-2. 低 $s$：小 $C$ 但大 $B$（每个任务性能高但很快遗忘）
-3. $C \cdot B$ 存在上界 $\Phi$，改变 $s$ 只是沿 Pareto frontier 移动
+1. 高 $s$：大 $C$ 但小 $B$（能学很多任务但每个任务学习效果差）
+2. 低 $s$：小 $C$ 但大 $B$（每个任务学习效果好但很快遗忘）
+3. $C \cdot B$ 存在上界（可能在某个 $s^*$ 取最大值），改变 $s$ 无法突破该上界
 
-**可证伪条件**：如果存在某个 $s^*$ 使得 $C(s^*) \cdot B(s^*)$ 显著超过其他 sparsity levels（即不存在 tradeoff），则 H2 不成立。
+**可证伪条件**：如果 $C \cdot B$ 随 $s$ 单调递增或递减（无 tradeoff），或不同 sparsity level 的 $C \cdot B$ 差异极大且无收敛趋势，则 Theorem 2 的 qualitative 结论不推广到 deep network。
 
-### Exp 3: 双 Regime 突破天花板（验证 H3）
+### Exp 3: 双 Regime Sanity Check（初步验证 H3）
 
-**目标**：最小双 regime 实现，证明其 $C_{\text{dual}}$ 超过任何 $C_{\text{single}}$。
+**目标**：最小化验证 dual-regime 能否在 deep network 中展示出超越 single-regime 的容量优势。本实验**不追求最优实现**，仅验证理论预测的方向性。
 
 **设计**：
 - **快速区**：模型的一部分层使用 k-WTA（$k/m = 0.05$，即 $s_1 = 0.95$）
 - **慢速区**：其余层使用标准 activation（$s_2 \approx 0.0$）
-- **巩固机制**：每学完 $C_1$ 个任务（快速区容量）后执行巩固——
-  1. 用快速区参数为所有已学任务生成 synthetic activations
-  2. 以 interleaved training 更新慢速区参数
-  3. 快速区参数部分 reset（释放容量）
+- **巩固机制**：简单的 interleaved replay（从快速区缓存的 logits 进行知识蒸馏到慢速区）
 - **对照**：
-  - B0: 标准 dense model，sequential fine-tuning（worst case baseline）
+  - B0: 标准 dense baseline
   - B1: 最优单一 regime（从 Exp 2 中选 $C \cdot B$ 最大的 $s^*$）
-  - B2: EWC（代表 regularization-based 方法的上界）
-  - D1: 双 regime + consolidation（本提议）
+  - B1-same: 同参数量但两个区域使用**相同** sparsity level（排除"参数量分配"混淆）
 
-**预测**：$C_{\text{D1}} > C_{\text{B1}} \geq C_{\text{B2}} > C_{\text{B0}}$
+**预测**：$C_{\text{dual}} > C_{\text{B1}}$
 
-**可证伪条件**：如果 $C_{\text{D1}} \leq C_{\text{B1}}$（双 regime 不优于最优单一 regime），则 H3 不成立。
+**可证伪条件**：如果 $C_{\text{dual}} \leq C_{\text{B1}}$，则 H3 在 deep network 中不成立，或实现方案需根本性改进。
+
+**scope 限制**：Exp 3 是 proof-of-concept，不追求与 CL SOTA 竞争。完整的 dual-regime 系统（最优巩固调度、自适应 sparsity、scaling 分析）留给 future work。
 
 ---
 
@@ -268,74 +320,105 @@ $$C(s, \epsilon) \cdot B(s) \leq \Phi(d, m)$$
 
 ### 理论贡献
 
-1. **Compression-writability bound**：首次将 stability-plasticity dilemma 形式化为 information-theoretic capacity bound
-2. **Regime differentiation 必要性**：证明 multi-regime 不是一种设计选择，而是突破 single-regime capacity ceiling 的**唯一结构解**
-3. **CLS 的数学基础**：将 CLS 从生物学类比提升为 information-theoretic 必然——进化和数学收敛到相同的解
+1. **Compression-writability bound**：首次将 stability-plasticity dilemma 形式化为 provable capacity bound（Hopfield 上 exact，deep network 上 empirically validated conjecture）
+2. **Single-regime capacity ceiling**：证明在固定 activation sparsity 的系统中，$C$ 和 $B$ 之间存在不可逾越的 tradeoff
+3. **Dual-regime capacity advantage**：证明 dual-regime 是突破 single-regime ceiling 的**充分条件**
+
+注：本提议**不 claim necessity**——即不声称 dual-regime 是突破 ceiling 的唯一方式。其他可能的路径（如 MoE 的 conditional sparsity、参数增长型方法）需要另行分析。
 
 ### 实验贡献
 
 1. **Activation sparsity-interference 定量关系**：首次系统性地建立 $I(s)$ 曲线
 2. **单一 regime Pareto frontier**：展示 capacity-richness tradeoff 的具体形态
-3. **双 regime 概念验证**：最小化实现证明理论预测的可验证性
+3. **双 regime sanity check**：最小化实现初步验证理论预测的方向性
 
 ### 对 CL 领域的影响
 
-如果 H2 和 H3 成立：
-- **所有**不包含 regime differentiation 的 CL 方法都有一个 provable 的容量天花板——这解释了为什么 EWC/replay/GPM 等方法在长序列上逐步退化
-- 后续研究的正确方向：不是在单一 regime 内叠加补丁（正则化、replay 调度等），而是设计 regime differentiation + consolidation 机制
-- 提供可证伪的 **necessary condition 检验**：一个 CL 方法如果不满足 dual-regime 条件，可以直接预测其长期 capacity ceiling
+如果 Theorem 2 和 Proposition 1 成立：
+- 提供了 **定量解释** 为什么 EWC/GPM/replay 等 single-regime 方法在长序列上退化——它们受 $C \cdot B$ bound 约束
+- 指出一个被忽视的研究方向：**activation sparsity 的 regime differentiation**（而非仅在单一 regime 内优化 update rule）
+- 提供 **可证伪的预测**：对任何 single-regime CL 方法，可以通过测量其 activation sparsity 预测其 capacity ceiling
 
 ---
 
 ## 风险与缓解
 
-### 风险 1: 形式化证明需要过强假设
+### 风险 1: Hopfield 证明的 relevance
 
-P2 的 clean 证明可能需要对模型类（如线性网络、特定激活函数）做强假设。
+Reviewer 可能质疑 Hopfield network 上的结果对 modern Transformer 的 relevance。
 
 **缓解**：
-- 分层次证明：先在简化模型（线性网络/Hopfield network）上获得 exact result，再通过实验验证 non-linear 模型的 empirical consistency
-- 明确区分 "proven bound" 和 "empirically validated conjecture"
-- 即使 full generality 的证明未完成，$I(s)$ 曲线和 Pareto frontier 的实验结果本身有独立价值
+- Exp 1 和 Exp 2 直接在 Transformer 上验证 qualitative 预测
+- 明确论文的 claim 结构：Hopfield 上 exact theorem + deep network 上 empirical conjecture
+- 类比先例：Hopfield network 的容量理论（Cover 1965, Tsodyks & Feigelman 1988）至今仍是理解联想记忆的基础工具，尽管现代网络远比 Hopfield 复杂
 
-### 风险 2: 双 regime 优势来自更多参数而非 regime differentiation
+### 风险 2: Theorem 2 中 $C \cdot B$ bound 的 tightness
 
-双 regime 系统可能因为有效参数更多而表现更好，而非因为 differentiation。
+$C \cdot B$ 在 Hopfield 中对 $a$ 有弱依赖（$\propto a^2$），不是严格 constant。这可能削弱 "tradeoff" 的叙事力度。
+
+**缓解**：
+- 诚实报告 bound 的具体形式，不假装它是 constant
+- 核心 claim 调整为：**存在 optimal $a^*$，且 $C(a^*) \cdot B(a^*)$ 有上界**——即无法通过调 $a$ 无限提升 throughput
+- 在实验中直接画 $C \cdot B$ vs $s$ 曲线，展示其形态
+
+### 风险 3: k-WTA artifact
+
+k-WTA 的 hard constraint 可能引入训练不稳定，使实验结果反映 k-WTA 的 artifact 而非 activation sparsity 的本质。
+
+**缓解**：
+- 并行使用 L1 regularization on activations 作为 soft enforcement
+- 如果两种实现的 $I(s)$ 曲线 qualitatively 一致，则 artifact 风险低
+- 如果不一致，需要分析不一致的来源，可能需要第三种实现方式
+
+### 风险 4: Exp 3 的 dual-regime 优势来自更多参数而非 regime differentiation
 
 **缓解**：
 - 控制总参数量相同（same-shape baseline）
-- 额外对照：同参数量但两个区域使用**相同** sparsity level（验证 differentiation 而非 quantity 是关键因素）
-
-### 风险 3: k-WTA 是否是 activation sparsity 的正确实现
-
-k-WTA 是人工约束，真实网络的 activation sparsity 是 emergent property。
-
-**缓解**：
-- k-WTA 用于控制实验，建立 causal 关系
-- 额外探索 L1 regularization on activations 作为 soft enforcement
-- 理论结果不依赖于 k-WTA 的具体实现——依赖于 activation sparsity 的数值
+- 加入 B1-same 对照：同参数量但两个区域使用**相同** sparsity level
+- 如果 B1-same ≈ dual-regime，则优势来自参数分配而非 differentiation，H3 需重新审视
 
 ---
 
 ## 时间线与里程碑
 
-### Phase 1: 理论建立（核心）
+### Phase 1: 理论建立（核心，决定论文成败）
 
-- 形式化 compression-writability bound 的 problem setup
-- 在简化模型上证明 P1 和 P2
-- 建立 P3 的 proof sketch
+- Hopfield network 上 Theorem 1 和 Theorem 2 的严格证明
+- Proposition 1 的 constructive proof
+- 与 Tsodyks & Feigelman (1988) 结果的精确对接
+- 明确 bound 的 tightness 和适用范围
 
-### Phase 2: 最小实验验证
+### Phase 2: 实验验证
 
-- Exp 1: $I(s)$ 曲线
-- Exp 2: Single-regime Pareto frontier
-- Exp 3: Dual-regime 概念验证
+- Exp 1: $I(s)$ 曲线（验证 Theorem 1 推广性）
+- Exp 2: Single-regime Pareto frontier（验证 Theorem 2 推广性）
+- Exp 3: Dual-regime sanity check（验证 Proposition 1 方向性）
 
-### Phase 3: 推广与完善
+### Go/No-Go 决策门槛
 
-- 探索 P2 在更一般模型类上的成立条件
-- 分析 optimal $s_1, s_2$ 的理论关系
-- 与 scaling laws 的连接：$\Phi(d)$ 如何随 $d$ 增长？
+**Go（继续投入）**：
+- Hopfield 上的 Theorem 1 和 2 证明 clean
+- Exp 1 和 2 的结果 qualitatively 支持理论预测（单调性成立、tradeoff 存在）
+
+**No-Go（降级或转向）**：
+- Hopfield 证明需要过强假设导致结果 trivial
+- Exp 1 中 $I(s)$ 非单调，或 Exp 2 中 $C \cdot B$ 无收敛趋势
+
+---
+
+## Future Work
+
+以下方向在本提议中**不涉及**，但由理论结果自然引出：
+
+1. **完整的参数化 CLS 系统构建**：最优巩固调度（何时触发、replay 多少）、自适应 sparsity level、快速区容量管理。这是一个独立的系统工程问题。
+
+2. **$\Phi(d)$ 的 scaling analysis**：capacity bound 如何随模型规模 $d$ 增长？是否存在 scaling law $\Phi(d) \propto d^\alpha$？这连接到 LLM scaling laws 的研究。
+
+3. **MoE 作为 conditional sparsity 的分析**：MoE 的 routing 机制是否等价于某种 regime differentiation？其 $C \cdot B$ 行为如何？
+
+4. **Layer 2 推广**：在 linear network 上的严格证明，bridging Hopfield 和 deep network。
+
+5. **Optimal $a_1, a_2$ 的理论分析**：快速区和慢速区的最优 activity level 关系。
 
 ---
 
@@ -358,18 +441,52 @@ k-WTA 是人工约束，真实网络的 activation sparsity 是 emergent propert
 - Amaral, D.G., Ishizuka, N., & Claiborne, B. (1990). Neurons, numbers and the hippocampal network. *Progress in Brain Research*, 83, 1-11.
 
 ### 稀疏性与表征理论
+- Tsodyks, M.V., & Feigelman, M.V. (1988). The enhanced storage capacity in neural networks with low activity level. *Europhysics Letters*, 6(2), 101-105. [**本提议 Theorem 1-2 的直接基础**]
 - Frankle, J., & Carlin, M. (2019). The lottery ticket hypothesis. *ICLR 2019*.
 - Elhage, N., et al. (2022). Toy models of superposition. *Anthropic research*.
-- Tsodyks, M.V., & Feigelman, M.V. (1988). The enhanced storage capacity in neural networks with low activity level. *Europhysics Letters*, 6(2), 101-105.
+
+### 架构相关
+- Rusu, A.A., et al. (2016). Progressive neural networks. *arXiv:1606.04671*. [参数增长型 CL]
+- Shazeer, N., et al. (2017). Outrageously large neural networks: The sparsely-gated mixture-of-experts layer. *ICLR 2017*. [MoE / conditional sparsity]
+- Fedus, W., Zoph, B., & Shazeer, N. (2022). Switch Transformers: Scaling to trillion parameter models with simple and efficient sparsity. *JMLR*. [Sparse MoE in Transformers]
 
 ### 信息论基础
 - Cover, T.M., & Thomas, J.A. (2006). *Elements of Information Theory*. Wiley.
 
 ---
 
+## 论文结构概览
+
+```
+1. Introduction: stability-plasticity dilemma 缺乏形式化 → 我们提供 capacity bound
+2. Preliminaries: activation sparsity, write interference, forgetting 的形式化定义
+3. Theory (核心贡献):
+   3.1 Theorem 1: I(s) monotonically decreasing (Hopfield, exact)
+   3.2 Theorem 2: Single-regime C·B bound (Hopfield, exact)
+   3.3 Proposition 1: Dual-regime exceeds bound (constructive)
+   3.4 Conjecture: qualitative structure extends to deep networks
+4. Experiments (验证):
+   4.1 Exp 1: I(s) curve in Transformers → validates Theorem 1
+   4.2 Exp 2: Pareto frontier → validates Theorem 2
+   4.3 Exp 3: Dual-regime sanity check → supports Proposition 1
+5. Discussion: CLS 对应、现有方法的 ceiling 解释、limitations
+6. Future Work: 完整 dual-regime 系统、scaling analysis、MoE 分析
+```
+
+---
+
 ## 文档元信息
 
 - **创建时间**：2026-02-24
+- **最后修改**：2026-02-24（基于第一性原理评审的重大修订）
 - **前序文档**：`docs/zh_CN/processing/20260224-0249.md`（第一性原理讨论记录）
 - **关联提议**：P01-P04（本提议解释为什么它们有 fundamental limitations）
-- **状态**：初稿
+- **状态**：修订稿（v2）
+- **主要修订内容**：
+  1. 放弃 "必要条件" 措辞 → 改为 capacity ceiling + sufficiency
+  2. 理论框架改为分层证明（Hopfield exact → deep network conjecture）
+  3. $B(s)$ 定义从 mutual information 改为 loss reduction（可操作性）
+  4. Exp 3 从完整系统构建缩减为 minimal sanity check
+  5. 补充 MoE、Progressive Networks 的讨论
+  6. 移除 convergent evidence 的过度声明
+  7. 加入论文结构概览
