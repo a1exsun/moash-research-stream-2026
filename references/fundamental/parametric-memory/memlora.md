@@ -1,26 +1,26 @@
 # MemLoRA — Bini et al. 2025
 
-**论文：** Bini et al. (2025) — MemLoRA: Distilling Expert Adapters
-**来源：** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
-**类别：** Parametric Memory — External — Adapter
+**Paper:** Bini et al. (2025) — MemLoRA: Distilling Expert Adapters
+**Source:** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
+**Category:** Parametric Memory — External — Adapter
 
 ---
 
-## 问题
+## Problem
 
-如何将多个专家adapter中的知识高效地压缩和整合，实现记忆增强的知识编辑？
+How can knowledge from multiple expert adapters be efficiently compressed and integrated to achieve memory-enhanced knowledge editing?
 
-## 方法
+## Method
 
-MemLoRA通过蒸馏专家adapter（Distilling Expert Adapters）实现记忆增强。核心思路是将多个专门训练的专家adapter中的知识通过蒸馏（distillation）压缩到统一的LoRA模块中，既保留了专家知识的精度，又降低了推理时的计算和存储开销。
+MemLoRA achieves memory enhancement by distilling expert adapters. The core idea is to compress knowledge from multiple specialized expert adapters into a unified LoRA module through distillation. This preserves the precision of expert knowledge while reducing computational and storage overhead during inference.
 
-## 核心机制
+## Core Mechanism
 
-- **专家adapter蒸馏**：将多个专家adapter的知识蒸馏到统一模块
-- **记忆增强**：通过蒸馏过程实现知识的压缩和整合
-- **LoRA架构**：使用低秩adapter作为知识载体，参数高效
-- **知识压缩**：将分散的专家知识统一到紧凑的参数空间
+- **Expert Adapter Distillation**: Distills knowledge from multiple expert adapters into a unified module.
+- **Memory Enhancement**: Achieves knowledge compression and integration through the distillation process.
+- **LoRA Architecture**: Uses low-rank adapters as knowledge carriers, ensuring parameter efficiency.
+- **Knowledge Compression**: Unifies decentralized expert knowledge into a compact parameter space.
 
-## 任务
+## Task
 
 - QA

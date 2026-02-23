@@ -1,6 +1,6 @@
 # AMA
 
-来源: Continual Learning of Large Language Models: A Comprehensive Survey
+Source: Continual Learning of Large Language Models: A Comprehensive Survey
 
-核心机制:
-Adaptive Model Averaging。通过对 RLHF 预训练模型与后强化对齐模型之间的权重进行平滑/弹性插值，平衡了有效对齐和能力遗忘的 Trade-off，提供了良好的泛化能力和安全底线。
+Core Mechanism:
+Adaptive Model Averaging. By performing smooth/elastic interpolation of weights between the RLHF pre-trained model and the post-reinforcement alignment model, it balances the trade-off between effective alignment and ability forgetting, providing robust generalization capabilities and a safety baseline.

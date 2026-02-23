@@ -7,10 +7,10 @@
 
 ## Core Mechanism
 
-SnapKV 通过head-wise voting机制聚合高重要性前缀KV表示，实现KV cache的智能压缩。
+SnapKV aggregates high-importance prefix KV representations through a head-wise voting mechanism, achieving intelligent KV cache compression.
 
-- 采用head-wise voting机制，在每个attention head独立评估prefix tokens的重要性
-- 聚合各head的投票结果，选出全局高重要性的前缀KV表示
-- 将选中的高重要性KV对作为压缩后的prefix cache保留
-- 通过跨head的投票聚合实现比单head选择更鲁棒的重要性评估
-- 在保持模型性能的前提下大幅减少KV cache的存储需求
+- Employs a head-wise voting mechanism to independently evaluate the importance of prefix tokens within each attention head.
+- Aggregates the voting results from all heads to select globally high-importance prefix KV representations.
+- Retains the selected high-importance KV pairs as a compressed prefix cache.
+- Achieves more robust importance evaluation through voting aggregation across heads compared to single-head selection.
+- Significantly reduces KV cache storage requirements while maintaining model performance.

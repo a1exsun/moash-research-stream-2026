@@ -7,10 +7,10 @@
 
 ## Core Mechanism
 
-H2O（Heavy-Hitter Oracle）通过保留最近tokens和特殊H2 tokens的简单淘汰策略，减少memory footprint。
+H2O (Heavy-Hitter Oracle) reduces the memory footprint through a simple eviction policy that retains only recent tokens and special H2 tokens.
 
-- 识别并保留Heavy Hitter (H2) tokens：即在attention计算中频繁获得高注意力分数的关键tokens
-- 结合最近tokens（local recent window）和H2 tokens构成精简的KV cache
-- 采用简单高效的淘汰策略：仅保留这两类tokens，丢弃其余
-- 大幅减少KV cache的memory footprint，同时保持模型生成质量
-- 通过观察attention模式中的heavy hitter现象，以极低开销实现有效的cache管理
+- Identifies and retains Heavy Hitter (H2) tokens: key tokens that frequently receive high attention scores in attention calculations.
+- Combines recent tokens (local recent window) and H2 tokens to form a streamlined KV cache.
+- Employs a simple and efficient eviction strategy: only these two types of tokens are kept, and others are discarded.
+- Significantly reduces the memory footprint of the KV cache while maintaining the quality of model generation.
+- Achieves effective cache management at extremely low cost by observing the heavy hitter phenomenon in attention patterns.

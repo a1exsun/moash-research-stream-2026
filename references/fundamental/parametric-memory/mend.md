@@ -1,29 +1,29 @@
 # MEND — Mitchell et al. 2022
 
-**论文：** Mitchell et al. (2022) — Model Editor Networks with Gradient Decomposition
-**来源：** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
-**类别：** Parametric Memory — Internal — Post-Train
+**Paper:** Mitchell et al. (2022) — Model Editor Networks with Gradient Decomposition
+**Source:** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
+**Category:** Parametric Memory — Internal — Post-Train
 
 ---
 
-## 问题
+## Problem
 
-直接fine-tuning来编辑模型知识会导致对无关知识的灾难性干扰，且效率低下。如何实现快速、精准的单步知识编辑？
+Direct fine-tuning to edit model knowledge leads to catastrophic interference with unrelated knowledge and is inefficient. How can fast, precise, single-step knowledge editing be achieved?
 
-## 方法
+## Method
 
-MEND（Model Editor Networks with Gradient Decomposition）引入辅助网络（editor network），通过分解fine-tuning梯度来实现快速的单步编辑。辅助网络学习将标准梯度转换为局部化的参数更新，使得编辑只影响目标知识而最小化对无关知识的干扰。
+MEND (Model Editor Networks with Gradient Decomposition) introduces an auxiliary editor network to achieve fast single-step editing by decomposing fine-tuning gradients. The editor network learns to transform standard gradients into localized parameter updates, ensuring that editing only affects targeted knowledge while minimizing interference with unrelated knowledge.
 
-关键创新在于梯度分解：将高维梯度分解为低秩因子，辅助网络在低秩空间中学习如何生成精确的编辑方向，从而实现高效且局部化的参数修改。
+The key innovation is gradient decomposition: high-dimensional gradients are decomposed into low-rank factors. The editor network learns how to generate precise editing directions in this low-rank space, resulting in efficient and localized parameter modification.
 
-## 核心机制
+## Core Mechanism
 
-- **辅助编辑网络**：专门训练的网络，学习将梯度转换为精确的参数更新
-- **梯度分解**：将fine-tuning梯度分解为低秩因子，降低计算成本
-- **单步编辑**：无需多轮迭代，一步完成知识修改
-- **局部性保障**：最小化对无关知识的干扰
+- **Auxiliary Editor Network**: A specially trained network that learns to transform gradients into precise parameter updates.
+- **Gradient Decomposition**: Decomposes fine-tuning gradients into low-rank factors to reduce computational costs.
+- **Single-step Editing**: Completes knowledge modification in one step without multiple rounds of iteration.
+- **Locality Guarantee**: Minimizes interference with unrelated knowledge.
 
-## 任务
+## Task
 
 - QA
 - Fact Checking

@@ -1,27 +1,27 @@
 # Character-LM / CharacterGLM
 
-**论文：** Character-LM / CharacterGLM
-**来源：** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
-**类别：** Parametric Memory — Internal — Post-Train
+**Paper:** Character-LM / CharacterGLM
+**Source:** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
+**Category:** Parametric Memory — Internal — Post-Train
 
 ---
 
-## 问题
+## Problem
 
-如何让LLM在交互中稳定地表现出特定角色的个性、知识背景和行为模式？
+How can an LLM be made to stably exhibit a specific character's personality, knowledge background, and behavioral patterns during interaction?
 
-## 方法
+## Method
 
-Character-LM和CharacterGLM将LLM微调为具有不同角色特征的模型。在后训练阶段（post-training）通过SFT（Supervised Fine-Tuning）将个性化记忆注入模型参数中，使模型能够持续、一致地扮演特定角色。
+Character-LM and CharacterGLM fine-tune LLMs to become models with distinct character traits. During the post-training phase, personalized memory is injected into the model parameters through SFT (Supervised Fine-Tuning), enabling the model to consistently and continuously play a specific role.
 
-这一方法代表了参数化角色/人格注入（parametric character/persona injection）的典型范式：通过将角色知识、说话风格、价值观等信息编码进模型权重，实现比prompt-based方法更稳定、更深层的角色扮演能力。
+This approach represents a typical paradigm of parametric character/persona injection: by encoding character knowledge, speaking style, values, and other information into the model weights, it achieves more stable and deep role-playing capabilities than prompt-based methods.
 
-## 核心机制
+## Core Mechanism
 
-- **SFT角色注入**：通过监督微调将角色特征编码进模型参数
-- **个性化记忆**：角色的知识背景、语言风格、价值观等被参数化存储
-- **参数化人格**：角色信息深度融入模型权重，而非仅通过prompt提供
+- **SFT Character Injection**: Encodes character traits into model parameters through supervised fine-tuning.
+- **Personalized Memory**: The character's knowledge background, language style, values, etc., are parametrically stored.
+- **Parametric Personality**: Character information is deeply integrated into model weights rather than being provided solely through prompts.
 
-## 任务
+## Task
 
 - Role Playing

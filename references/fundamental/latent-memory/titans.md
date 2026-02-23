@@ -7,9 +7,9 @@
 
 ## Core Mechanism
 
-Titans 将长程信息压缩为在线更新的MLP权重，使用神经权重本身作为记忆形式。
+Titans compress long-range information into online-updated MLP weights, using neural weights themselves as a form of memory.
 
-- 将长程上下文信息压缩编码为MLP的权重参数，实现以神经网络权重作为记忆载体
-- MLP权重在推理过程中在线更新（online update），动态吸收新信息
-- 推理时通过MLP产生潜在向量（latent vectors），将记忆内容注入当前计算
-- 将传统的显式KV存储转化为隐式的参数化记忆，在权重空间中编码长距离依赖
+- Encodes long-range context information into the weight parameters of an MLP, utilizing neural network weights as memory carriers.
+- MLP weights are updated online during the inference process, dynamically absorbing new information.
+- Produces latent vectors through the MLP during inference to inject memory content into current computations.
+- Transforms traditional explicit KV storage into implicit parametric memory, encoding long-distance dependencies within the weight space.

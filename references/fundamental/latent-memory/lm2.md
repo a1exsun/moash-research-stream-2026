@@ -7,9 +7,9 @@
 
 ## Core Mechanism
 
-LM2 在每层引入矩阵形状的潜在记忆slot（matrix-shaped latent memory slots），实现结构化的层内记忆存储。
+LM2 introduces matrix-shaped latent memory slots into each layer, achieving structured intra-layer memory storage.
 
-- 在Transformer的每一层引入matrix-shaped latent memory slots
-- 记忆以矩阵形式组织，提供比向量更丰富的表示能力
-- 与Titans等方法方向相关但结构不同：LM2强调矩阵slot的结构化存储
-- 每层的记忆slot独立维护，支持层级间的信息传递与整合
+- Introduces matrix-shaped latent memory slots into every layer of the Transformer.
+- Memory is organized in matrix form, providing a richer representation capability than vectors.
+- Relevant to methods like Titans but with a different structure: LM2 emphasizes the structured storage of matrix slots.
+- Memory slots in each layer are maintained independently, supporting information transfer and integration between levels.

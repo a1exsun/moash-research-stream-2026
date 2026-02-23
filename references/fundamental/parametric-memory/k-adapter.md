@@ -1,29 +1,29 @@
 # K-Adapter — Wang et al. 2021
 
-**论文：** Wang et al. (2021) — K-Adapter
-**来源：** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
-**类别：** Parametric Memory — External — Adapter
+**Paper:** Wang et al. (2021) — K-Adapter
+**Source:** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
+**Category:** Parametric Memory — External — Adapter
 
 ---
 
-## 问题
+## Problem
 
-向预训练模型注入新知识时，fine-tuning会破坏已有的预训练表示，导致灾难性遗忘。如何在不干扰原始模型的前提下持续扩展知识？
+When injecting new knowledge into a pre-trained model, fine-tuning can disrupt existing pre-trained representations, leading to catastrophic forgetting. How can knowledge be continuously expanded without interfering with the original model?
 
-## 方法
+## Method
 
-K-Adapter通过训练任务特定的adapter模块来注入新知识，保持原始backbone完全不变。每个adapter模块专门学习一种类型的知识（如事实知识、语言知识等），独立于主模型进行训练和更新。
+K-Adapter injects new knowledge by training task-specific adapter modules while keeping the original backbone completely unchanged. Each adapter module specifically learns one type of knowledge (e.g., factual knowledge, linguistic knowledge, etc.) and is trained and updated independently of the main model.
 
-这种设计支持持续知识扩展：新类型的知识可以通过添加新的adapter来注入，而不干扰预训练表示或已有adapter中的知识。
+This design supports continuous knowledge expansion: new types of knowledge can be injected by adding new adapters without interfering with pre-trained representations or knowledge in existing adapters.
 
-## 核心机制
+## Core Mechanism
 
-- **任务特定adapter**：每种知识类型对应一个独立的adapter模块
-- **Backbone冻结**：原始预训练模型参数保持不变
-- **持续扩展**：通过添加新adapter支持新知识的持续注入
-- **知识隔离**：不同类型的知识存储在独立模块中，互不干扰
+- **Task-specific Adapter**: Each knowledge type corresponds to an independent adapter module.
+- **Backbone Frozen**: Parameters of the original pre-trained model remain unchanged.
+- **Continuous Expansion**: Supports continuous injection of new knowledge by adding new adapters.
+- **Knowledge Isolation**: Different types of knowledge are stored in independent modules, avoiding mutual interference.
 
-## 任务
+## Task
 
 - QA
 - Entity Typing

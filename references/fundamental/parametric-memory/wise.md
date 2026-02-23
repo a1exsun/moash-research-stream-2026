@@ -1,29 +1,29 @@
 # WISE — 2024, NeurIPS
 
-**论文：** WISE (2024, NeurIPS)
-**来源：** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
-**类别：** Parametric Memory — External — Adapter
+**Paper:** WISE (2024, NeurIPS)
+**Source:** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
+**Category:** Parametric Memory — External — Adapter
 
 ---
 
-## 问题
+## Problem
 
-在终身编辑（lifelong editing）场景中，持续向模型注入新知识会导致新旧知识之间的冲突，影响模型整体性能。
+In lifelong editing scenarios, continuously injecting new knowledge into a model leads to conflicts between new and old knowledge, affecting overall model performance.
 
-## 方法
+## Method
 
-WISE采用双参数记忆设置（dual parametric memory），将预训练知识和编辑知识分离存储在两套独立的参数中。在推理时，路由机制（routing mechanism）根据输入动态选择使用哪个参数记忆——原始预训练参数或编辑后的参数。
+WISE employs a dual parametric memory setting, separate storing pre-trained knowledge and editing knowledge in two independent sets of parameters. During inference, a routing mechanism dynamically selects which parameter memory to use—the original pre-trained parameters or the edited parameters—based on the input.
 
-这种分离存储和动态路由的设计有效缓解了终身编辑过程中新旧知识的冲突问题。
+This design of separate storage and dynamic routing effectively alleviates the problem of knowledge conflict during the lifelong editing process.
 
-## 核心机制
+## Core Mechanism
 
-- **双参数记忆**：预训练知识和编辑知识分别存储在独立参数集中
-- **动态路由**：推理时根据输入语义自动选择使用哪套参数
-- **知识冲突缓解**：通过物理隔离避免新旧知识的互相干扰
-- **终身编辑支持**：设计面向持续、长期的知识更新场景
+- **Dual Parametric Memory**: Pre-trained and editing knowledge are stored respectively in independent parameter sets.
+- **Dynamic Routing**: Automatically selects which set of parameters to use based on input semantics during inference.
+- **Knowledge Conflict Alleviation**: Avoids mutual interference between new and old knowledge through physical isolation.
+- **Lifelong Editing Support**: Designed for continuous, long-term knowledge update scenarios.
 
-## 任务
+## Task
 
 - QA
 - Hallucination Detection

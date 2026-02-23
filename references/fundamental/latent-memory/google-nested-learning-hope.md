@@ -1,10 +1,10 @@
 # Google Nested Learning & HOPE
 
-**来源：** 机器之心Pro Week 07（提及但未展开，详见Pro 2025 Week 50）
-**类别：** LLM Memory
+**Source:** Machine Heart Pro Week 07 (Mentioned but not elaborated, see Pro 2025 Week 50 for details)
+**Category:** LLM Memory
 
 ---
 
-## 状态
+## Status
 
-文章仅提及名称，未展开技术细节。待阅读原文。
+The article only mentions the names and does not provide technical details. To be read in the original text.

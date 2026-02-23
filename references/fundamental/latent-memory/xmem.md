@@ -7,12 +7,12 @@
 
 ## Core Mechanism
 
-XMem 用于长视频对象分割，将每帧编码为key-value潜在嵌入并组织为多阶段记忆。
+XMem is used for long video object segmentation, encoding each frame into key-value latent embeddings and organizing them into multi-stage memory.
 
-- 将视频每帧编码为key-value潜在嵌入（latent embeddings），作为基本记忆单元
-- 组织为多阶段记忆层次结构：
-  - **Perceptual memory**：感知记忆，存储最近帧的高保真表示
-  - **Working memory**：工作记忆，维护中间粒度的活跃信息
-  - **Long-term memory**：长期记忆，存储跨长时间跨度的关键信息
-- 使用LFU（Least Frequently Used）策略移除低频条目，控制记忆容量
-- 通过多阶段记忆管理实现长视频的高效对象跟踪与分割
+- Encodes each video frame into key-value latent embeddings, serving as basic memory units.
+- Organized into a multi-stage memory hierarchy:
+  - **Perceptual memory**: Stores high-fidelity representations of the most recent frames.
+  - **Working memory**: Maintains active information at an intermediate granularity.
+  - **Long-term memory**: Stores critical information across long time spans.
+- Uses the LFU (Least Frequently Used) strategy to remove low-frequency entries, controlling memory capacity.
+- Achieves efficient object tracking and segmentation in long videos through multi-stage memory management.

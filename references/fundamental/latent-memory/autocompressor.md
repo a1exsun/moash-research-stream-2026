@@ -7,9 +7,9 @@
 
 ## Core Mechanism
 
-AutoCompressor 将整个长文档编码为少量summary vectors，作为soft prompts供后续推理使用。
+AutoCompressor encodes an entire long document into a small number of summary vectors, which serve as soft prompts for subsequent reasoning.
 
-- 将长文档通过模型自身编码为一组紧凑的summary vectors
-- 这些summary vectors作为soft prompts注入模型，替代原始长文本
-- 实现端到端的文档压缩与表示学习，保留全局语义
-- 压缩后的soft prompts可复用于多轮问答和推理任务
+- Encodes long documents through the model itself into a compact set of summary vectors.
+- These summary vectors are injected into the model as soft prompts, replacing the original long text.
+- Achieves end-to-end document compression and representation learning, preserving global semantics.
+- Compressed soft prompts can be reused for multi-turn QA and reasoning tasks.

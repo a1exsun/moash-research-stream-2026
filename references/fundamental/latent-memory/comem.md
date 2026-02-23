@@ -7,9 +7,9 @@
 
 ## Core Mechanism
 
-CoMem 通过Q-Former压缩vision-language输入为固定长度token，实现密集连续记忆。
+CoMem compresses vision-language inputs into fixed-length tokens through Q-Former, achieving dense continuous memory.
 
-- 使用Q-Former架构将多模态（vision-language）输入压缩为固定长度的token序列
-- 生成密集连续记忆（dense continuous memory），保留视觉和语言的联合语义
-- 支持即插即用的无限上下文长度（plug-and-play unlimited context length）
-- 压缩后的固定长度表示使得记忆容量不受原始输入长度限制
+- Uses the Q-Former architecture to compress multimodal (vision-language) inputs into a fixed-length sequence of tokens.
+- Generates dense continuous memory, preserving the joint semantics of vision and language.
+- Supports plug-and-play unlimited context length.
+- The compressed fixed-length representation ensures that memory capacity is not limited by the original input length.

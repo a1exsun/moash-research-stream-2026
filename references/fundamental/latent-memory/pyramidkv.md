@@ -7,10 +7,10 @@
 
 ## Core Mechanism
 
-PyramidKV 跨层重新分配KV预算，实现层级感知的KV cache管理。
+PyramidKV reallocates KV budgets across layers, implementing layer-aware KV cache management.
 
-- 跨Transformer层重新分配KV cache预算（layer-wise budget allocation）
-- 不同层根据其信息需求分配不同数量的KV cache容量
-- 形成金字塔式的KV分配结构，底层保留更多KV对，高层逐步减少
-- 通过层级间的差异化预算分配，在总预算不变的情况下优化整体性能
-- 避免了uniform allocation导致的资源浪费，使每层的KV cache利用率最大化
+- Reallocates KV cache budget across Transformer layers (layer-wise budget allocation).
+- Assigns different amounts of KV cache capacity to various layers based on their specific information requirements.
+- Forms a pyramid-like KV allocation structure, where lower layers retain more KV pairs and higher layers gradually reduce them.
+- Optimizes overall performance under a fixed total budget through differentiated budget allocation across layers.
+- Avoids resource wastage caused by uniform allocation, maximizing the KV cache utilization of each layer.

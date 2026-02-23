@@ -7,9 +7,9 @@
 
 ## Core Mechanism
 
-EMU 训练state encoder生成带return标注的潜在嵌入，将记忆与期望收益关联。
+EMU trains a state encoder to generate latent embeddings labeled with returns, associating memory with expected rewards.
 
-- 训练专用的state encoder将游戏状态编码为潜在嵌入（latent embeddings）
-- 每个嵌入标注了desirability（期望回报），表示该状态的价值评估
-- 通过return-conditioned embeddings实现基于收益的记忆检索
-- 将强化学习中的价值信号融入记忆表示，使agent能基于历史经验中的成功模式进行决策
+- Trains a dedicated state encoder to encode game states into latent embeddings.
+- Each embedding is labeled with desirability (expected return), representing the value assessment of that state.
+- Implements return-conditioned embeddings to enable gain-based memory retrieval.
+- Integrates value signals from reinforcement learning into memory representations, allowing the agent to make decisions based on successful patterns in historical experience.

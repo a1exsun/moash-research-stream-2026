@@ -1,28 +1,29 @@
 # StreamingLLM (2023)
 
-**论文：** (2023)
-**来源：** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
-**类别：** Parametric Memory — Internal — Pre-Train
+**Paper:** (2023)
+**Source:** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
+**Category:** Parametric Memory — Internal — Pre-Train
 
 ---
 
-## 问题
+## Problem
 
-标准Transformer在处理超长序列时，attention计算的内存和时间开销随序列长度增长，且模型在超出训练长度后性能急剧下降，无法支持流式（streaming）场景。
+When processing ultra-long sequences, standard Transformers face memory and time overhead for attention calculations that grow with sequence length. Furthermore, model performance drops sharply once the sequence exceeds the training length, making it unable to support streaming scenarios.
 
-## 方法
+## Method
 
-发现并利用Attention Sink机制，优化attention的计算效率以增强长窗口记忆能力。核心设计：
-- **Attention Sink发现** — 发现模型倾向于将大量attention权重分配给序列最开始的几个token（即attention sink），即使这些token本身语义并不重要
-- **Sink Token保留** — 在滑动窗口attention中始终保留最初的几个sink token，确保attention分布的稳定性
-- **滑动窗口 + Sink** — 结合固定大小的滑动窗口和sink token，实现在有限内存下对无限长序列的高效处理
-- **无需微调** — 该方法可以直接应用于预训练模型，无需额外训练
+The Attention Sink mechanism is discovered and utilized to optimize attention calculation efficiency and enhance long-window memory capability. Core design:
 
-## 影响
+- **Attention Sink Discovery** — Discovers that models tend to assign a large amount of attention weight to the first few tokens of a sequence (i.e., attention sinks), even if these tokens are not semantically important.
+- **Sink Token Retention** — Always retains the first few sink tokens in sliding window attention, ensuring the stability of the attention distribution.
+- **Sliding Window + Sink** — Combines a fixed-size sliding window with sink tokens to achieve efficient processing of infinitely long sequences within limited memory.
+- **No Fine-tuning Required** — This method can be directly applied to pre-trained models without additional training.
 
-StreamingLLM揭示了Transformer中attention sink的重要现象，为长序列处理提供了简单有效的工程方案。该发现对理解Transformer的attention行为和设计更高效的长序列处理方法具有启发意义。
+## Impact
 
-## 任务
+StreamingLLM reveals the important phenomenon of attention sinks in Transformers, providing a simple and effective engineering solution for long-sequence processing. This discovery is instrumental for understanding Transformer attention behavior and designing more efficient methods for handling long sequences.
+
+## Task
 
 - QA
 - Reasoning

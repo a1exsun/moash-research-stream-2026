@@ -1,29 +1,29 @@
 # Retroformer — Yao et al. 2024
 
-**论文：** Yao et al. (2024) — Retroformer
-**来源：** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
-**类别：** Parametric Memory — External — Auxiliary LM
+**Paper:** Yao et al. (2024) — Retroformer
+**Source:** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
+**Category:** Parametric Memory — External — Auxiliary LM
 
 ---
 
-## 问题
+## Problem
 
-Agent在执行任务时缺乏从过往任务的成功和失败中系统性学习的机制，导致重复犯错、无法积累经验。
+Agents lack a systematic mechanism to learn from the successes and failures of past tasks during execution, resulting in repeated mistakes and an inability to accumulate experience.
 
-## 方法
+## Method
 
-Retroformer提出了一种学习范式（learning paradigm），专门用于记忆过去任务执行的成败经验。通过辅助语言模型（auxiliary LM）记录和学习历史任务的执行轨迹，Retroformer能够在后续任务中利用这些经验改进决策。
+Retroformer proposes a learning paradigm specifically designed to memorize experiences of success and failure from past task executions. By using an auxiliary language model (auxiliary LM) to record and learn from historical task execution trajectories, Retroformer can utilize these experiences to improve decisions in subsequent tasks.
 
-与基于prompt的反思方法不同，Retroformer通过参数化的辅助模型来存储和提炼经验，使经验学习更加系统化和持久化。
+Unlike prompt-based reflection methods, Retroformer stores and refines experience through a parameterized auxiliary model, making experience learning more systematic and persistent.
 
-## 核心机制
+## Core Mechanism
 
-- **经验记忆**：记录过去任务执行的成功和失败经验
-- **辅助LM**：通过参数化的辅助模型存储和提炼经验
-- **学习范式**：从历史执行轨迹中系统性地学习改进策略
-- **跨任务迁移**：将过往经验应用到新任务的决策中
+- **Experience Memory**: Records success and failure experiences from past task executions.
+- **Auxiliary LM**: Stores and refines experience through a parameterized auxiliary model.
+- **Learning Paradigm**: Systematically learns improvement strategies from historical execution trajectories.
+- **Cross-task Transfer**: Applies past experience to decision-making in new tasks.
 
-## 任务
+## Task
 
 - QA
 - Web Navigation

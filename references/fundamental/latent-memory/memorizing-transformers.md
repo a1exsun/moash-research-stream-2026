@@ -7,9 +7,9 @@
 
 ## Core Mechanism
 
-Memorizing Transformers 显式存储过去的KV对，推理时通过KNN搜索检索相关记忆。
+Memorizing Transformers explicitly store past KV pairs and retrieve relevant memories through KNN search during inference.
 
-- 将过去处理过的token的key-value对显式存储到外部记忆中
-- 推理时通过KNN（k-nearest neighbors）搜索在存储的KV对中检索最相关的条目
-- 检索到的KV对被注入attention计算，扩展模型的有效上下文范围
-- 实现了latent memory的直接复用（reuse），无需重新编码或压缩历史信息
+- Explicitly stores the key-value pairs of past processed tokens in external memory.
+- Performs KNN (k-nearest neighbors) search during inference to retrieve the most relevant entries from the stored KV pairs.
+- The retrieved KV pairs are injected into the attention calculation, extending the model's effective context range.
+- Achieves direct reuse of latent memory without the need to re-encode or compress historical information.

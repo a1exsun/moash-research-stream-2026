@@ -1,28 +1,28 @@
 # MAC — Amortize Context
 
-**论文：** MAC (Amortize Context)
-**来源：** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
-**类别：** Parametric Memory — External — Auxiliary LM
+**Paper:** MAC (Amortize Context)
+**Source:** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
+**Category:** Parametric Memory — External — Auxiliary LM
 
 ---
 
-## 问题
+## Problem
 
-如何将大量文档信息高效地编码为可复用的紧凑表示，避免每次推理都需要处理完整的上下文？
+How can volumes of document information be efficiently encoded into reusable compact representations, avoiding the need to process the full context for every inference?
 
-## 方法
+## Method
 
-MAC通过amortization network将新文档的信息压缩为紧凑的modulation（调制参数），并存储在memory bank中。在推理时，模型通过检索相关的modulation来调整自身行为，而无需重新处理原始文档。
+MAC uses an amortization network to compress information from new documents into compact modulations, which are stored in a memory bank. During inference, the model adjusts its behavior by retrieving relevant modulations without re-processing the original documents.
 
-这种方法将上下文处理的计算成本分摊（amortize）到离线编码阶段，使得推理时只需加载紧凑的调制参数，大幅提升效率。
+This method amortizes the computational cost of context processing into an offline encoding phase, allowing the model to load only compact modulation parameters during inference, significantly improving efficiency.
 
-## 核心机制
+## Core Mechanism
 
-- **Amortization network**：将文档信息压缩为紧凑的modulation表示
-- **Memory bank**：存储所有编码后的modulation，支持高效检索
-- **上下文压缩**：将长文档压缩为参数化的紧凑表示
-- **推理加速**：推理时加载modulation而非处理完整文档
+- **Amortization network**: Compresses document information into compact modulation representations.
+- **Memory bank**: Stores all encoded modulations and supports efficient retrieval.
+- **Context Compression**: Compresses long documents into parameterized compact representations.
+- **Inference Acceleration**: Loads modulations during inference instead of processing full documents.
 
-## 任务
+## Task
 
 - QA

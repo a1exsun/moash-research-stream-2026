@@ -1,27 +1,28 @@
 # Memoria — Park et al. 2024
 
-**论文：** Park et al. (2024)
-**来源：** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
-**类别：** Latent Memory — Generate
+**Paper:** Park et al. (2024)
+**Source:** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
+**Category:** Latent Memory — Generate
 
 ---
 
-## 问题
+## Problem
 
-现有语言模型的记忆机制受限于显式的token序列表示，缺乏类似人类大脑中潜在记忆痕迹（engrams）的隐式记忆表示能力，难以高效建模长距离依赖。
+Existing memory mechanisms in language models are limited by explicit token sequence representations and lack the capability for implicit memory representation similar to latent memory traces (engrams) in the human brain, making it difficult to efficiently model long-range dependencies.
 
-## 方法
+## Method
 
-构建三层记忆结构，引入受生物学启发的engrams作为潜在记忆表示。核心设计：
-- **三层记忆架构** — 设计多层次的记忆存储结构，不同层次负责不同时间尺度和抽象程度的记忆
-- **Engrams（记忆痕迹）** — 受神经科学中engram概念启发，引入潜在记忆表示单元，类比生物神经系统中编码记忆的神经元集群
-- **Latent Memory生成** — 通过生成式方法创建和更新潜在记忆表示，而非仅依赖显式的token存储
-- **生物学启发设计** — 记忆的形成、巩固和检索过程借鉴了认知神经科学中的记忆理论
+Constructs a three-layer memory structure and introduces biologically inspired engrams as latent memory representations. Core design:
 
-## 影响
+- **Three-layer Memory Architecture** — Designs a multi-layered memory storage structure, where different layers are responsible for memories of various time scales and levels of abstraction.
+- **Engrams (Memory Traces)** — Inspired by the concept of engrams in neuroscience, it introduces latent memory representation units, analogous to clusters of neurons that encode memory in biological neural systems.
+- **Latent Memory Generation** — Creates and updates latent memory representations through generative methods rather than relying solely on explicit token storage.
+- **Biologically Inspired Design** — The processes of memory formation, consolidation, and retrieval draw on memory theories from cognitive neuroscience.
 
-Memoria将认知神经科学中的engram概念引入语言模型的记忆设计，开辟了latent memory的新方向。三层记忆与engrams的结合为构建更接近生物记忆机制的AI系统提供了理论和实践参考。
+## Impact
 
-## 任务
+Memoria introduces the concept of engrams from cognitive neuroscience into the memory design of language models, opening a new direction for latent memory. The combination of three-layer memory and engrams provides a theoretical and practical reference for building AI systems that closer resemble biological memory mechanisms.
+
+## Task
 
 - Language Modeling

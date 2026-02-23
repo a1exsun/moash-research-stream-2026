@@ -1,28 +1,28 @@
 # SELF-PARAM
 
-**论文：** SELF-PARAM
-**来源：** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
-**类别：** Parametric Memory — Internal — Post-Train
+**Paper:** SELF-PARAM
+**Source:** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
+**Category:** Parametric Memory — Internal — Post-Train
 
 ---
 
-## 问题
+## Problem
 
-如何在不引入额外参数的前提下，将外部知识注入到模型的参数化记忆中？
+How can external knowledge be injected into a model's parameterized memory without introducing additional parameters?
 
-## 方法
+## Method
 
-SELF-PARAM通过KL divergence蒸馏的方式将额外知识注入模型，核心特点是不需要引入额外参数。通过自蒸馏（self-distillation）机制，模型在保持原有能力的同时吸收新知识，实现了轻量级的参数化记忆更新。
+SELF-PARAM injects additional knowledge into the model through KL divergence distillation, with the core feature being that no additional parameters are required. Through a self-distillation mechanism, the model absorbs new knowledge while maintaining its original capabilities, achieving lightweight parameterized memory updates.
 
-这种方法避免了adapter或额外模块带来的计算开销，直接在模型现有参数空间中完成知识注入。
+This method avoids the computational overhead associated with adapters or additional modules, completing knowledge injection directly within the model's existing parameter space.
 
-## 核心机制
+## Core Mechanism
 
-- **KL divergence蒸馏**：通过最小化分布差异将新知识注入模型
-- **无额外参数**：不需要引入新的可训练参数
-- **自蒸馏**：模型自身作为教师和学生，实现知识内化
+- **KL Divergence Distillation**: Injects new knowledge into the model by minimizing distribution differences.
+- **No Additional Parameters**: Does not require introducing new trainable parameters.
+- **Self-distillation**: The model itself serves as both teacher and student to achieve knowledge internalization.
 
-## 任务
+## Task
 
 - QA
 - Recommendation

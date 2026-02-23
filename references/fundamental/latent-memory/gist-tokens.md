@@ -7,9 +7,9 @@
 
 ## Core Mechanism
 
-Gist Tokens 训练语言模型在处理长prompt后生成一组gist tokens，将长序列压缩为少量内部token用于后续推理复用。
+Gist Tokens train a language model to generate a set of gist tokens after processing a long prompt, compressing the long sequence into a small number of internal tokens for subsequent inference reuse.
 
-- 在长prompt处理完成后，模型生成一组紧凑的gist tokens作为原始序列的压缩表示
-- 这些gist tokens可以在后续推理中替代原始长序列，大幅减少context length
-- 实现了prompt级别的隐式压缩，无需额外外部存储
-- 压缩后的表示保留了原始序列的关键语义信息，支持下游任务的高效推理
+- After processing a long prompt, the model generates a set of compact gist tokens as a compressed representation of the original sequence.
+- These gist tokens can replace the original long sequence in subsequent inference, significantly reducing context length.
+- Achieves prompt-level implicit compression without the need for additional external storage.
+- The compressed representation retains the key semantic information of the original sequence, supporting efficient inference for downstream tasks.

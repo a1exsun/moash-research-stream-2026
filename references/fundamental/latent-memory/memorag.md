@@ -7,9 +7,9 @@
 
 ## Core Mechanism
 
-MemoRAG 使用LLM生成紧凑隐状态记忆捕获全局语义结构，并通过生成hypothetical document实现查询重写。
+MemoRAG uses an LLM to generate compact latent state memory to capture the global semantic structure and achieves query rewriting by generating hypothetical documents.
 
-- 利用LLM生成紧凑的隐状态记忆（compact latent state memory），捕获输入文档的全局语义结构
-- 生成hypothetical document用于查询重写，将模糊查询转化为更精准的检索请求
-- 将全局记忆融入假设文档生成过程，使检索更好地匹配全局上下文
-- 结合了latent memory的压缩能力与query rewriting的检索增强策略
+- Leverages an LLM to generate compact latent state memory, capturing the global semantic structure of input documents.
+- Generates hypothetical documents for query rewriting, transforming ambiguous queries into more precise retrieval requests.
+- Integrates global memory into the hypothetical document generation process, allowing retrieval to better match the global context.
+- Combines the compression capabilities of latent memory with retrieval enhancement strategies of query rewriting.

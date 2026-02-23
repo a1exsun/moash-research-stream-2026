@@ -7,9 +7,9 @@
 
 ## Core Mechanism
 
-R3Mem 使用虚拟记忆tokens实现可逆压缩（reversible compression），在压缩与信息保留之间取得平衡。
+R3Mem uses virtual memory tokens to achieve reversible compression, balancing compression and information retention.
 
-- 引入虚拟记忆tokens（virtual memory tokens）作为中间压缩表示
-- 采用可逆压缩机制（reversible compression），使压缩后的记忆可以在需要时恢复更多细节
-- 通过可逆变换保证压缩过程中的信息损失最小化
-- 在KV cache的压缩效率和信息保留质量之间实现更优的折中
+- Introduces virtual memory tokens as an intermediate compressed representation.
+- Employs a reversible compression mechanism, allowing compressed memory to recover more details when needed.
+- Guarantees minimized information loss during the compression process through reversible transformations.
+- Achieves a better trade-off between the compression efficiency of the KV cache and the quality of information retention.

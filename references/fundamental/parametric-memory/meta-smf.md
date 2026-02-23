@@ -1,25 +1,25 @@
 # Meta SMF (Sparse Memory Finetuning) — Jessy Lin et al.
 
-**论文：** Jessy Lin et al. (2025)
-**来源：** 机器之心Pro Week 07（提及，详见Pro 2025 Week 46）
-**类别：** LLM Memory — 稀疏记忆池
+**Paper:** Jessy Lin et al. (2025)
+**Source:** Machine Heart Pro Week 07 (Mentioned, see Pro 2025 Week 46 for details)
+**Category:** LLM Memory — Sparse Memory Pool
 
 ---
 
-## 问题
+## Problem
 
-全量微调导致灾难性遗忘（遗忘率89%）。
+Full fine-tuning leads to catastrophic forgetting (forgetting rate of 89%).
 
-## 方法
+## Method
 
-在1.3B基础模型上附加1B参数的稀疏记忆池，每次只更新被高度激活的记忆槽位。冻结所有密集层，仅更新记忆池。
+An additional 1B-parameter sparse memory pool is attached to a 1.3B base model, where only highly activated memory slots are updated each time. All dense layers are frozen, and only the memory pool is updated.
 
-## 结果
+## Results
 
-遗忘率从全量微调的89%降至11%。
+The forgetting rate dropped from 89% in full fine-tuning to 11%.
 
-## 局限
+## Limitations
 
-- 冻结所有密集层，模型核心推理能力无法改进
-- 仅测试事实记忆（TriviaQA），未涉及能力/技能层面的持续学习
-- 本质上是外挂可学习向量，类似可训练的RAG
+- By freezing all dense layers, the model's core reasoning ability cannot be improved.
+- Tests were only conducted on factual memory (TriviaQA) and did not involve continual learning at the ability/skill level.
+- Essentially an external learnable vector attachment, similar to trainable RAG.

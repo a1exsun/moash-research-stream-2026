@@ -7,10 +7,10 @@
 
 ## Core Mechanism
 
-RazorAttention 计算每个head的effective attention span，只保留有限local window并使用compensation tokens保存被丢弃条目的信息。
+RazorAttention calculates the effective attention span for each head, retaining only a finite local window while using compensation tokens to preserve information from discarded entries.
 
-- 计算每个attention head的effective attention span，量化各head实际需要的上下文范围
-- 对每个head只保留有限的local window，丢弃超出范围的远程KV对
-- 引入compensation tokens：将被丢弃的远程KV条目的关键信息压缩到补偿token中
-- compensation tokens注入attention计算，弥补因窗口截断导致的信息损失
-- 实现了per-head自适应的KV cache管理，不同head根据其attention span获得不同的cache策略
+- Calculates the effective attention span for each attention head, quantifying the actual context range required by each head.
+- Retains only a finite local window for each head, discarding remote KV pairs that fall outside this range.
+- Introduces compensation tokens: key information from discarded remote KV entries is compressed into these compensation tokens.
+- Compensation tokens are injected into the attention calculation to compensate for information loss caused by window truncation.
+- Implements per-head adaptive KV cache management, where different heads receive different cache strategies based on their attention spans.

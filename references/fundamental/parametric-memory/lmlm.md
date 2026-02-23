@@ -1,29 +1,29 @@
 # LMLM — Zhao et al. 2025
 
-**论文：** Zhao et al. (2025) — Limited Memory Language Model
-**来源：** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
-**类别：** Parametric Memory — Internal — Pre-Train
+**Paper:** Zhao et al. (2025) — Limited Memory Language Model
+**Source:** arXiv 2512.13564v2 (Memory in the Age of AI Agents)
+**Category:** Parametric Memory — Internal — Pre-Train
 
 ---
 
-## 问题
+## Problem
 
-传统LLM将事实知识与模型权重紧密耦合，导致知识更新需要重训模型，且无法追溯知识来源。
+Traditional LLMs tightly couple factual knowledge with model weights, which makes knowledge updates require model retraining and prevents tracing knowledge sources.
 
-## 方法
+## Method
 
-LMLM（Limited Memory Language Model）在预训练阶段就将知识检索的记忆存储在模型中，但知识本身存储在外部知识库中。这一设计显式地将事实知识与模型权重解耦：模型学习的是"如何检索和使用知识"的能力，而非知识本身。
+LMLM (Limited Memory Language Model) stores memory for knowledge retrieval within the model during the pre-training phase, but the knowledge itself is stored in an external knowledge base. This design explicitly decouples factual knowledge from model weights: the model learns the capability of "how to retrieve and use knowledge" rather than the knowledge itself.
 
-通过这种架构，LMLM支持直接的知识编辑和来源验证，无需重新训练模型。当外部知识库更新时，模型的行为自动反映最新知识。
+Through this architecture, LMLM supports direct knowledge editing and source verification without requiring model retraining. When the external knowledge base is updated, the model's behavior automatically reflects the latest knowledge.
 
-## 核心机制
+## Core Mechanism
 
-- **知识-权重解耦**：模型参数存储检索能力，事实知识存储在外部
-- **预训练阶段集成**：在预训练时就设计知识检索机制，而非后训补丁
-- **无需重训的知识编辑**：通过更新外部知识库直接修改模型输出
-- **来源验证**：知识来源可追溯，支持事实核查
+- **Knowledge-Weight Decoupling**: Model parameters store retrieval capabilities, while factual knowledge is stored externally.
+- **Pre-training Integration**: Knowledge retrieval mechanisms are designed during pre-training rather than as post-training patches.
+- **Knowledge Editing Without Retraining**: Directly modifies model output by updating the external knowledge base.
+- **Source Verification**: Knowledge sources are traceable, supporting fact-checking.
 
-## 任务
+## Task
 
 - QA
 - Factual Generation
