@@ -1,7 +1,7 @@
 # Memory in the Age of AI Agents — Survey
 
 **论文：** [arXiv 2512.13564v2](https://arxiv.org/abs/2512.13564)
-**来源：** refs/arXiv-2512.13564v2
+**来源：** surveys/arXiv-2512.13564v2
 **类别：** Survey — Agent Memory全景式分类框架
 
 ---

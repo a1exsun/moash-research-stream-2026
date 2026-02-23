@@ -1,6 +1,6 @@
-# Solutions Index
+# Technical Solutions Index
 
-按第一性原理与技术本质分类索引所有整理的技术方案。
+按第一性原理与技术本质分类索引所有整理的具体技术方案（Methods）。
 
 ---
 
