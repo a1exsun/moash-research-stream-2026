@@ -1,0 +1,36 @@
+\section{Introduction}
+
+Memory is the cognitive nexus that interweaves past experience with future decision-making~\cite{brain_intro_memories}. 
+In humans, it manifests as a dynamic neural process through which the brain stores and manages information~\cite{cog_brain_system}. 
+Its profound significance lies in endowing individuals with the capacity to learn, adapt, and reshape their behavior, enabling humans to maintain coherence and foresight in an ever-changing environment~\cite{brain_intro_evolutionary,brain_intro_adaptive}.
+As Large Language Models (LLMs) continue to evolve, endowing AI systems with human-like memory capabilities has emerged as a critical challenge~\cite{summary_ltm}. 
+However, the natively stateless nature~\cite{survey_stateless} of LLMs renders each inference independent, preventing models from maintaining cross-session continuity or accumulating experience from historical interactions.
+While modern LLMs have scaled parameters and context windows to massive sizes, knowledge update costs~\cite{summary_cost} and computational complexity~\cite{method_lost_in_middle,intro_on2} remain significant bottlenecks. 
+
+With the rapid advancement of agents across diverse domains and tasks~\cite{method_cellagent,method_branch_and_browse,method_coge,method_memorb,method_sweexp,method_liddia,method_magis,method_experepair,method_fkn,method_recmind,method_toolmem}, memory systems have emerged as a critical factor in enhancing their performance by enabling information persistence~\cite{method_rgmem,method_pre_storage,method_pisa} and long-horizon planning~\cite{method_legomem,method_reasoningbank}.
+Rather than serving as a passive repository for historical interactions, memory has evolved into a dynamic cognitive hub that underpins complex decision-making. 
+However, despite significant progress in memory mechanism research in recent years, existing works~\cite{method_mem0,dy_memory_amem,method_mem1,method_memgpt,method_bot} tend to remain confined to a single disciplinary perspective or lack depth in biological research, making it difficult to achieve deep integration between cognitive science and artificial intelligence. 
+This separation has deprived both fields of opportunities for deep mutual validation and inspiration in memory research.
+
+To bridge this gap, our survey provides a comprehensive and unified review of memory systems, integrating insights from cognitive neuroscience with the rapidly evolving field of LLM-driven agents. 
+We first establish a progressive research perspective on memory, transitioning from human brain to LLMs and ultimately to agents, systematically elucidating its definition and fundamental role (\S\ref{sec:Definitions}, \S\ref{sec:Utility}).
+Building on the classical short- and long-term memory dichotomy in cognitive neuroscience, we propose a taxonomy that classifies agent memory along two dimensions, including nature- and scope-based classification (\S\ref{sec:Categorization}).
+The former distinguishes procedural experience from conceptual knowledge, while the latter concerns memory persistence within or across trajectories.
+Next, we examine memory storage from the perspectives of location and format (\S\ref{sec:Storage}).
+In cognitive neuroscience, short-term memory relies on distributed sensory-frontoparietal networks while long-term memory depends on hippocampal-neocortical coordination. 
+For agents, storage locations include the context window for temporary memory and external memory bank for persistent information. 
+Regarding format, the brain employs persistent activity and synaptic connection weights for short-term retention and structured forms like cognitive maps for long-term memory, while agents utilize natural language text, graph structures preserving relational information, internalized parameters, and latent representation in high-dimensional vector spaces.
+
+This survey further analyzes memory management mechanisms in both the human brain and agents, covering the complete closed-loop lifecycle of memory extraction, updating, retrieval, and utilization (\S\ref{sec:Management}). 
+In cognitive neuroscience, new information is encoded and gradually stabilized into durable representations through hippocampal-neocortical coordination. 
+When external cues trigger hippocampal replay, the information about past events carried by these representations is reinstated, and the retrieval process itself opens a plasticity window during which the underlying memory traces can be updated, strengthened, or weakened.
+In agents, raw information is distilled into structured records through flat, hierarchical, or generative paradigms, dynamically refreshed within trajectories while maintained across them. 
+These records are retrieved via similarity matching or multi-factor approaches, then incorporated into reasoning through contextual augmentation or parameter internalization.
+Then, we comprehensively outline various benchmarks for evaluating agent memory capabilities, categorizing them into semantic-oriented benchmarks that examine internal state maintenance and higher-order cognitive abilities, and episodic-oriented benchmarks that assess performance in vertical domains such as web search, tool use, and environmental interaction (\S\ref{sec:Benchmarks for Agent Memory}).
+Furthermore, we address the often-overlooked yet critical issue of memory security, providing a systematic investigation from both attack and defense perspectives (\S\ref{sec:Security}). 
+On the attack side, existing methods focus on extracting sensitive information, implanting backdoors through malicious data, or degrading agent judgment by introducing noise and conflicting signals. 
+On the defense side, countermeasures have been developed to purify retrieval sources, block harmful responses in real time, and safeguard sensitive data throughout the memory lifecycle.
+Finally, we propose future research directions with particular focus on two key areas (\S\ref{sec:Future}). 
+The first is multimodal memory systems capable of processing and integrating information across text, image, audio, video modalities. 
+The second is agent skills that enable memory sharing and transfer across heterogeneous agents, transforming domain expertise into composable, reusable, and portable modular resources.
+We hope this survey can facilitate cross-disciplinary research, offering newcomers an accessible introduction while providing seasoned researchers with insights.

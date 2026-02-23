@@ -1,3 +1,27 @@
+# Research References
+
+本目录是项目的“外部知识库”，存放所有相关的学术论文、技术综述、评估基准及具体技术方案。
+
+## 核心原则
+
+1. **原始数据与二次加工分离**：`surveys/` 及各类原始论文目录存放只读性质的原始资料。
+2. **第一性原理分类**：所有技术方案必须提炼为原子化笔记，并归入本目录下的技术分类系统。
+
+## 目录结构
+
+- **[surveys/](./surveys/)** — 综述与理论原件 (Surveys & Foundations)
+  - 存放领域全景综述（PDF、LaTeX 及对应全文翻译/摘录）。
+- **[direct-facing/](./direct-facing/)** — 直面问题的参数与隐状态方案
+  - 存放正面解决遗忘问题的模型与算法实现。
+- **[evasion/](./evasion/)** — 绕过问题的上下文与多智能体方案
+  - 存放工程上通过外部架构绕过遗忘问题的系统方案。
+- **[eval/](./eval/)** — 评估基准 (Evaluation)
+  - 存放评测模型持续学习、维持记忆能力的基准设计。
+- **[pending/](./pending/)** — 待处理资料
+  - 待后续精读分解的方案或论文。
+
+---
+
 # Technical Solutions Index
 
 按第一性原理与技术本质分类索引所有整理的具体技术方案（Methods）。
@@ -6,12 +30,12 @@
 
 ## Surveys (综述与理论)
 
-| 文档                                                                  | 来源               | 关注点                                         |
-| --------------------------------------------------------------------- | ------------------ | ---------------------------------------------- |
+| 文档                                                                     | 来源               | 关注点                                         |
+| ------------------------------------------------------------------------ | ------------------ | ---------------------------------------------- |
 | [survey-memory-age-of-agents](surveys/survey-memory-age-of-agents.md) | arXiv 2512.13564v2 | Agent Memory三维框架：Forms/Functions/Dynamics |
 | [survey-ai-memory-baijia](surveys/survey-ai-memory-baijia.md)         | 机器之心Pro W07    | 4W分类体系，三层AI Memory划分                  |
 | [survey-human-to-ai-memory](surveys/survey-human-to-ai-memory.md)     | 机器之心Pro W07    | 认知科学视角的记忆类比框架                     |
-| [survey-ai-meets-brain](surveys/survey-ai-meets-brain.md)             | 机器之心Pro W07    | 人脑与Agent Memory统一视角                     |
+| [AI Meets Brain](surveys/AI Meets Brain: Memory Systems from Cognitive Neuroscience to Autonomous Agents/)             | 机器之心Pro W07    | 人脑与Agent Memory统一视角                     |
 | [tutorial-cl-of-llm](surveys/tutorial-cl-of-llm.md)                   | 教程分享           | 纵向/水平 CL 教程及 Continual Alignment 介绍   |
 | [survey-cl-of-llm](surveys/survey-cl-of-llm.md)                       | 综述分享           | 区分 Vertical 和 Horizontal 的 CL 大模型综述   |
 
@@ -288,3 +312,8 @@
 | 文档                                                              | 状态               |
 | ----------------------------------------------------------------- | ------------------ |
 | [mit-beyond-context-limits](pending/mit-beyond-context-limits.md) | 仅提及，待阅读原文 |
+
+
+---
+
+_Back to [Root](../docs/zh_CN/CLAUDE.md)_

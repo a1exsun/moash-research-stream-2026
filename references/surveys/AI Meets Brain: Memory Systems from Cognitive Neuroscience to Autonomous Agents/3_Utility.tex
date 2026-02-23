@@ -1,0 +1,102 @@
+\section{Memory Utility}
+\label{sec:Utility}
+
+In cognitive neuroscience, memory constitutes the neural processes through which the brain encodes, stores, and retrieves information, enabling individuals to retain past experiences and leverage them to guide ongoing behavior and inform future decision-making~\cite{brain_intro_memories,brain_what_is_memory_2}.
+In LLM-driven agents, a fundamental tension exists between the inherent statelessness of models coupled with engineering constraints and the continuity required for complex, long-horizon tasks. 
+Consequently, memory transcends its role as a mere passive repository bridging historical interactions and instead serves as a pivotal active component within the cognitive architecture of agents.
+Concretely, the incorporation of memory fundamentally extends agent capabilities through three paradigms: 
+(1) It mitigates the context window burden by utilizing structured information management to bypass the computational costs and attentional degradation inherent in long-context reasoning (\S\ref{ssec:Breaking Context Window Constraints}). 
+(2) It facilitates deep personalization by supporting both immediate conversational coherence and the construction of enduring user profiles (\S\ref{ssec:Constructing Long-term Personalized Profiles}). 
+(3) It empowers reasoning enhancement and autonomous evolution by creating a feedback loop that synthesizes historical experience with reflection and planning modules (\S\ref{ssec:Driving Experience-based Reasoning}). 
+The following sections will rigorously examine these three functional utilities.
+
+\begin{figure*}[th]
+    \centering
+    \includegraphics[width=\linewidth]{figures/utility.pdf}
+    \caption{Overview of memory utility in LLM-driven agents. Memory extends agent capabilities by alleviating context window constraints, enabling long-term personalization, and driving experience-based reasoning through a feedback loop with reflection and planning.}
+    \label{fig:utility}
+\end{figure*}
+
+\subsection{Breaking Context Window Constraints}
+\label{ssec:Breaking Context Window Constraints}
+Despite the expanding context windows of modern LLMs, the quadratic computational complexity of attention mechanisms and the lost-in-the-middle phenomenon~\cite{method_lost_in_middle} remain significant physical bottlenecks in long-horizon interactions. 
+Consequently, the primary utility of memory lies in mapping infinite interaction streams into limited attention budgets, with the core paradigm shifting from passive linear truncation to dynamic context reconstruction. 
+Depending on the implementation mechanism, this process manifests primarily through the utilization of hierarchical structural designs for physical compression and virtualization indexing, as well as the internalization of memory management as intrinsic agent actions to achieve end-to-end autonomous optimization.
+Depending on the implementation mechanism, this process diverges into two primary directions: 
+(1) Heuristic context design (\S\ref{ssec:Heuristic Context Design}), which utilizes hierarchical structural designs for physical compression and virtualization indexing, 
+and (2) Autonomous memory optimization (\S\ref{ssec:Autonomous Memory Optimization}), which internalizes memory management as intrinsic agent actions to achieve end-to-end autonomous optimization, as shown in \autoref{fig:utility} (a).
+
+\subsubsection{Heuristic Context Design}
+\label{ssec:Heuristic Context Design}
+Approaches rooted in heuristic context design aim to preserve global threads while concealing local details by drawing upon organizational methods from operating systems or human cognition~\cite{method_psychogat, method_graphcogent, method_cosmir, method_comorag, method_webresearcher}. 
+\citet{method_memgpt} drew on operating system design principles to introduce virtual context management, utilizing paging mechanisms to bifurcate memory into immediate main context and archival external context. 
+By scheduling information between these tiers via system instructions, it maintains the illusion of infinite context within constrained windows. 
+To further enhance information density, \citet{method_readagent} mimicked human cognitive reading processes by proposing a gist memory mechanism, which paginates text and generates compressed gists as a global index, retrieving local raw text only when necessary. 
+In dynamic interaction scenarios, \citet{method_foldgrpo} introduced a task-structure-based folding strategy, defining a main thread and branches to delimit information scopes and prevent sub-task details from polluting the main context. 
+Complementarily, \citet{method_resum} addressed long-horizon search tasks with an iterative summarization mechanism, ensuring the preservation of critical navigation states during context compression.
+
+\subsubsection{Autonomous Memory Optimization}
+\label{ssec:Autonomous Memory Optimization}
+Transcending the limitations of fixed heuristics, the latest research trend focuses on autonomous memory optimization by elevating memory management to a learnable intrinsic capability.  
+\citet{method_supo,method_memsearcher} established the theoretical viability of this direction by demonstrating that summarization policies can be end-to-end optimized via reinforcement learning to maximize long-term rewards. 
+Building on this, \citet{method_memory_as_action} pioneered the integration of summarization and deletion into the action space, allowing models to learn active memory management akin to tool usage. 
+Further refining control granularity, \citet{method_agentfold} transformed context management into an explicit skill via a context folding mechanism. 
+By issuing directives to toggle between granular condensation for high-resolution details and deep consolidation for abstract merging, it enabled agents to actively restructure their history, explicitly deciding which spans to preserve or compress based on task relevance.
+This mechanism empowers agents to autonomously select compression granularity based on information salience, significantly reducing the loss of critical details in long-horizon web interactions and marking a complete transformation of memory mechanisms from passive storage to autonomous cognition.
+
+\subsection{Constructing Long-term Personalized Profiles}
+\label{ssec:Constructing Long-term Personalized Profiles}
+The pre-training paradigm of LLMs fundamentally characterizes them as generalized knowledge engines, relying on fixed parametric knowledge to handle broad, common-sense tasks. 
+However, this mechanism results in significant statelessness and homogeneity, leading to a one-size-fits-all interaction that fails to satisfy specific user preferences or meet the profound demand for personalized experiences in long-term interactions. 
+To bridge this gap, memory mechanisms serve as a critical non-parametric complement within the agent architecture. 
+Beyond the mere storage of historical interactions, their core utility lies in constructing a dynamically evolving cognitive model for the agent.
+Through memory, agents can transform fragmented interaction data into structured user profiles, thereby achieving deep adaptation to users across two dimensions: 
+(1) Profile construction (\S\ref{sssec:Profile Construction}) 
+and (2) Preference-aligned execution (\S\ref{sssec:Preference-aligned Execution}),
+as shown in \autoref{fig:utility} (b).
+
+\subsubsection{Profile Construction}
+\label{sssec:Profile Construction}
+In the dimension of cognitive understanding, memory mechanisms endow agents with the capability to distill core traits from complex interaction streams and construct increasingly refined user models~\cite{method_macrs, method_memocrs,method_carmem,method_data_efficient, method_caim, method_bridging_long_term_gap, method_persona_aware_framework, method_interpersonal_memory, method_imperfect, method_prime, method_enabling_personalized,method_memqa,summary_the_personalization}. 
+Works such as~\cite{method_generative_agents} have demonstrated that agents can act not merely as recorders but as reflectors, periodically reviewing memory streams to generate high-level insights and infer users' underlying motivations and personality traits.
+To enhance the precision of profiling, frameworks like~\cite{method_secom} and~\cite{method_rmm} optimized memory utilization, ensuring agents can precisely recall the most relevant user background and preferences based on the current conversational context.
+Building on this, \citet{method_memgpt,method_ld_agent} further reinforced structured profile maintenance by explicitly storing user attributes (e.g., name, profession) and bidirectional relationship states. 
+This ensures that the agent maintains a coherent cognition of “who the user is” and “how the relationship stands” throughout long-horizon interactions, thereby establishing a robust and anthropomorphic emotional bond.
+
+\subsubsection{Preference-aligned Execution}
+\label{sssec:Preference-aligned Execution}
+Building upon precise user profiles, the utility of memory mechanisms extends to the dimension of personalized decision-making, where historical experience guides concrete behavioral planning. 
+As agents evolve into web agents capable of executing tasks, memory serves as an experiential guide for acting according to user habits. 
+\citet{method_puma} demonstrated how memory banks act as a reference frame for implicit preferences, guiding agents to make decisions aligned with specific user habits during complex web task planning.
+Complementarily, \citet{method_personaagent} showed that such adaptation can occur purely at test time, utilizing retrieved interaction patterns to construct dynamic personas that guide generation without parameter updates. 
+In this paradigm, memory functions not merely as background knowledge but as a supervisory signal or dynamic constraint in the preference alignment process, enabling agents to predict and execute operations most aligned with user expectations, thereby elevating personalized services from mere verbal communication to the level of concrete task execution.
+
+\subsection{Driving Experience-based Reasoning}
+\label{ssec:Driving Experience-based Reasoning}
+In the default setting of LLMs, each task is an isolated attempt, often leading to inefficient cycles of repetitive trial-and-error in long-horizon planning. 
+The introduction of memory mechanisms bridges this cognitive gap, transforming the agent from a static solver into a continuous learner capable of drawing wisdom from history. 
+By retaining successful trajectories and lessons from failures, memory endows agents with experience-based reasoning. 
+Depending on the mode of intervention, this capability is realized through two primary paradigms: 
+(1) Strategic guidance (\S\ref{sssec:Strategic Guidance}) assists the model in making superior plan by retrieving relevant experiences, guidelines, or optimized strategies
+(2) Procedural solidification (\S\ref{sssec:Procedural Solidification}) solidifies high-frequency successful paths into workflows, code, or templates, enabling agents to bypass cumbersome planning processes and efficiently complete tasks by directly invoking procedural knowledge, as shown in \autoref{fig:utility} (c).
+
+\subsubsection{Strategic Guidance}
+\label{sssec:Strategic Guidance}
+The first paradigm focuses on utilizing memory to assist reasoning, guiding the model to generate correct actions by providing high-quality contextual references or internalized strategic intuition~\cite{method_proagent, method_aga, cog_memory_ex, method_shieldagent, method_moba, method_dynamic_cheatsheet, method_rap, method_principle, method_mapagent, method_coarse_to_fine}. 
+Early pioneering work \cite{method_reflexion} introduced textual reflection mechanisms, where agents convert failure experiences into linguistic constraints that serve a corrective function in subsequent reasoning. 
+Following this, \citet{method_synapse} utilized memory to retrieve similar historical trajectories as exemplars, directly prompting the model to mimic past successful steps. 
+As research advanced, this reference mechanism became more structured and dynamic. 
+For instance, \citet{method_crmweaver} assisted problem-solving in business scenarios by retrieving high-similarity guidelines
+If existing experience is insufficient, it employed a stronger model to generate new guidelines that are actively populated back into memory. 
+Recent studies further employ memory for deep policy optimization.
+\citet{method_tfgrpo} summarized sampled trajectory groups to extract advantageous experiences explaining why one trajectory succeeds while another fails, thereby guiding the optimal action selection during inference.
+\cite{method_early_experience} transformed experience into internalized intuition by contrasting expert and non-expert actions from early exploration and combining them with implicit world model predictions.
+
+\subsubsection{Procedural Solidification}
+\label{sssec:Procedural Solidification}
+The second paradigm focuses on procedural solidification, transforming successful reasoning processes into executable structures or skills to replace scratch-pad planning in subsequent tasks~\cite{method_os_copilot, method_skillweaver, method_archpilot}. 
+\citet{str_memory_voya} pioneered this potential by encapsulating successful code generated during exploration into a skill library, allowing agents to invoke functions directly rather than generating action sequences when facing similar sub-tasks. 
+\citet{method_cer} further developed the concept of skill abstraction through trajectory distillation, refining raw interactions into generalizable skills and environmental dynamics, which are replayed in context to enhance capabilities in new tasks. 
+For more complex task processes, \citet{cog_memory_agentworkflow} captured critical patterns from historical trajectories while filtering out extraneous details, distilling generalizable workflow graphs through either offline extraction or online induction to serve as structured scaffolds for guiding subsequent actions.
+To balance efficiency and safety, the recently proposed method~\cite{method_agentrr} designed a hierarchical experience abstraction mechanism that converts trajectories into multi-layer experiences, comprising high-level process knowledge and low-level executable action templates, while generating check functions for each layer. 
+During the replay phase, the agent adaptively selects the appropriate experience hierarchy and instantiates specific actions, which substantially reduces reasoning overhead while ensuring operational determinism and transferability through structured templates.

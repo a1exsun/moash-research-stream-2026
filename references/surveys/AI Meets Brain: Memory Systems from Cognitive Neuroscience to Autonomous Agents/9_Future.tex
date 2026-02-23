@@ -1,0 +1,54 @@
+\section{Future Discussion}
+\label{sec:Future}
+As the field of memory research continues to advance, our focus shifts toward the next frontier of exploration. 
+We explore promising research directions, particularly memory systems for multimodal agents (\S\ref{ssec:Multimodal Memory}) and agent skills that enable shared memory across agents (\S\ref{ssec:Agent Skills}).
+
+\subsection{Multimodal Memory}
+\label{ssec:Multimodal Memory}
+Real-world environments inherently provide information beyond textual signals, involving diverse modalities such as vision, audio, and depth~\cite{survey_ustc,survey_hit,method_mm_vismem,method_mm_videomem,method_mm_agentic,method_mm_context_as_memory,method_mm_streaming_video}. 
+Accordingly, agents deployed in complex settings typically perceive and interact with the environment through multimodal observations, with text being only one component. 
+This has motivated growing interest in multimodal memory, extending beyond traditional text-only agent memory paradigms~\cite{survey_cuhk,method_augustus}.
+
+Compared with pure text information, multimodal information is less well structured and contains more noise. 
+Directly storing raw multimodal information often leads to memory waste and performance degradation~\cite{survey_cuhk}. 
+DoraemonGPT~\cite{method_doraemongpt} and LifelongMemory~\cite{method_lifelongmemory} used expert models to transform raw multimodal information into structured and concise symbolic memories (e.g., timestamps, frame or clip-level captions~\cite{method_lavila}, object categories~\cite{method_ground_dino}). 
+And MovieChat~\cite{method_moviechat} and MA-LLM~\cite{method_ma_llm} instead employed feature-level consolidation and compression of raw multimodal representations, using techniques such as token merging~\cite{method_token_merging}and Q-Former~\cite{method_blip2}. 
+In addition, some works~\cite{method_jarvis_1,method_videoagent,method_m3agent,method_embodied_videoagent} simultaneously leveraged symbolic memories alongside their aligned multimodal content as evidence, resulting in a hybrid memory representation. 
+
+Existing agent systems demonstrate that incorporating multimodal memory consistently improves performance across a wide range of environments. 
+JARVIS-1~\cite{method_jarvis_1} enabled agents to perceive multimodal inputs and generate complex plans in interactive game environments like Minecraft.
+\citet{method_flash_vstream,method_ma_llm} addressed the challenges of long contexts caused by dense video frames through efficient compression and storage, thereby enhancing the understanding of long videos. 
+InternLM-XComposer2.5-OmniLive~\cite{method_internlm_xcomposer} and Video-SALMONN-S~\cite{method_video_salmonn_s} further integrated audio memory and visual memory to support online comprehension of audio–visual streams. 
+M3-Agent~\cite{method_m3agent} and EgoMem~\cite{method_egomem} constructed and continuously updated entity-centric episodic and semantic memories from multimodal dialogues, enabling strong lifelong personalization capabilities. 
+In application scenarios, \citet{method_appagentx,method_gui_agents} preserved the historical trajectories of GUI interaction states, allowing agents to identify repetitive operations and improve efficiency.
+
+Despite some progress in recent years, existing methods still have limitations in several important aspects. 
+Developing memory representations and operations that can seamlessly adapt to different modalities while ensuring semantic consistency and temporal alignment remains an unsolved problem. 
+Furthermore, semantic degradation due to compression or abstraction, as well as unresolved issues such as long-term temporal dependency modeling and computational efficiency, still hinder the scalability of systems. 
+Overcoming these challenges is crucial for building general-purpose intelligent agent systems capable of operating in complex multimodal environments.
+
+\subsection{Agent Skills}
+\label{ssec:Agent Skills}
+
+Contemporary AI agents generally exhibit well-designed workflows, resulting in robust general-purpose capabilities. 
+When augmented with memory systems, these capabilities are further enhanced, underscoring the pivotal role of memory in amplifying agent performance. 
+However, as agents become increasingly sophisticated, there is a growing imperative to equip them with domain-specific expertise to accommodate a broader spectrum of application scenarios. 
+For instance, \citet{method_nirvana} introduced a memory trigger mechanism that enables self-supervised adaptation during the test time, incorporating fast parameters to address tasks across diverse specialized domains. 
+Nevertheless, this approach is relatively complex, and the learned parameters remain confined to the individual agent, precluding the transfer of specialized knowledge between agents. 
+This phenomenon is akin to reinventing the wheel in isolation, squandering a wealth of invaluable experiential knowledge. 
+Consequently, there is an urgent need for memory strategies that offer greater composability, scalability, and portability.
+
+Agent skills~\cite{method_agentskills} is a modular capability extension paradigm proposed by Anthropic, with its core principle being the encapsulation of instruction sets, executable scripts, and associated resources into structured directory units. 
+AI agents can dynamically discover, load, and execute these skill modules at runtime to accomplish domain-specific tasks. 
+This mechanism abstracts domain expertise into composable and reusable modular resources, significantly expanding the capability boundaries of agents and enabling general-purpose agents to transform on demand into specialized agents tailored for vertical application scenarios. 
+These modules function analogously to equipment in video games, where players equip corresponding gear when they seek particular attributes, and crucially, such equipment can be freely shared and transferred among players. 
+Currently, several research~\cite{method_text2mem,method_agentkb,method_memengine} efforts have begun to explore this direction. 
+For instance, \citet{method_text2mem} proposed a unified memory operation language aimed at providing standardized memory management interfaces for memory operating systems, thereby enabling portability and interoperability of memory representations. 
+\citet{method_agentkb} constructed a unified knowledge management platform that allows intelligent agents across heterogeneous model architectures to access and manipulate shared memory resources. 
+Although these works demonstrate the potential of this research direction, the field remains in its nascent stage, with numerous critical challenges awaiting further investigation:
+(1) Unified Storage and Representation of Multimodal Information: Current memory systems are predominantly designed for textual modalities. 
+How to construct a unified storage framework that supports multimodal information encompassing text, images, audio, and video, while simultaneously designing cross-modal retrieval and reasoning mechanisms, remains an open research question,
+and (2) Cross-agent skill transfer and adaptation mechanisms: Different agent architectures, such as those built upon distinct foundation models, exhibit variations in capability characteristics and interface specifications. 
+Designing a universal skill description language along with an adaptation layer that enables skill modules to be seamlessly transferred and reused across heterogeneous agents constitutes a critical challenge for realizing a genuine skill-sharing ecosystem.
+
+

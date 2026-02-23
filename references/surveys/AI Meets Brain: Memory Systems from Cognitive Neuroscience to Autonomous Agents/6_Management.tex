@@ -1,0 +1,225 @@
+\section{Memory Management}
+\label{sec:Management}
+
+Memory management represents a dynamic regulatory framework governing the entire information lifecycle, ensuring that intelligent systems can adaptively filter noise and preserve pivotal patterns within changing environments. 
+Whether through the consolidation of labile traces in biological brains or the regulation of extensive storage in artificial systems, effective management mechanisms are central to transforming raw perception into structured knowledge. 
+This chapter provides a cross-disciplinary analysis of memory management, beginning with its neuroscientific foundations (\S\ref{ssec:Memory Management in Cognitive Neuroscience}) and proceeding to the systematic implementation of information-flow management in autonomous agents (\S\ref{ssec:Memory Management in Agents}).
+
+
+\subsection{Memory Management in Cognitive Neuroscience}
+\label{ssec:Memory Management in Cognitive Neuroscience}
+
+\begin{figure*}[th]
+    \centering
+    \includegraphics[width=\linewidth]{figures/management_neural.pdf}
+    \caption{Overview of memory management in cognitive neuroscience. The framework illustrates a dynamic cycle of information processing including memory formation, updating, and retrieval, through which long-term memory supports flexible adaptation to the external environment.}
+    \label{fig:management_neural}
+\end{figure*}
+
+
+In the field of cognitive neuroscience, long-term memory exhibits more sophisticated dynamic processes over extended temporal scales compared to short-term memory which involves only the transient maintenance of information within a scale of seconds. 
+Memory management discussed in this section focuses primarily on long-term memory. 
+As illustrated in \autoref{fig:management_neural}, management processes, which consist of formation, updating, and retrieval, interact reciprocally with storage mechanisms to constitute a dynamic cycle of information processing. 
+As the functional inception of this cycle, memory formation transcends rudimentary encoding as it is intrinsically intertwined with consolidation and integration, which collectively shape the content and structural architecture of stored information. 
+Conversely, updating and retrieval act as functional drivers that re-initiate the formative cycle by triggering the re-encoding and reconsolidation of existing memory traces. 
+This section will first delineate how memory representations are instantiated and gradually stabilized through the lens of memory formation (\S\ref{sssec：Memory Formation}), and then address the regulatory roles of updating (\S\ref{sssec:Memory Updating}) and retrieval (\S\ref{sssec:Memory Retrieval}) within the memory system.
+
+
+\subsubsection{Memory Formation}
+\label{sssec：Memory Formation}
+Long-term memories do not emerge as fully instantiated entities at the moment of experience.
+Instead, they develop through a sequential process of encoding, consolidation, and integration. 
+Initially, ongoing events are encoded as specific neural activity patterns across hippocampal and neocortical circuits. 
+Subsequently, during periods of wakeful rest and sleep, the hippocampus replays these events to reactivate the brain's initial activity patterns, thereby stabilizing memory representations through system consolidation. 
+Over time, memories undergo temporal compression and cross-episodic linkage, ultimately being stored in the neocortex as abstract structural representations.
+In the following, we sequentially delineate these three processing stages that underpin memory formation.
+
+\textbf{Encoding.}
+During an experience, neuronal ensembles in the hippocampus and neocortex with elevated intrinsic excitability are selectively recruited, transforming event information into memory codes through excitatory population firing. 
+In this process, the hippocampus binds the distributed sensory features within the neocortex into a unified representation and selectively modulates its interaction with sensory cortices to amplify representations of high future utility~\cite{brain_memory_manage1,brain_memory_manage2}. 
+This encoding phase engages long-term synaptic plasticity.
+Following the Hebb principle~\cite{brain_memory_manage3,brain_memory_manage4}, synchronized pre- and post-synaptic activity strengthens connections (LTP), whereas desynchronized activity leads to weakening (LTD). 
+Such persistent modifications in synaptic efficacy underpin the biological foundation of long-term memory storage.
+
+\textbf{Consolidation.}
+System consolidation is essential for newly formed memories to achieve long-term stability and retrieval precision~\cite{brain_memory_manage5}. 
+During offline states such as wakeful rest or sleep, the hippocampus spontaneously replays recent experiences~\cite{brain_memory_manage6,brain_memory_manage7}, triggering the reactivation of neural patterns within hippocampal-neocortical circuits~\cite{brain_memory_manage8, brain_memory_manage9}.
+Throughout these replay events, transient bursts of hippocampal activity synchronize with rhythmic neocortical activity, enabling the two regions to “fire together” with high temporal precision~\cite{brain_memory_manage10}. 
+Within this inter-regional dialogue, the hippocampus projects discrete recent experiences to the neocortex, utilizing existing neocortical knowledge structures as a scaffold to reorganize and align this new information for integration into the long-term storage framework~\cite{brain_memory_manage11,brain_memory_manage12}.
+
+\textbf{Integration.}
+Integration serves as the culmination of the memory formation cycle, functioning to assimilate consolidated, discrete memories into the brain’s broader knowledge structures. 
+This process is intrinsically linked to encoding and consolidation; while encoding captures information and consolidation preserves it, integration transforms these stabilized traces into organized, relational knowledge.
+Facilitated by hippocampal replay, memories undergo qualitative transformations where event sequences are temporally compressed~\cite{brain_memory_manage13} and overlapping elements across distinct episodes are cross-linked~\cite{brain_memory_manage14}. 
+During this stage, the hippocampus and the medial prefrontal cortex (mPFC) collaborate to identify and construct logical associations between events. 
+Integrated information is then gradually redistributed to specific neocortical regions, supporting more enduring and abstract forms of storage.
+
+
+\subsubsection{Memory Updating}
+\label{sssec:Memory Updating}
+Once memory representations are established and stabilized through the aforementioned formation processes, they do not remain static but are subject to continuous dynamic evolution. 
+To adapt to an ever-changing environment, humans must constantly refine and update their stored knowledge. 
+During this process, individuals generate expectations about upcoming events based on prior memories. 
+When a discrepancy arises between reality and these expectations, the resulting prediction error serves as a pivotal signal that triggers memory updating, driving the brain to reshape previously stabilized representations~\cite{brain_memory_update1}.
+
+Memory updating transcends the mere replacement of outdated information, instead relying on sophisticated mechanisms such as differentiation and integration. 
+On one hand, updating can be achieved through differentiation, where the hippocampus generates distinct and mutually repulsive neural representations for highly similar events. 
+This process preserves mnemonic specificity while mitigating interference between old and new information~\cite{brain_memory_update2,brain_memory_manage25}. 
+On the other hand, updating frequently involves integrative mechanisms. According to the integrative updating theory proposed by \cite{brain_memory_update3}, individuals organize new information, retrieved prior memories, and the associated prediction errors into a unified, structured representation. 
+A salient example is the correction of misinformation, where individuals can successfully retain the factual truth while simultaneously maintaining a memory of the original fake news and its discrepancy from the facts~\cite{brain_memory_update4}.
+
+
+
+\subsubsection{Memory Retrieval}
+\label{sssec:Memory Retrieval}
+Although memories are encoded and stored through the aforementioned processes, they typically persist in a latent state, influencing current cognitive processing and behavior only upon successful retrieval. 
+This process is generally initiated by external cues or contextual information. For instance, encountering a stimulus that resembles a constituent element of a past experience, or re-entering a familiar environment, acts as a functional trigger. 
+Through the mechanism of hippocampal pattern completion, these partial cues facilitate the reconstruction and retrieval of the entire episodic representation~\cite{brain_memory_manage16}.
+
+\textbf{The Neural Basis of Retrieval.}
+At the neural level, retrieval involves rapid and temporally compressed replay of episodic content stored within the hippocampus. 
+The sequence of these replays is flexible and adapts to specific tasks. For instance, following the acquisition of sequential items, tasks requiring the recall of items preceding a cue trigger reverse hippocampal replay, whereas tasks focusing on subsequent items elicit forward replay matching the original experience~\cite{brain_memory_manage17}. 
+As replay unfolds, the associative representations between events and their contexts are typically reconstructed in the hippocampus prior to the emergence of specific details. 
+Subsequently, hippocampal burst activity guides the neocortical reinstatement of fine-grained episodic content~\cite{brain_memory_manage18,brain_memory_manage19}, even including representations at the sensory feature level~\cite{brain_memory_manage20}. 
+As mnemonic content expands temporally, various neocortical regions are sequentially engaged to support the dynamic reconstruction of naturalistic autobiographical memories~\cite{brain_memory_manage21}.
+
+\textbf{The Impact of Retrieval on Existing Memory Storage.}
+Retrieval is not a passive readout of stored information but a transformative process that modifies memory traces. According to reconsolidation theory, the retrieval of a memory renders the trace labile within a temporary window, allowing it to be strengthened, weakened, or updated during subsequent restabilization. 
+Repeated retrieval of an event causes the co-encoded contextual background to be repeatedly reactivated, which progressively evolves into a potent retrieval cue, thereby enhancing future retrieval success and memory durability~\cite{brain_memory_manage22}. 
+This facilitation extends to other related memories sharing the same context through similar reactivation processes~\cite{brain_memory_manage23}. 
+Furthermore, retrieval-related enhancement promotes the integration of new and old information. 
+When these memories are interrelated, retrieval practice of new information induces the alternating reinstatement of both encoding contexts~\cite{brain_memory_manage24}. 
+During this process, elevated activity in the mPFC facilitates the differentiation and integration of these representations, leading to more robust storage of new memories and a biasing or partial overwriting of older traces~\cite{brain_memory_manage25}. 
+However, this plasticity can have maladaptive consequences, such as the reconsolidation of erroneous details introduced during retrieval, a process governed by the functional balance between conflict-processing networks and sensory integration systems~\cite{brain_memory_manage26}.
+
+\textbf{The Facilitative Effect of Retrieval on Subsequent Encoding.}
+Beyond modifying existing traces, retrieval serves as a functional primer that enhances the encoding efficiency of subsequent new information. 
+Mechanistically, retrieval engages frontal-hippocampal networks to optimize the brain's cognitive state, thereby directly improving the re-encoding and integration of incoming information~\cite{brain_memory_manage22,brain_memory_manage27}. 
+Additionally, retrieval practice activates reward- and prediction-related regions, including the ventral striatum, insula, and midbrain. 
+This activity shifts the brain into a predictive learning mode, heightening both motivation and sensitivity to novel experiences~\cite{brain_memory_manage28}. 
+Notably, this facilitative effect is a double-edged sword: while it improves general learning efficiency, it may also expedite the internalization of misleading information if the subsequent input is inaccurate.
+
+
+
+\subsection{Memory Management in Agents}
+\label{ssec:Memory Management in Agents}
+
+\begin{figure*}[th]
+    \centering
+    \includegraphics[width=\linewidth]{figures/management_agent.pdf}
+    \caption{Overview of memory management in agents. The framework forms a closed-loop pipeline consisting of memory extraction, updating, retrieval, and utilization, enabling persistent experience regulation and long-range reasoning.}
+    \label{fig:management_agent}
+\end{figure*}
+
+Unlike standard large language models that perform transient processing within restricted windows, agents implement persistent regulation of experiences via explicit management mechanisms. 
+As illustrated in \autoref{fig:management_agent}, memory management serves as a cognitive operating system that establishes a closed-loop pipeline comprising extraction, updating, retrieval, and utilization. 
+Within this cycle, extraction transforms interaction streams into structured records, while updating and retrieval ensure knowledge validity and precise localization, respectively. 
+Utilization subsequently leverages these experiences for decision support. This framework enables agents to evolve from stateless responders into continuous learners capable of long-range reasoning. 
+In the following, we sequentially examine these four critical stages.
+
+
+\subsubsection{Memory Extraction}
+\label{ssec:Memory Extraction in Agents}
+
+Echoing the encoding and integration mechanisms in cognitive neuroscience, memory extraction in agents serves as the initial phase of memory management. 
+Its core lies in distilling compact and meaningful content from the overwhelming and redundant information stream to construct usable memory representations. 
+Based on the levels of information abstraction and processing methodologies, existing memory extraction methods can be broadly categorized into three paradigms, namely flat extraction, hierarchical extraction, and generative extraction.
+
+\textbf{Flat Extraction.}
+Flat extraction constitutes the foundational paradigm of memory construction, characterized by the direct recording of raw information into storage or the application of lightweight preprocessing such as summarization and segmentation~\cite{method_tremu, method_maq}. 
+For instance, \citet{method_memgpt} drew inspiration from hierarchical storage concepts in operating systems, utilizing recall storage and archive storage to preserve complete dialogue histories and segmented document fragments, respectively, thereby constructing a virtual infinite context. 
+Similarly, \citet{method_talm} deposited historical task execution data directly into long-term memory, facilitating cross-task experience reuse and reasoning enhancement through retrieval mechanisms. 
+However, the direct storage of raw trajectories often incurs the risk of error accumulation. 
+To address this, \citet{method_mga} proposed a decoupled extraction strategy that distilled continuous interaction streams into independent memory units across multiple dimensions, effectively blocking the propagation of local reasoning errors from the original long chains to subsequent decisions, while \citet{method_reasoningbank} focused on extracting high-level reasoning patterns from interaction trajectories to establish a scalable reasoning memory, thereby driving agent self-evolution.
+
+\textbf{Hierarchical Extraction.}
+Hierarchical extraction organizes fragmented information into ordered structures through multi-granular abstraction mechanisms, aiming to emulate the human cognitive ability to flexibly switch between macro-contexts and micro-details~\cite{method_beyond_retrieval, method_r2d2, method_smurfs, method_bridging_intuitive, method_nemori, method_agentfly}. 
+In long-document processing, \citet{method_readagent, method_cam} employed recursive compression strategies, extracting high-level gist memory or constructing hierarchical semantic networks from raw text blocks, while indexing low-level details only when necessary to balance understanding depth and breadth. 
+In interaction and dialogue scenarios, the extraction process typically adheres to the distinction between episodic and semantic memory. 
+\citet{method_personaagent, method_memweaver, method_learning_from_supervision, method_mem_alpha} encoded interaction streams into specific episodic memory (e.g., timestamped events, graph-based behavioral trajectories) and abstracted semantic memory (e.g., user profiles, factual knowledge, or core summaries). 
+This dual-coding mechanism was similarly applied by \citet{method_repository_memory} to extract code repository commit histories versus functional summaries. 
+For complex task planning, extraction focuses on decoupling high-level planning from low-level execution. 
+\citet{method_h2r, method_legomem} stored macroscopic instructions from planners separately from specific actions of executors, while \citet{method_muse} distinguished between high-level strategies (e.g., dilemma solutions) and low-level procedures (e.g., subtask standard operating procedures (SOPs)) to facilitate fine-grained knowledge transfer. 
+Unlike methods relying on static predefined structures, \citet{method_a_mem} drew on the zettelkasten method, constructing a self-organizing dynamic hierarchical memory through active context linking and knowledge evolution.
+
+\textbf{Generative Extraction.}
+Diverging from the aforementioned paradigms that rely on external storage or hierarchical organization, generative extraction aims to dynamically reconstruct context during the reasoning process, thereby mitigating the computational overhead and attention dilution associated with excessive context length. 
+\citet{method_mem1} enhanced context integration capabilities through training, compressing historical memory and reasoning into a shared representation space prior to each interaction, thereby facilitating continuous interaction without reliance on external memory modules. 
+In contrast, \citet{method_resum} employed a specialized summarization model as a tool, which was actively triggered to condense think-action-observation trajectories whenever context usage approached a predefined threshold. 
+Distinguishing itself from linear summarization approaches, \citet{method_foldgrpo} introduced branch and return operators, allowing agents to construct isolated sub-contexts for specific subtasks and inject only concise post-execution summaries back into the main context. 
+Furthermore, \citet{method_agentfold} advanced this by training granular condensation and deep consolidation capabilities. 
+This enables not only the extraction of summary chunks from individual interactions but also the recursive merging of multiple chunks into a single abstract representation when specific sequences become irrelevant (e.g., upon subtask completion or path abandonment), significantly compressing context size while preserving critical reasoning outcomes.
+
+
+\subsubsection{Memory Updating}
+\label{ssec:Memory Updating in Agents}
+While memory extraction (\S\ref{ssec:Memory Extraction in Agents}) converts raw interaction streams into structured records, the resultant memory is not a static repository but a dynamic process of reconstruction. 
+Echoing the mechanisms of reconsolidation and memory updating in cognitive neuroscience, memory updating in agents aims to balance the intake of newly extracted information with the elimination of the obsolete, ensuring system plasticity and efficiency. 
+This process unfolds across two distinct layers: 
+(1) Inside-Trial Updating, which focuses on the dynamic refreshing of the immediate context window (working memory) during a specific task execution, and 
+(2) Cross-Trial Updating, which governs the lifecycle management of long-term archives (external memory) to persist knowledge across different episodes.
+
+\textbf{Inside-Trial Updating.}
+Inside-trial updating primarily operates on working memory to address the challenges of information decay and overload within limited context windows, ensuring high information density throughout continuous interactions~\cite{method_atomagents, method_taskgen, method_memllm, method_select_read_write, method_simpledoc, method_kg_agent}. 
+Mimicking human selective attention, \citet{dy_memory_mem} proposed a filter-based update strategy that reshaped the context stream by real-time assessment, retaining only critical details while discarding irrelevant noise. 
+In dynamic scenarios involving external tools, the focus of update shifts to just-in-time resource management.
+\citet{method_memtool} introduced an “Add-Delete-Manage” strategy to dynamically remove irrelevant tools and retrieve new ones within a fixed window, balancing memory overhead with task success rates. 
+Furthermore, \citet{method_sfr_deepresearch} treated memory updating as a cognitive operation actively invoked by the model, triggering summarization actions at specific junctures to compress lengthy historical trajectories into a refreshed, compact context. 
+For more methodologies leveraging generative mechanisms for context updates, please refer to Generative Extraction (\S\ref{ssec:Memory Extraction in Agents}).
+
+\textbf{Cross-Trial Updating.}
+Cross-trial updating fundamentally represents the dynamic iteration and quality maintenance of the agent's external knowledge base, aiming to resolve the conflict between infinite knowledge expansion and limited storage capacity over time~\cite{method_user_behavior_simulation, method_ram, method_ever_evolving, method_rememberme_refineme}. 
+To maintain the freshness and high value of knowledge, fundamental update strategies primarily focus on establishing mechanisms for selective retention and forgetting.
+\citet{method_think_in_memory} eliminated redundant ideas through consistency maintenance within buckets.
+\citet{cog_memory_sage,method_moom} introduced biologically inspired forgetting mechanisms, utilizing the Ebbinghaus forgetting curve~\cite{ebbinghaus} and competition-inhibition theory~\cite{theory_competition_inhibition}, respectively, to automatically phase out low-value or obsolete knowledge fragments, while \citet{dy_memory_light} ensured efficient knowledge retrieval through lightweight pruning strategies. 
+Building on this to achieve deeper knowledge integration and structuring, \cite{method_tfgrpo} leverages semantic understanding to perform fine-grained refinement of the experience pool, removing the coarse and extracting the essential. 
+\citet{method_flex} employed a dedicated updater agent to semantically merge new knowledge with existing entries and insert them into the correct hierarchical positions, ensuring the orderly expansion of the knowledge system. 
+Furthermore, to enable knowledge update strategies to adapt to complex and changing task environments, \citet{method_memory_r1, method_mem_alpha} moved beyond static rules, utilizing reinforcement learning to train agents to autonomously explore optimal policies for knowledge retention and forgetting. 
+Ultimately, \citet{method_open_ended} posited that knowledge updates should not be limited to passive adaptation but should be driven by autonomous goals set by the agent, thereby achieving true self-evolution through the active reconstruction of knowledge.
+
+
+\subsubsection{Memory Retrieval}
+\label{ssec:Memory Retrieval in Agents}
+Once the knowledge base has been refined and maintained through Memory Updating (\S\ref{ssec:Memory Updating in Agents}), Memory Retrieval serves as the critical bridge between these retained experiences and dynamic decision-making.
+Crucially, while retrieval in cognitive neuroscience is an active, transformative process that often involves reconsolidation to reshape the memory trace, retrieval in current agent architectures is primarily implemented as a selective activation mechanism. 
+Driven by current contextual cues, this process selectively activates relevant information from the storage. 
+By filtering irrelevant noise, it enables agents to leverage the vast knowledge repositories within limited context windows.
+Based on the dimensions of retrieval strategies, existing methods are categorized into two paradigms: 
+(1) Similarity-based Retrieval, which prioritizes semantic matching, 
+and (2) Multi-factor Retrieval, which integrates multidimensional metrics such as recency and importance.
+
+\textbf{Similarity-based Retrieval.}
+Similarity-based retrieval represents the dominant paradigm in current agent memory retrieval, grounded in the core hypothesis that memory relevance is equivalent to semantic similarity.
+Such approach typically utilizes encoders to map current queries into high-dimensional vectors, calculating cosine similarity within the vector space to recall the top-$k$ nearest fragments from storage. 
+This retrieval-augmented generation (RAG)~\cite{ex_memory_rag} paradigm is widely adopted in question-answering and conversational agents, providing models with an efficient pathway for non-parametric knowledge access~\cite{method_licomemory}. 
+However, while similarity-based retrieval excels in handling declarative knowledge, \citet{benchmark_procedural_memory} pointed out that direct embedding matching often fails to capture the structured operational logic inherent in procedural memory, thereby hindering agents from transferring complex behavioral strategies based solely on surface-level similarity.
+
+\textbf{Multi-factor Retrieval.}
+Multi-factor retrieval transcends the singular semantic dimension, moving beyond reliance solely on content similarity to determine memory prioritization based on factors such as recency, importance, structural efficiency, and expected rewards~\cite{method_understands_better, method_human_inspired, method_rsp, method_learn_to_memorize,method_assomem}. 
+As a foundational work in this paradigm, \citet{method_generative_agents} established a composite scoring system synthesizing recency, importance, and relevance to simulate human memory decay and salience. 
+Building on this, \citet{method_rcr_router} addressed resource-constrained multi-agent scenarios by introducing a token-budget-aware routing strategy, which calculates importance scores based on role relevance and task stage priority to distribute high-value information within limited windows. 
+To resolve efficiency bottlenecks and fragmentation in global scanning, retrieval mechanisms have evolved towards structured approaches. 
+For instance, \citet{method_h_mem} constructed a semantic hierarchical structure using top-down indexing to bypass expensive global computation, while \citet{method_multi_granularity} linked multi-granular representations via association graphs to dynamically retrieve memory at the most appropriate granularity. 
+Furthermore, to align retrieval directly with decision quality, \citet{method_m_mdp} moved beyond superficial similarity matching by encoding historical outcomes into expected Q-value rewards, utilizing online soft Q-learning to retrieve exemplars that maximize expected utility.
+Ultimately, \cite{method_memocue} elevated the retrieval paradigm from passive information querying to active cognitive guidance, unlocking latent memory through strategy-driven prompting, marking a shift in agent retrieval mechanisms towards functioning as human-like cognitive guides.
+
+
+\subsubsection{Memory Application}
+\label{ssec:Memory Application in Agents}
+Following \textit{Memory Retrieval} (\S\ref{ssec:Memory Retrieval in Agents}), the focus of memory management shifts to its application in guiding behavior. 
+Mirroring the brain's dual mechanisms of employing short-term memory for immediate reasoning and consolidating long-term experiences into cortical connections, memory application in agents falls into two primary paradigms, namely contextual augmentation and parameter internalization.
+
+\textbf{Contextual Augmentation.}
+Standard Retrieval-Augmented Generation paradigms typically concatenate retrieved text statically into prompts, treating memory as a passive reference~\cite{ex_memory_rag}.
+However, effective utilization of agentic memory goes beyond simple concatenation~\cite{method_ufo, method_agentlite, method_hisim, method_magic, methoed_prep}.
+It serves as a core mechanism for synthesizing fragmented information in long-document understanding, maintaining consistent personas for long-term personalization, and actively reusing past experiences for reasoning. 
+To realize such dynamic cognitive capabilities, \citet{method_gam} introduced Just-in-Time compilation, building task-optimized contexts from lossless storage to resolve detail loss in long documents. 
+Furthermore, \citet{method_mem1} compressed historical interactions into a shared representation space acting as a cognitive scratchpad, enabling deep synergy between memory and reasoning, while \citet{method_worldmm} extended this mechanism to multimodal video streams, adaptively integrating memories across temporal scales for long-horizon planning.
+
+\textbf{Parameter Internalization.}
+Drawing from lifelong learning~\cite{survey_lifelong_learning}, this paradigm consolidates explicit memory into implicit parameters. 
+Initiating with retrieval efficiency, \citet{method_memverse} proposed distilling long-term memories into lightweight models for low-cost experience recall. 
+This transformation of memory-to-model is subsequently leveraged to drive agent self-evolution.
+For instance, \citet{method_digirl} utilized raw interaction history for reinforcement learning in open environments, while \citet{method_webrl} used perplexity to filter appropriate difficulty trajectories for more efficient adaptive training. 
+Scaling from individual evolution to collective intelligence, \citet{method_seagent} employed a hierarchical distillation strategy to transfer trajectory experiences from multiple specialists to a generalist model. 
+Finally, to move beyond mere imitation, \citet{method_early_experience} exploited the value of early exploration memories, using contrastive training between non-expert and expert paths to help models understand the causal superiority of expert decisions.

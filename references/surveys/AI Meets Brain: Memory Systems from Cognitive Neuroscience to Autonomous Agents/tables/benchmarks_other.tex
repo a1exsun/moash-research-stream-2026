@@ -1,0 +1,24 @@
+\begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
+    \begin{tabular}{ccccccccc}
+    \toprule % 建议头部使用 \toprule
+    \multirow{2}{*}[-1ex]{\textbf{Benchmarks}} & \multicolumn{2}{c}{\textbf{Links}} & \multicolumn{3}{c}{\textbf{Attribute}} & \multicolumn{3}{c}{\textbf{Task}} \\ 
+    \cmidrule(lr){2-3} \cmidrule(lr){4-6} \cmidrule(lr){7-9} 
+     & \textbf{HomePage} & \textbf{GitHub} & \textbf{Fid.} & \textbf{Dyn.} & \textbf{Gen.} & \textbf{Task Type} & \textbf{Data Type} & \textbf{Data Quantity} \\ \midrule 
+    WebChoreArena \cite{bench_web_webchorearena} & \href{https://arxiv.org/abs/2506.01952}{\faHome\ HomePage}  & \href{https://github.com/WebChoreArena/WebChoreArena}{\faGithub\ GitHub} & \scalebox{1.5}{\cmark} & \scalebox{1.5}{\xmark}& \scalebox{1.5}{\xmark} & Massive memory + Calculation & Text + Image  & 532 \\
+    ScienceWorld \cite{bench_env_scienceworld} & \href{https://sciworld.apps.allenai.org/}{\faHome\ HomePage}  & \href{https://github.com/allenai/ScienceWorld}{\faGithub\ GitHub} & \scalebox{1.5}{\cmark} & \scalebox{1.5}{\cmark}& \scalebox{1.5}{\cmark} & Scientific Experiments and Reasoning & Text & 7,200  \\
+    WebArena \cite{bench_web_arena} & \href{https://webarena.dev/}{\faHome\ HomePage}  & \href{https://github.com/web-arena-x/webarena}{\faGithub\ GitHub} & \scalebox{1.5}{\cmark} & \scalebox{1.5}{\cmark}& \scalebox{1.5}{\xmark} & Simulating human web operations & Text + Image & 812  \\
+    WebShop \cite{bench_web_webshop} & \href{https://webshop-pnlp.github.io/}{\faHome\ HomePage}  & \href{https://github.com/princeton-nlp/WebShop}{\faGithub\ GitHub} & \scalebox{1.5}{\cmark} & \scalebox{1.5}{\cmark}& \scalebox{1.5}{\xmark} & E-commerce shopping navigation and decision  & Text + Image & 12,087 \\
+    ToolBench \cite{bench_tool_toolbench} & \href{https://arxiv.org/abs/2307.16789}{\faHome\ HomePage}  & \href{https://github.com/OpenBMB/ToolBench}{\faGithub\ GitHub} & \scalebox{1.5}{\cmark} & \scalebox{1.5}{\cmark}& \scalebox{1.5}{\xmark} & Tool use and Api call & Text & 142,950  \\
+    GAIA \cite{bench_tool_gaia} & \href{https://arxiv.org/abs/2311.12983}{\faHome\ HomePage}  & \href{https://huggingface.co/gaia-benchmark}{\faGithub\ GitHub} & \scalebox{1.5}{\cmark} & \scalebox{1.5}{\cmark}& \scalebox{1.5}{\xmark} & General AI Assistants & Text + Image + Spreadsheet  & 466 \\
+    BabyAI \cite{bench_env_babyai} & \href{https://arxiv.org/abs/1810.08272}{\faHome\ HomePage}  & \href{https://github.com/mila-iqia/babyai}{\faGithub\ GitHub} & \scalebox{1.5}{\cmark} & \scalebox{1.5}{\cmark}& \scalebox{1.5}{\xmark} & Language Learning  & Text + symbolic observation & 100,000+ \\
+    xBench-DS \cite{bench_tool_xbenchds} & \href{https://xbench.org/}{\faHome\ HomePage}  & \href{https://github.com/xbench-ai/xbench-evals}{\faGithub\ GitHub} & \scalebox{1.5}{\cmark} & \scalebox{1.5}{\xmark}& \scalebox{1.5}{\xmark} & Business Recruiting and Marketing  & Text  & 100 \\
+    AgentOccam \cite{bench_env_AgentOccam} & \href{https://arxiv.org/abs/2410.13825}{\faHome\ HomePage}  & \href{https://github.com/amazon-science/AgentOccam?tab=readme-ov-file}{\faGithub\ GitHub} & \scalebox{1.5}{\cmark} & \scalebox{1.5}{\cmark}& \scalebox{1.5}{\xmark} & General Web Interaction  & Text + Image & 812 \\
+    StuLife \cite{bench_env_stulife} & \href{https://ecnu-icalk.github.io/ELL-StuLife/}{\faHome\ HomePage}  & \href{https://github.com/ECNU-ICALK/ELL-StuLife}{\faGithub\ GitHub} & \scalebox{1.5}{\cmark} & \scalebox{1.5}{\cmark}& \scalebox{1.5}{\cmark} & Shared Memory-Aware & Text & 1,284 \\
+    Mind2Web \cite{bench_env_mind2web} & \href{https://osu-nlp-group.github.io/Mind2Web/}{\faHome\ HomePage}  & \href{https://github.com/OSU-NLP-Group/Mind2Web}{\faGithub\ GitHub} & \scalebox{1.5}{\cmark} & \scalebox{1.5}{\cmark}& \scalebox{1.5}{\xmark} & General Web Agent Task & Text + Image + File & 2,350  \\
+    PersonalWAB \cite{bench_web_personalwab} & \href{https://hongrucai.github.io/PersonalWAB/}{\faHome\ HomePage}  & \href{https://github.com/HongruCai/PersonalWAB}{\faGithub\ GitHub} & \scalebox{1.5}{\cmark} & \scalebox{1.5}{\cmark}& \scalebox{1.5}{\xmark} & Personalized Web Agent Tasks  & Text + Web API  & 9,000  \\ \bottomrule % 建议底部使用 \bottomrule
+    \end{tabular}%
+}
+\caption{Representative benchmarks for evaluating episodic-oriented agent memory. The attributes are defined as follows: \textbf{Fid. (Fidelity)} measures the agent's ability to accurately retrieve and reproduce information from long contexts. \textbf{Dyn. (Dynamics)} assesses whether the memory system supports dynamic updates (e.g., modification, deletion) and cross-session reasoning. \textbf{Gen. (Generalization)} evaluates whether the stored memory can evolve into strategies that adapt the agent's behavior in novel environments.}
+\end{table}

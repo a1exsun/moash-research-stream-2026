@@ -1,0 +1,132 @@
+\section{Memory Categorization}
+\label{sec:Categorization}
+
+The concept of memory originally stems from cognitive neuroscience, where it is broadly defined as the cognitive process by which the brain stores and manage information, including experiences, facts, and skills, allowing this information to be accessed and used after the original stimulus or event is no longer present, and is typically classified into short- and long-term memory (\S\ref{sssec:Memory Classification in Cognitive Neuroscience}).
+
+In LLM-driven agents, memory includes system's persistent past interaction information, which encompasses both perceptual records of environmental states and the history of interactions with the environment~\cite{method_react,method_reflexion}. 
+Through the memory, agents can not only maintain contextual coherence and information consistency across multi-turn dialogues, but also extract valuable patterns and knowledge from historical experiences, thereby demonstrating adaptive learning and continuous improvement capabilities in task execution.
+Traditionally, memory in agent domains is divided into short- and long-term memory~\cite{survey_beihang,method_agentre,method_scaling_large,method_from,method_cmat,method_copper}. 
+
+However, with the enhancement of agent systems' capabilities and generalizability, the traditional dichotomy is inadequate for describing the diversity and hierarchy of memory in current agent systems. 
+Building on the pioneering work by~\citet{survey_gaoling,survey_agentmemory}, we propose a more granular taxonomy that systematically categorizes agent memory along two fundamental dimensions (\S\ref{ssec:Memory Classification in Agents}). 
+To more intuitively express our categorization, we have visualized specific examples in \autoref{fig:classification}.
+
+\begin{figure*}[th]
+    \centering
+    \includegraphics[width=\linewidth]{figures/classification.pdf}
+    \caption{Overview of the memory classification in agents. (a) Nature-based taxonomy that categorizes memory based on the type of information being encoded. (b) Scope-based classification that distinguishes memory according to how broadly it can be applied.}
+    \label{fig:classification}
+\end{figure*}
+
+
+\subsection{Memory Classification in Cognitive Neuroscience}
+\label{sssec:Memory Classification in Cognitive Neuroscience}
+In cognitive neuroscience, memory can be divided into two main forms based on distinct temporal windows of information processing, thereby subserving their respective cognitive functions: 
+(1) Short‑term memory (\S\ref{sssec:Short-term Memory}) enables the rapid, temporary maintenance and processing of incoming information, allowing an individual to respond promptly to the external environment
+and (2) Long‑term memory (\S\ref{sssec:Long-term Memory}) is responsible for storing deeply processed experiences, which in turn can shape present cognition and guide future behavior.
+In addition, we further discuss the distinction and interactions between them (\S\ref{sssec:Distinction and Interaction}).
+
+\subsubsection{Short-term Memory}
+\label{sssec:Short-term Memory}
+Short-term memory refers to an information processing system that temporarily maintains and manipulates a small amount of information, with a time window generally not exceeding 15$\sim$20 seconds. 
+Examples of using this memory include holding a phone number in mind for a few moments or keeping track of the last few sentences your conversation partner has just said. 
+Due to limited cognitive resources~\cite{brain_class2}, the capacity of short-term memory is constrained such that it can only maintain 4$\sim$9 pieces of information simultaneously.
+This ability varies substantially across individuals and influences human cognitive functions and behavioral performance, such as learning ability~\cite{brain_class_new_STM-1,brain_class_new_STM-2}, emotion regulation~\cite{brain_class_new_STM-3}, and creativity~\cite{brain_class_new_STM-4}.
+When the amount of maintained information approaches this capacity limit, the brain dynamically reallocates its memory resources, prioritizing information that is more important or task-relevant and suppressing lower-priority representations~\cite{brain_class3}. 
+If information is not transferred into long-term storage before this short-term time window closes, it is likely to be forgotten.
+
+
+\subsubsection{Long-term Memory}
+\label{sssec:Long-term Memory}
+Long-term memory supports the storage and management of large amounts of information over extended periods. 
+Its temporal span ranges from several minutes to many years or even decades. 
+Examples include recalling a frequently used phone number or drawing on accumulated knowledge to offer original insights in a conversation.
+Long-term memory provides an archive of past events and learned knowledge, which can be directly retrieved during interaction with the environment or used as a background context that shapes perception and decision-making~\cite{brain_class_LTM_intro_as_contex}. 
+Unlike short-term memory, long-term memory is not characterized by a strict capacity limit. 
+Instead, one of its key properties lies in the dynamic nature of information processing, including how it interacts with short-term memory (\S\ref{sssec:Distinction and Interaction}), how stored representations transform over time (\S\ref{sssec:Long-term Memory Storage}), and how information is managed (\S\ref{ssec:Memory Management in Cognitive Neuroscience}).
+
+Based on the content of memories, long-term memory can be further divided into episodic memory and semantic memory. 
+These two memories represent distinct types of information, with episodic memory encoding specific events and semantic memory storing abstract knowledge. 
+This distinction is closely linked to significant differences in their underlying neural mechanisms. 
+Furthermore, these memory systems do not operate in isolation within the brain but rather interact with each other and transform into one another over time.
+
+\textbf{Episodic memory} 
+refers to memory for specific events that an individual has personally experienced. 
+Such memories typically include not only detailed information about the event itself, but also its temporal and spatial context—that is, when and where it occurred. 
+Recalling an episodic memory is usually accompanied by a subjective sense of “mental time travel”~\cite{brain_class_LTM_e_s_mental_travel}, in which individuals feel as though they are transported back to the original situation, re-experiencing the surrounding environment and event details. 
+For instance, remembering the drive to a newly opened cinema last week and the moment when someone made loud noises during the screening relies heavily on intact episodic memory.
+
+\textbf{Semantic memory} 
+refers to memory for learned factual knowledge, concepts, and rules. 
+These memories are not tied to a specific time and place of acquisition, and their retrieval is not accompanied by a vivid re-experiencing of a particular past episode. 
+For instance, knowing where a familiar building is located, or recalling the personality traits of an actor who played a given character in a film, depends primarily on semantic memory.
+
+\subsubsection{Distinction and Interaction} 
+\label{sssec:Distinction and Interaction}
+From a functional perspective, short-term memory and long-term memory differ in the systems and timescales that support them. 
+Short-term memory operates on newly encountered information and maintains it over seconds~\cite{brain_class1}, enabling rapid responses to the environment~\cite{brain_class_STM_LTM_distinct_1}. 
+Long-term memory acts on information that has already been encoded, relying on slower learning processes to retain experiences and knowledge for years or even decades~\cite{brain_class_STM_LTM_distinct_2}.
+More interesting than their differences are the interactions between them. 
+In the classic multi-store model~\cite{brain_class_multi_memory_model}, short-term memory is described as a temporary “workspace” through which external information passes before entering long-term storage. 
+Information that continues to be relevant is encoded into long-term memory, and when it is needed later, it is retrieved back into short-term memory to support ongoing processing. At the neural level, the two also interact. 
+On the one hand, items that elicit stronger activity during short-term memory maintenance are more likely to be consolidated into durable long-term memories~\cite{brain_class4}, and higher working-memory load is associated with stronger hippocampal–neocortical coupling~\cite{brain_class5}. 
+On the other hand, long-term memory provides priors and learned representational structures that shape how new information is encoded and maintained in short-term memory~\cite{brain_class6,brain_class7}. 
+Thus, short-term and long-term memory are not isolated subsystems but mutually influential components of a memory network.
+
+The differences between episodic and semantic memory extend beyond their content and subjective sense to their neural mechanism. 
+For example, the individuals with hippocampal damage often have great difficulty reconstructing the specific scenes of past events, yet their semantic memory is relatively preserved~\cite{brain_class8}. 
+Evidence from imaging studies indicates that these two types of memory rely on partially dissociable brain systems. 
+Episodic memory depends strongly on the hippocampus, whereas semantic memory is supported primarily by the neocortex~\cite{brain_class_LTM_e_s_diff_1,brain_class_LTM_e_s_diff_2,brain_class_LTM_e_s_diff_3}.
+In real life, episodic memory and semantic memory are usually intertwined and interact with each other. 
+Repeatedly experiencing similar events allows the brain to extract stable structures and rules~\cite{brain_LTM_storage15}, gradually forming more abstract semantic knowledge and achieving a transformation from episodic to semantic form. 
+In turn, when we recall a specific episode, existing semantic knowledge can serve as a prior context to guide its reconstruction, filling gaps and sometimes distorting details~\cite{brain_class9}. 
+Thus, although episodic and semantic memory are conceptually distinct, they continuously influence and reshape each other over time.
+
+
+\subsection{Memory Classification in Agents}
+\label{ssec:Memory Classification in Agents}
+A coherent taxonomy of memory is essential for systematically understanding and designing memory mechanisms in agent systems. 
+In this section, we introduce two complementary classification frameworks: 
+(1) Nature-based taxonomy (\S\ref{sssec:Nature-Based classification}) that distinguishes memory according to the type of information it encodes, 
+and (2) Scope-based taxonomy (\S\ref{sssec:Scope-based classification}) that characterizes memory by its boundaries of applicability across tasks or sessions.
+
+\subsubsection{Nature-based Classification}
+\label{sssec:Nature-Based classification}
+We observe that the nature of memory in agent systems closely parallels that found in cognitive neuroscience research. 
+This nature is fundamentally determined by the type of information memory provides to subsequent reasoning processes.
+Building upon this correspondence, we adopt the classical taxonomy from cognitive neuroscience and categorize agent memory into two types, namely episodic and semantic memory, as shown in \autoref{fig:classification} (a).
+
+\textbf{Episodic memory} refers to the agent's experiential memory that stores sequential interaction trajectories and contextual information. 
+This memory type is tool-augmented, maintaining detailed logs of what tasks were attempted, which tools were invoked, and what solution pathways were followed. 
+It captures the procedural history of the agent's problem-solving processes, including intermediate steps, tool call sequences, and decision branches, enabling it to learn from past execution patterns and optimize future task completion strategies.
+
+\textbf{Semantic memory} functions as the agent's knowledge repository without tool dependencies. 
+It stores factual information, concepts, rules, and general knowledge~\cite{method_reasoningbank}. 
+This memory type provides the foundational understanding necessary for reasoning and inference, containing declarative knowledge such as definitions, relationships between concepts, and general principles that guide the agent's behavior.
+
+\textbf{Distinction.} The fundamental distinction between the two lies in the nature of the content they aim to convey. 
+Episodic memory aims to convey experiential information, recording procedural knowledge of “how to do things”, while semantic memory aims to convey conceptual information, storing declarative knowledge of “what things are”.
+More importantly, this classification not only reflects the organizational structure of memory content but also reveals that agents need to coordinate two complementary cognitive strategies, experience- and knowledge-driven, when handling complex tasks.
+
+
+\subsubsection{Scope-based Classification}
+\label{sssec:Scope-based classification}
+Memory in agents can be classified based on its scope of applicability. 
+This scope-based classification determines whether memory is confined to a single task or session, or extends across multiple tasks or sessions.
+Accordingly, it can be divided into two categories, namely inside-trail and cross-trail memory, as shown in \autoref{fig:classification} (b).
+
+\textbf{Inside-trail memory} 
+is confined to a single trajectory execution. 
+It stores context-specific information such as intermediate steps, temporary variables, and task-relevant observations that are only valid within the current episode~\cite{method_mem1,method_deepagent,method_agentfold,method_foldgrpo,method_resum,method_memory_as_action,dy_memory_mem,method_memtool}. 
+For instance, \citet{method_mem1} proposed maintaining temporary state information for each reasoning step during an agent's problem-solving process, which was then propagated to subsequent steps.
+This memory is typically cleared or reset when the episode ends.
+
+\textbf{Cross-trail memory} 
+persists across multiple trajectory executions, enabling agents to accumulate knowledge and experience over time. 
+It stores generalizable patterns, learned strategies, and reusable knowledge that can inform future episodes~\cite{method_reasoningbank,method_legomem,method_playbook,method_evolver}. 
+This persistent memory facilitates continual learning and adaptation.
+For example, \citet{method_reasoningbank} proposed long-term storage of historical successful and failed trajectories in a memory repository, where each memory entry was organized into a structured format consisting of title, description, and content, serving as an experiential knowledge base for subsequent task processing.
+
+\textbf{Distinction.} The key distinction lies in temporal range and reusability. 
+Inside-trail memory is transient and trajectory-specific, providing essential working space for complex reasoning and multi-step problem solving within episodes. 
+In contrast, cross-trail memory is persistent and generalizable, transforming historical trajectories into strategic knowledge to help agents systematically improve their performance over time.

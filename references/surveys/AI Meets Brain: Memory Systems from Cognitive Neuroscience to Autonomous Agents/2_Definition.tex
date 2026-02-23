@@ -1,0 +1,121 @@
+\section{Memory Definitions}
+\label{sec:Definitions}
+
+To establish a comprehensive understanding of memory, our exposition systematically progresses from cognitive neuroscience to autonomous agents. 
+We commence by examining the foundational principles of memory from a cognitive neuroscience perspective (\S\ref{ssec:Memory from the Perspective of Cognitive Neuroscience}). 
+Subsequently, we transition to the perspective of Large Language Models (LLMs), elucidating the manifestations of memory within this paradigm (\S\ref{ssec:Memory from the Perspective of Large Language Models}). 
+Finally, we explore the perspective of agents, investigating how memory operates as a dynamic cognitive mechanism within agent architectures to facilitate sophisticated task planning and environmental interaction (\S\ref{ssec:Memory from the Perspective of Agents}).
+
+\subsection{Memory from the Perspective of Cognitive Neuroscience}
+\label{ssec:Memory from the Perspective of Cognitive Neuroscience}
+Memory is fundamentally a process through which the brain processes and manages information.
+This process can be roughly divided into two stages. 
+In the first stage, as the brain acquires new concepts or encounters novel events, it rapidly forms specific neural representations while simultaneously encoding and integrating this information.
+In the second stage, the brain operates on stored representations, either consolidating them over time or retrieving them in response to similar future situations.
+Moreover, memory can exert lasting effects on cognition and behavior, influencing how people think and act both in the present~\cite{brain_what_is_memory_2} and in the future~\cite{brain_what_is_memory_1}. 
+In this sense, memory serves as a cognitive bridge connecting past experiences with future decisions, rather than merely storing and mechanically replaying information~\cite{what_memory_is}. 
+It is precisely this capacity that makes memory the most fundamental and core capability of intelligence. 
+
+\subsection{Memory from the Perspective of Large Language Models}
+\label{ssec:Memory from the Perspective of Large Language Models}
+In LLMs, memory does not exist as a monolithic storage construct, but rather manifests in multiple distinct forms spanning different storage substrates. 
+These diverse memory modalities are essential for overcoming the natively stateless~\cite{survey_stateless} generative nature of such models and enabling complex logical reasoning and multi-turn dialogue.
+Contemporary research categorizes LLMs memory into three core types: 
+(1) Parametric memory (\S\ref{sssec:Parametric Memory}), which is internalized within model parameters,
+(2) Working memory (\S\ref{sssec:Working Memory}), which relies on the context window for real-time interaction,
+and (3) Explicit external memory (\S\ref{sssec:Explicit External Memory}), which is realized through external storage and retrieval mechanisms. 
+
+\subsubsection{Parametric Memory}
+\label{sssec:Parametric Memory}
+Parameter memory refers to parameterized knowledge encoded within the weights of a neural network~\cite{para_memory_train}. 
+This constitutes the most fundamental form of memory in LLMs and serves as the cornerstone of their intelligent capabilities. 
+From a cognitive neuroscience perspective, this modality corresponds to abstract long-term memory representations in human cognition.
+Such memories are acquired during the pre-training and post-training phases, wherein patterns extracted from vast corpus are compressed and internalized into high-dimensional parametric representations. 
+This process endows the model with robust generalization capabilities and establishes the foundation for logical reasoning.
+However, its static and encapsulated storage characteristics impose significant limitations.
+First, there exists an inherent temporal lag, as parameters become frozen upon completion of training, rendering the model incapable of perceiving information beyond the knowledge cutoff point~\cite{para_memory_para}.
+Second, there is the phenomenon of factual hallucination~\cite{survey_huanglei}, as knowledge is encoded as probabilistic distributions rather than precise factual records, rendering the model susceptible to generating erroneous information in the absence of definitive evidence~\cite{para_memory_hall}.
+Furthermore, its high training computational costs and potential catastrophic forgetting risk make it difficult to support the demands of highly reliable dynamic applications~\cite{para_memory_zero}.
+
+\subsubsection{Working Memory}
+\label{sssec:Working Memory}
+In the cognitive architecture of LLMs, working memory is primarily based on the context window as its core carrier, performing the function of interaction and reasoning in real-time~\cite{working_memory_window}. 
+Mechanistically, it refers to the length of the input sequence that the model can simultaneously perceive and process in a single reasoning iteration, directly determining the information throughput of the model's context learning. 
+At the underlying implementation level, working memory mainly manifests as key-value caches of attention~\cite{working_memory_trans}. 
+As the number of dialog turns increases, the model needs to maintain and update this cache state in real time to maintain contextual coherence. 
+However, this mechanism faces significant physical limitations. 
+Firstly, there is a contradiction between capacity and cost. 
+Although state-of-the-art models like Gemini 3~\cite{working_memory_gemini} and GPT-5~\cite{working_memory_chat} have successfully extended context windows to the scale of millions of tokens, the high computational cost of processing such long sequences still limits their practicality as the primary carriers for storing massive amounts of information.
+Furthermore, the context window exhibits a positional bias similar to human memory. 
+The model tends to pay more attention to the first and last pieces of information in the window~\cite{working_memory_gate,working_memory_sink} and is more likely to ignore the middle sections~\cite{working_memory_middle}.
+Therefore, the context window is more suitable for handling high-frequency, immediate task instructions than serving as a long-term, stable knowledge base.
+
+\subsubsection{Explicit External Memory}
+\label{sssec:Explicit External Memory}
+To transcend the static boundaries of parametric storage and physical constraints of context windows, explicit extended memory introduces a storage medium independent of neural network weights, thereby establishing a non-parametric knowledge augmentation mechanism~\cite{method_hipporag}. 
+The core design philosophy underlying this approach is the decoupling of computation and storage, wherein LLMs function as a central processing unit responsible for inference and scheduling, while vast quantities of knowledge are offloaded to external repositories. 
+This architectural shift fundamentally transforms the model from a passive knowledge repository into an active knowledge orchestrator~\cite{ex_memory_km}. 
+The prevailing paradigm in this domain is retrieval-augmented generation (RAG)~\cite{ex_memory_rag}, which leverages vector databases~\cite{ex_memory_vd} or knowledge graphs~\cite{ex_memory_kg} to store extensive volumes of information.
+Such system effectively mitigate the hallucination phenomena and temporal lag inherent in parametric memory, enabling real-time knowledge updates and precise provenance tracking at minimal computational cost, thereby substantially enhancing the reliability of system outputs.
+However, inference latency induced by retrieval operations, noise interference from irrelevant contexts, and the complexity of large-scale index construction under this paradigm remain critical bottlenecks constraining its performance~\cite{ex_memory_survey}.
+
+\subsection{Memory from the Perspective of Agents}
+\label{ssec:Memory from the Perspective of Agents}
+From the perspective of autonomous agents, the conceptualization of memory transcends the mere data storage paradigm characteristic of LLM-centric approaches, evolving into a sophisticated dynamic cognitive architecture~\cite{agent_memory_adv}.
+Specifically, the LLM-centric perspective primarily alleviates the physical constraints imposed by parameters and context windows, while the agentic perspective shifts focus toward leveraging neuroscientific principles to construct external memory systems.
+These systems augment the foundational reasoning capabilities of agents by endowing them with capacities for identity persistence, experiential accumulation, and long-horizon planning~\cite{agent_memory_see}.
+To elucidate these complex operational principles, this section diverges from the storage medium discourse in LLMs perspective, opting instead to deconstruct memory along three core dimensions: 
+(1) Structured storage (\S\ref{sssec:Structured Storage}), 
+(2) Dynamic scheduling mechanisms (\S\ref{sssec:Dynamic Scheduling Mechanisms}), 
+and Cognitive processing and evolution (\S\ref{sssec:Cognitive Processing and Evolution}).
+Additionally, to provide a clearer introduction and prevent confusion, we compare the differences between agent memory and RAG (\S\ref{sssec:The Difference Between Agent Memory and RAG}).
+
+\subsubsection{Structured Storage}
+\label{sssec:Structured Storage}
+Structured storage serves as the physical carrier of agent memory systems, aiming to transform unstructured natural language interactions into an efficient format that is easy for machines to index and understand~\cite{str_memory_os}. 
+Unlike the implicit parameter distribution within LLMs, agent external memory typically employs heterogeneous hybrid storage strategies. 
+It mainly exhibits three typical paradigms, namely temporal flow, hierarchical flow, and symbolic libraries. 
+Specifically, \citet{str_memory_gen} constructed a linear memory that encapsulates interaction records as discrete memory objects, including timestamps, text descriptions, and importance scores.
+To overcome the physical boundaries of long-range contexts, \citet{str_memory_walk} adopted a hierarchical memory tree structure, constructing a pyramid-like index through upward recursive summarization, enabling agents to locate key information through navigation rather than complete processing. 
+In procedural memory, \citet{str_memory_voya} introduced a skill library similar to key-value pairs, using semantic vectors of skill descriptions as keys and executable code as values, successfully transforming unstructured exploration experiences into structured, reusable, and composable executable programs. 
+These structural evolutions demonstrate that the memory system has transformed from a static data container into a dynamic cognitive center supporting complex decision-making.
+
+
+
+\subsubsection{Dynamic Scheduling Mechanisms}
+\label{sssec:Dynamic Scheduling Mechanisms}
+While structured storage addresses the challenge of information persistence, dynamic scheduling mechanisms tackle the tension between limited attention resources and vast memory stores~\cite{dy_memory_mul}.
+Given that LLMs are constrained by the physical limitation of context windows, agents cannot input all historical information into the model at once.
+Therefore, it is necessary to establish an efficient memory retrieval and update mechanism to achieve accurate routing and dynamic adaptation of information flow in the memory system. 
+Regarding the screening of redundancy mechanisms, \citet{dy_memory_light} effectively balanced memory coverage and maintenance latency through lightweight compression of sensory memory and updated strategy during dormancy. 
+This hierarchical idea is also very important in multi-agent collaboration.
+\citet{dy_memory_co} proposed a time-sharing scheduling strategy that borrows from the process scheduling of the operating system and designed a memory model based on time slicing and multi-level caching, which significantly improved the resource allocation efficiency in a concurrent environment. 
+In addition to static hierarchical and scheduling mechanisms, learning-based adaptive mechanisms are introduced to cope with more dynamic and complex environmental changes. 
+The improved IGP-PPO algorithm~\cite{dy_memory_dy} was employed to enable adaptive decision-making by dynamically selecting the optimal scheduling rule based on real-time states.
+\citet{dy_memory_mem} applied reinforcement learning to long-range text stream management, training agents to autonomously retain and overwrite memory, thereby achieving information extrapolation with linear complexity.
+Based on this, the memory scheduling mechanism further evolved towards autonomous evolution.
+\citet{dy_memory_amem} proposed a dynamic mechanism that can autonomously trigger Link Generation and memory evolution, and by updating the context description of existing memory and reconstructing semantic associations in real time during interaction, it achieved the self-growth of knowledge networks without predefined rules. 
+The dynamic scheduling mechanism successfully broke through physical bottlenecks through more refined resource management and adaptive strategies, and ensured the efficient flow of interactive information.
+
+\subsubsection{Cognitive Processing and Evolution}
+\label{sssec:Cognitive Processing and Evolution}
+Dynamic scheduling of memory solves the problem of precise location, but it is difficult to summarize and generalize from fragmented raw record to general experience~\cite{cog_memory_agentworkflow}. 
+To achieve this, agents have to deeply reflecting on, abstracting, and reorganizing memory content, thereby driving continuous updates to their behavioral strategies~\cite{cog_memory_survey}.
+First, the most direct form of cognitive processing is feedback-based self-reflection, where the agent optimizes future decisions by evaluating its historical behavior. 
+Reflexion~\cite{cog_memory_relfex} abandoned the traditional model weight update and instead guided the agents to reflect on itself and store it in contextual memory through a language feedback mechanism, achieving the flexibility of learning from mistakes. 
+On this basis, ExpeL~\cite{cog_memory_ex} enhanced the abstraction of learning by extracting insights from training tasks and directly calling these processed insights rather than raw data during reasoning. ReasoningBank~\cite{method_reasoningbank} further deepened the dimension of reflection by combining memory-aware test-time scaling to synthesize high-quality reasoning strategies from successful and unsuccessful experiences, thereby achieving the self-evolution of reasoning ability. 
+Secondly, to overcome the limitations of specific tasks, the agents also need to have the ability to generalize general knowledge from specific experiences. SEDM~\cite{cog_memory_sedm} introduced cross-domain knowledge diffusion, which used lightweight abstraction operators to convert knowledge of a specific domain into a general form that removed the domain-specific details. 
+This mechanism ensures that the source knowledge domain can be safely transferred and reused in new scenario tasks, thereby achieving efficient cross-domain memory sharing. 
+Finally, to address the memory pool expansion and noise accumulation caused by long-term interactions, agents must possess forgetting and dynamic evolution mechanisms similar to those in humans to maintain the efficiency and relevance of memory.
+SAGE~\cite{cog_memory_sage} borrowed from the Ebbinghaus forgetting curve~\cite{ebbinghaus} and significantly optimized processing capabilities in contextual scenarios by adaptively eliminating low-value information to reduce cognitive load. 
+Regarding storage, MEMORYLLM~\cite{cog_memory_memllm} explored a scheme to construct a fixed-size memory pool in the latent space, balancing new and old knowledge while suppressing disordered memory growth, thus ensuring the continued effectiveness of the memory.
+
+\subsubsection{The Difference Between Agent Memory and RAG}
+\label{sssec:The Difference Between Agent Memory and RAG}
+In terms of management mechanisms, there exists a significant similarity between agent memory mechanisms and retrieval-augmented generation (RAG) techniques, as both enable language models to transcend the limitations of their inherent parametric knowledge through extracting and utilizing external information resources~\cite{survey_rag,survey_agentmemory}. 
+Although they converge in technical implementation, they exhibit distinct differences in usage scenarios. 
+Traditional RAG approaches focus on connecting LLMs to static knowledge resources (e.g., Wikipedia, document library) for instant querying~\cite{ex_memory_rag,method_mainrag,method_mmed_rag}. 
+The design objective of such systems lies in ensuring that generated content is grounded in reliable factual information, reducing the probability of models producing erroneous information or hallucinations~\cite{survey_huanglei,survey_hal_1}. 
+However, they generally lack the capability to record and accumulate historical interaction information~\cite{method_memgpt}. 
+In contrast, agent memory systems are embedded within the dynamic interaction process between agents and their environments, continuously incorporating information generated from agent operations and environmental feedback into memory containers~\cite{method_reasoningbank}.
+

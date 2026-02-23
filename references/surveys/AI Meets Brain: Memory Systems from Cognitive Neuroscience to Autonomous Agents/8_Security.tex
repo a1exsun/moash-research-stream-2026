@@ -1,0 +1,80 @@
+\section{Security of Agent Memory}
+\label{sec:Security}
+As LLM-driven agents are increasingly deployed for long-term task planning and tool utilization, memory has emerged as a critical component for maintaining state continuity. 
+However, this centrality also renders memory a significant attack surface, with its associated security vulnerabilities becoming ever more pronounced~\cite{secu_memory_the,secu_memory_con}.
+Specifically, we systematically examined the attack paradigm targeting agent memory (\S\ref{ssec:Attack of Agent Memory}) and summarized its defense paradigm (\S\ref{ssec:Defense of Agent Memory}).
+
+
+\subsection{Attack of Agent Memory}
+\label{ssec:Attack of Agent Memory}
+In agent systems, memory is not only a repository of historical interaction information but also a crucial source of context for decision support. 
+While this paradigm can improve the efficiency and capabilities of agents, it also exposes many security vulnerabilities. 
+Attackers can exploit memory as a channel for privacy leaks or as a vehicle for implanting malicious logic. 
+Specifically, we categorize attacks targeting agent memory into two types: 
+(1) Extraction-based attack (\S\ref{sssec:Extraction-based Attack}) aims to steal user data from the memory,
+and (2) Poisoning-based attack (\S\ref{sssec:Poisoning-based Attack}) compromises agent decision-making by injecting toxic information into the memory bank.
+
+\subsubsection{Extraction-based Attack} 
+\label{sssec:Extraction-based Attack}
+In the category of data-targeted attacks, extraction-based attacks focus on stealing sensitive information from external data sources~\cite{method_unveiling}. 
+As retrieval mechanisms evolve from basic models to complex agents, related research explains the gradual expansion of this attack surface. 
+First, research on retrieval models such as KNN-LM~\cite{secu_extra_knn} showed that while introducing external private databases improves utility, it significantly increases the risk of privacy leakage, making it a weakness for attackers to reconstruct the original text. 
+Based on this, for RAG, \citet{secu_extra_rag} proposed a composite structured prompting attack method consisting of information and command, aiming to quantify the privacy leakage risk of external retrieval databases in RAG, and at the same time verify the mitigation effect of the RAG mechanism on the privacy leakage of training data of large models. 
+Further, for agents with complex workflows, \citet{secu_extra_unv} proposed a black-box attack framework containing specific attack prompts with locators and aligners, and combined with an LLM-based automated prompt generation strategy, successfully induced the agent to output sensitive user interaction history stored in its long-term memory.
+
+\subsubsection{Poisoning-based Attack} 
+\label{sssec:Poisoning-based Attack}
+Poisoning-based attacks refer to attacks that do not require modification of model parameters but instead inject adversarially optimized malicious data into an external memory~\cite{method_prompt_infection}. 
+These attacks exploit retrieval mechanism preferences and the model's excessive reliance on context to covertly implant backdoors or hijack the agent's decision-making logic. 
+Therefore, we categorize poisoning-based attacks into highly concealed backdoor attacks.
+Backdoor attacks constitute advanced persistent threats in agent memory security, with their effectiveness hinging on stealthy infiltration and precise triggering mechanisms.
+Attackers inject malicious content into the retrieval database through carefully optimized triggers, enabling the agent to function normally under routine operations while executing adversarial behaviors only when specific trigger conditions are met.
+\citet{secu_poi_poi,secu_poi_tro} both showed that attackers can precisely control the agent’s decision-making by manipulating the retrieval weights of memory in the vector space, and make retrieval the driver of backdoors.
+In addition, attackers exploit the vulnerability of instruction following rather than relying on complex model training to disguise malicious instructions as ordinary memories and store them in the memory bank. 
+\citet{secu_poi_not} demonstrated the vulnerability of the Agent when reading untrusted external data. 
+\citet{secu_poi_in} confirmed that attackers do not need backend privileges, but can induce the agent to generate and store malicious memories and malicious records by simply querying and observing the agent's interactions with the agent, and can hijack subsequent query processing by using Bridging steps.
+Furthermore, some poisoning attacks target the agent's cognition. The goal of such attacks is to inject large amounts of noise, conflicting information, or social biases into the memory bank, causing the agent's judgment to deteriorate or its values to become distorted \cite{secu_cog_cyb}.
+\citet{secu_cog_dru} vividly described the process of making a recommendation agent ineffective, like a person who is drunk, by injecting confusing data. 
+\citet{secu_cog_ra} established hidden associations by poisoning, causing the agent to continuously output discriminatory content.
+
+
+\subsection{Defense of Agent Memory}
+\label{ssec:Defense of Agent Memory}
+Faced with diverse attack threats to agent memory, a series of defense mechanisms have been proposed in recent years, aiming to enhance the security and robustness of Agent Memory from different dimensions. 
+Existing defense mechanisms have established a multi-layered defense system around three key stages, namely retrieval, response, and storage.
+Specifically, the defense mechanism is divided into three key lines of defense: 
+(1) Retrieval-based defense (\S\ref{sssec:Retrieval-based Defense}) responsible for purifying the system at its source,
+(2) Response-based defense (\S\ref{sssec:Response-based Defense}) responsible for immediate blocking,
+and (3) Privacy-based defense (\S\ref{sssec:Privacy-based Defense}) for protecting the complex underlying data. 
+These three mechanisms complement each other, forming a closed-loop security defense system.
+
+\subsubsection{Retrieval-based Defense}
+\label{sssec:Retrieval-based Defense}
+Retrieval-based defenses constitute the first line of defense for agent memory security. 
+Their core logic lies in purifying the memory at its source, proactively blocking the propagation path of poisoning attacks before the retrieved external knowledge is integrated into explicit memory~\cite{secu_retri_sur}. 
+Attackers manipulate retrieval results by implanting data poisoning into the memory. 
+Defense strategies at this stage focus on textual features and contextual consistency, implementing anomaly detection and robust filtering. 
+\citet{secu_retri_mem} proposed a consensus-based validation mechanism that constructs parallel reasoning paths by retrieving multiple related memories and uses the structural consensus formed by benign memories to identify and eliminate poisoning records that cause deviations in reasoning logic. 
+\citet{secu_retri_gua} proposed a dual-agent defense framework to detect and repair poisoned chain-of-thought steps in code generation, ensuring the purity of retrieved context.
+
+\subsubsection{Response-based Defense}
+\label{sssec:Response-based Defense}
+Response-based defense acts as the agent's cognitive immune system, ensuring that the agent will block the implementation of malicious logic even if the agent ingests memory fragments containing malicious instructions~\cite{secu_res_tiny}. 
+For instance, \citet{secu_res_auto} proposed a multi-agent defense framework, which coordinates the input agent to make security presets, the Defense Agency to conduct collaborative review, and finally the output agent to decide how to output the final response to the user's request. 
+\citet{secu_res_lats} integrated Monte Carlo Tree Search and self-reflection to rehearse and score multiple potential action trajectories in the response generation stage, avoiding high-risk paths induced by false memories or malicious intent.
+
+
+\subsubsection{Privacy-based Defense}
+\label{sssec:Privacy-based Defense}
+Privacy-based defenses form the underlying safeguards for the data lifecycle, focusing on addressing the leakage and forgetting of sensitive information during memory retrieval. 
+At its core, it ensures that sensitive data resides only in isolated private memory, using only anonymized or task-necessary memory for reasoning and collaboration, thereby preventing the leakage of private data during interactions~\cite{secu_pri_su,method_collaborative_memory}. 
+For example, \citet{secu_pri_gama} proposed a general anonymizing multi-Agent system, which divides the workspace into private and public spaces. 
+It uses domain rule-based knowledge enhancement and proof by contradiction-based logic enhancement to compensate for the semantic privacy caused by anonymization, thereby achieving efficient task processing and reasoning while ensuring privacy. 
+\citet{secu_res_auto} proposed a context-integrity-based framework that uses a lightweight model to analyze user intent, automatically distinguishes and removes unnecessary sensitive information, and reconstructs prompts, thereby removing context-independent privacy data while preserving task intent.
+
+
+
+
+
+
+

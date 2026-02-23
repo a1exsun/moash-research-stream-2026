@@ -1,0 +1,61 @@
+\section{Benchmarks for Agent Memory}
+\label{sec:Benchmarks for Agent Memory}
+In this section, we provide a comprehensive review of representative benchmarks for evaluating the memory capabilities of LLM-based agents. 
+Based on the perspective of memory observation, we categorize existing benchmarks into two types:
+(1) Semantic-oriented benchmarks (\S\ref{ssec:Benchmarks for Semantic-oriented}) focus on examining an agent's ability to maintain and update its internal state, encompassing not only memory retrieval tests but also higher-order cognitive dimensions such as dynamics and self-evolution.
+(2) Episodic-oriented benchmarks (\S\ref{ssec:Benchmarks for Episodic-oriented}) are designed to evaluate an agent's competence in vertical domains such as web search, tool use, and environmental interaction, with an emphasis on assessing overall performance in complex application scenarios.
+Additionally, we divide the evaluation attributes of both semantic-oriented and episodic-oriented benchmarks into three dimensions. 
+Fidelity measures the agent’s ability to accurately retrieve and reproduce details from long-term contextual history without distortion. 
+Dynamics evaluates memory update capabilities, testing whether agents can perform maintenance operations such as modifying outdated information or deleting errors to ensure consistent reasoning across evolving conversations. 
+Generalization assesses whether stored memory can be translated into policies that adjust agent behavior and improve performance in new environments.
+
+
+\input{tables/benchamrks}
+
+\subsection{Benchmarks for Semantic-oriented}
+\label{ssec:Benchmarks for Semantic-oriented}
+Semantic-oriented benchmarks focus on how an agent constructs, maintains, and utilizes its internal memory state (e.g., fact and conception). 
+These benchmarks exhibit a hierarchical evaluation structure, starting with the most basic memory capability, examining the agent's accurate retention and retrieval of information across multiple rounds of dialogue or long text narratives. 
+Representative benchmarks include LoCoMo~\cite{bench_mem_locomo}, LOCCO~\cite{bench_mem_locco}, BABILong~\cite{bench_mem_babilong}, MPR~\cite{bench_mem_mpr}, RULER~\cite{bench_mem_ruler}, HotpotQA~\cite{bench_mem_hotpotqa}, PerLTQA~\cite{bench_mem_perltqa}, MemDaily~\cite{bench_mem_memdaily}.
+These benchmarks target agents with external memory storage capabilities, evaluating their ability to accurately retrieve historical details and maintain semantic fidelity as memory span increases and distracting information accumulates, while avoiding information distortion caused by retrieval noise.
+
+Some other benchmarks evaluate memory from a process perspective.
+They focus on how information states are continuously updated and synchronized in real time as the environment evolves.
+Representative benchmarks include MemBench~\cite{bench_dy_membench}, LongMemEval~\cite{bench_mem_longmemeval}, MemoryBank~\cite{bench_mem_memorybank}, DialSim~\cite{bench_mem_memdaily}, PrefEval~\cite{bench_mem_preeval}, SHARE~\cite{bench_dy_share}. 
+These benchmarks require agents to proactively identify and discard outdated information while ensuring the persistence and consistency of valid information over long periods and across dialogues.
+
+A further line of benchmarks measures how efficiently agents transform interaction history into cognitive abilities through self-evolutionary behaviors such as self-reflection, memory abstraction, and policy iteration.
+Benchmarks such as LTMBenchmark~\cite{bench_evo_ltmb}, StoryBench~\cite{bench_evo_story}, MemoryAgentBench~\cite{bench_evo_mem}, Evo-Memory~\cite{bench_evo_evo}, MemBench~\cite{bench_dy_memorybench}, HaluMem~\cite{bench_dy_halumem}, LifelongAgentBench~\cite{bench_dy_lifelongagentbench}, StreamBench~\cite{bench_dy_stream}, StoryBench~\cite{bench_evo_storybench} provide experimental fields that tolerate trial and error and allow for continuous state changes for this type of research. 
+These benchmarks require agents not only to maintain long-term memory consistency, but also to abstract general rules from past error patterns and transfer them to novel scenarios, thereby achieving meta-level cognitive improvement.
+
+\subsection{Benchmarks for Episodic-oriented}
+\label{ssec:Benchmarks for Episodic-oriented}
+Unlike semantic-centric benchmarks that focus on the memory mechanism itself, episodic-oriented benchmarks aim to evaluate the actual performance gains of memory systems on agents in complex downstream application scenarios. 
+Their core focus is on whether agents effectively leverage accumulated experience from memory to enhance performance on future tasks.
+Through efficient information integration and state tracking, the memory empower agents to handle task flows in vertical domains such as web search, tool-use, and environmental interaction, thereby achieving higher levels of planning and execution in real-world scenarios with high time dependence and logical complexity.
+
+\input{tables/benchmarks_other}
+
+In the field of web search, task-oriented benchmarks have evolved from simple information retrieval to a comprehensive evaluation of an agent's autonomous navigation and interaction capabilities within dynamic web pages. 
+Benchmarks such as WebChoreArena~\cite{bench_web_webchorearena}, WebArena~\cite{bench_web_arena}, WebShop~\cite{bench_web_webshop}, cover scenarios in simulated and real-world web environments, examining how agents utilize memory to maintain consistency in long-term tasks within highly dynamic and structurally complex web page interactions. 
+The evaluation results of these benchmarks also demonstrate that efficient memory mechanisms are crucial for agents to ensure functional correctness and logical completeness in task flows.
+
+The evaluation method for tool use has also been upgraded from atomic API calls to complex workflow reasoning. 
+ToolBench~\cite{bench_tool_xbenchds}, GAIA~\cite{bench_tool_gaia}, xBench-DS~\cite{bench_tool_xbenchds}, benchmarks focus on examining how memory helps agents accurately retrieve tool schemas and maintain context state in multimodal and long-view tasks. 
+Their evaluations have also demonstrated the key value of memory in tool use in overcoming execution illusions and establishing complex task logic through adaptive trial and error mechanisms.
+
+Benchmarks for interaction with the environment focus on evaluating an agent’s perception-action mapping capabilities in dynamic and observable environments under different conditions, with a particular emphasis on the role of memory in supporting state tracking, causal inference, and personalized alignment. 
+For example, BabyAI~\cite{bench_env_babyai} evaluated sample efficiency in course learning, particularly its ability to remember and combine sub-goals in long-sequence navigation.
+ScienceWorld~\cite{bench_env_scienceworld} extended the scenario to scientific experiment simulations, requiring the agent to continuously track environmental variables using memory and verify causal inference capabilities through multi-step operations. 
+Mind2Web~\cite{bench_env_mind2web} spanned heterogeneous web page tasks across multiple domains, enabling the agent to filter environmental noise and achieve cross-domain generalization when facing complex document object model (DOM) structures. 
+PersonalWAB~\cite{bench_web_personalwab} further enriched the contextual dimension of the environment, incorporating user profiles and historical behavior into the interaction loop, and evaluated the accuracy of memory in achieving personalized intent alignment during dynamic interactions. 
+AgentOccam~\cite{bench_env_AgentOccam} addressed the observation-action alignment problem in complex web environments, revealing that memory must possess the ability to prune and reconstruct massive amounts of environmental observations.
+
+In summary, the practical significance of episodic-oriented benchmarks lies in establishing the agent's transformation from a conversationalist to an executor, and promoting the shift of the evaluation paradigm from dialogue-centric to problem-solving-centric. 
+In summary, the practical significance of episodic-oriented benchmarks lies in establishing the agent's transformation from a conversationalist to an executor, and promoting the shift of the evaluation paradigm from model-centric to problem-solving-centric. 
+By introducing noise from the real environment, it verifies the robustness of memory in maintaining state tracking under non-ideal conditions, thus bridging the gap between simulation and real-world applications.
+
+
+
+
+

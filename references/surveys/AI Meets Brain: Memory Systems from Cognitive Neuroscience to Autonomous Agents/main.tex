@@ -1,0 +1,366 @@
+%%
+%% This is file `sample-manuscript.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% samples.dtx  (with options: `manuscript')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from sample-manuscript.tex.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file samples.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+%%
+%% Commands for TeXCount
+%TC:macro \cite [option:text,text]
+%TC:macro \citep [option:text,text]
+%TC:macro \citet [option:text,text]
+%TC:envir table 0 1
+%TC:envir table* 0 1
+%TC:envir tabular [ignore] word
+%TC:envir displaymath 0 word
+%TC:envir math 0 word
+%TC:envir comment 0 0
+%%
+%%
+%% The first command in your LaTeX source must be the \documentclass command.
+\documentclass[acmsmall]{acmart}
+
+%%
+%% \BibTeX command to typeset BibTeX logo in the docs
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    \normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
+
+\newcommand{\paratitle}[1]{\textbf{#1}}
+\newcommand{\term}[1]{\index{\lowercase{#1}}\emph{#1}}
+
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{xspace,mfirstuc,tabulary}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{bbding}
+\usepackage{xcolor,colortbl}
+\usepackage{adjustbox}
+% \usepackage[numbers]{natbib}
+\setcitestyle{numbers}
+\usepackage{fontawesome5}
+\usepackage{hyperref}
+\usepackage{pifont}
+% \documentclass{acmart}
+\usepackage{xcolor}
+\definecolor{hidden-black}{rgb}{0,0,0}
+% \usepackage[colorlinks,linkcolor=blue]{hyperref}
+\newrobustcmd{\B}{\bfseries}
+\newcommand*\colourcheck[1]{%
+  \expandafter\newcommand\csname #1check\endcsname{\textcolor{#1}{\ding{52}}}%
+}
+\newcommand*\colourcross[1]{%
+  \expandafter\newcommand\csname #1cross\endcsname{\textcolor{#1}{\ding{55}}}%
+}
+\colourcheck{green}
+\colourcross{red}
+\newcommand{\eg}{\emph{e.g.}}
+\newcommand{\ie}{\emph{i.e.}}
+
+\usepackage[most]{tcolorbox}
+\newtcolorbox{highlighted}{
+  colback=yellow!50!white, colframe=yellow!50!white, boxrule=0pt, sharp corners, left=0pt, right=0pt, top=0pt, bottom=0pt
+}
+
+\definecolor{cGreen}{RGB}{0,150,0} % 深绿色
+\newcommand{\cmark}{\textcolor{cGreen}{\ding{51}}} % 对勾
+\newcommand{\xmark}{\textcolor{red}{\ding{55}}}    % 叉号
+
+\usepackage{color,soul}
+\soulregister{\textcolor}{2}
+\soulregister{\cite}7
+\soulregister{\citep}7
+\soulregister{\citet}7
+\soulregister{\ref}7
+
+\usepackage[switch]{lineno}
+\sethlcolor{yellow}
+
+\usepackage[edges]{forest}
+\definecolor{lightcoral}{rgb}{0.94, 0.5, 0.5}
+\definecolor{lightgreen}{rgb}{0.56, 0.93, 0.56}
+\definecolor{harvestgold}{rgb}{0.98, 0.85, 0.40}
+\definecolor{brightlavender}{rgb}{0.75, 0.58, 0.89}
+\definecolor{capri}{rgb}{0.0, 0.75, 1.0}
+\definecolor{carminepink}{rgb}{0.92, 0.3, 0.26}
+\definecolor{celadon}{rgb}{0.67, 0.88, 0.69}
+\definecolor{darkpastelgreen}{rgb}{0.01, 0.75, 0.24}
+
+\definecolor{hidden-draw}{RGB}{205, 44, 36}
+\definecolor{hidden-blue}{RGB}{194,232,247}
+\definecolor{hidden-orange}{RGB}{243,202,120}
+\definecolor{hidden-yellow}{RGB}{242,244,193}
+\definecolor{tree-level-1}{RGB}{245,20,85}
+\definecolor{tree-level-2}{RGB}{246,86,118}
+\definecolor{tree-level-3}{RGB}{248,177,193}
+\definecolor{tree-leaf}{RGB}{176,230,198}
+
+\providecommand{\jiafeng}[1]{
+    {\protect\color{orange}{[Jiafeng: #1]}}
+}
+
+%% Rights management information.  This information is sent to you
+%% when you complete the rights form.  These commands have SAMPLE
+%% values in them; it is your responsibility as an author to replace
+%% the commands and values with those provided to you when you
+%% complete the rights form.
+% \setcopyright{acmlicensed}
+% \acmJournal{TOIS}
+% \acmYear{2024}
+% \acmVolume{1}
+% \acmNumber{1}
+% \acmArticle{1}
+% \acmMonth{1}
+% \acmDOI{10.1145/3703155}
+%% Submission ID.
+%% Use this when submitting an article to a sponsored event. You'll
+%% receive a unique submission ID from the organizers
+%% of the event, and this ID should be used as the parameter to this command.
+%%\acmSubmissionID{123-A56-BU3}
+
+%%
+%% For managing citations, it is recommended to use bibliography
+%% files in BibTeX format.
+%%
+%% You can then either use BibTeX with the ACM-Reference-Format style,
+%% or BibLaTeX with the acmnumeric or acmauthoryear sytles, that include
+%% support for advanced citation of software artefact from the
+%% biblatex-software package, also separately available on CTAN.
+%%
+%% Look at the sample-*-biblatex.tex files for templates showcasing
+%% the biblatex styles.
+%%
+
+%%
+%% The majority of ACM publications use numbered citations and
+%% references.  The command \citestyle{authoryear} switches to the
+%% "author year" style.
+%%
+%% If you are preparing content for an event
+%% sponsored by ACM SIGGRAPH, you must use the "author year" style of
+%% citations and references.
+%% Uncommenting
+%% the next command will enable that style.
+%%\citestyle{acmauthoryear}
+
+%%
+%% end of the preamble, start of the body of the document source.
+\begin{document}
+
+%%
+%% The "title" command has an optional parameter,
+%% allowing the author to define a "short title" to be used in page headers.
+\title{AI Meets Brain: A Unified Survey on Memory Systems from Cognitive Neuroscience to Autonomous Agents}
+
+%%
+%% The "author" command and its associated commands are used to define
+%% the authors and their affiliations.
+%% Of note is the shared affiliation of the first two authors, and the
+%% "authornote" and "authornotemark" commands
+%% used to denote shared contribution to the research.
+% \author{Jiafeng Liang}\authornote{Equal Contribution}
+% \affiliation{%
+% 	\institution{Harbin Institute of Technology}
+% 	% \streetaddress{800 Dongchuan Road}
+% 	\city{Harbin}
+% 	\state{Heilongjiang}
+% 	\country{China}
+% 	\postcode{150001}}
+% \email{jfliang@ir.hit.edu.cn}
+
+\author{Jiafeng Liang}\authornote{Equal contribution}
+\email{jfliang@ir.hit.edu.cn}
+\author{Hao Li}\authornotemark[1]
+\email{haoli@ir.hit.edu.cn}
+\affiliation{%
+	\institution{Harbin Institute of Technology}
+	% \streetaddress{800 Dongchuan Road}
+	\city{Harbin}
+	\state{Heilongjiang}
+	\country{China}
+	\postcode{150001}}
+
+\author{Chang Li}\authornotemark[1]
+\email{cli@ir.hit.edu.cn}
+\author{Jiaqi Zhou}\authornotemark[1]
+\email{yufeiqs917@gmail.com}
+\affiliation{%
+	\institution{Harbin Institute of Technology}
+	% \streetaddress{800 Dongchuan Road}
+	\city{Harbin}
+	\state{Heilongjiang}
+	\country{China}
+	\postcode{150001}}
+
+\author{Shixin Jiang}
+\email{sxjiang@ir.hit.edu.cn}
+\author{Zekun Wang}
+\email{zkwang@ir.hit.edu.cn}
+\affiliation{%
+	\institution{Harbin Institute of Technology}
+	% \streetaddress{800 Dongchuan Road}
+	\city{Harbin}
+	\state{Heilongjiang}
+	\country{China}
+	\postcode{150001}}
+
+\author{Changkai Ji}
+\email{ckji24@m.fudan.edu.cn}
+\affiliation{%
+ \institution{Fudan University}
+ \city{Shanghai}
+ \state{Shanghai}
+ \country{China}
+ \postcode{200433}}
+
+\author{Zhihao Zhu}
+\email{zhzhu@ir.hit.edu.cn}
+\author{Runxuan Liu}
+\email{rxliu@ir.hit.edu.cn}
+\affiliation{%
+	\institution{Harbin Institute of Technology}
+	% \streetaddress{800 Dongchuan Road}
+	\city{Harbin}
+	\state{Heilongjiang}
+	\country{China}
+	\postcode{150001}}
+
+\author{Tao Ren}
+\email{rtkenny@stu.pku.edu.cn}
+\affiliation{%
+	\institution{Peking University}
+	% \streetaddress{800 Dongchuan Road}
+	\city{Beijing}
+	\state{Beijing}
+	\country{China}
+	\postcode{100871}}
+
+\author{Jinlan Fu}
+\email{jinlanjonna@gmail.com}
+\author{See-Kiong Ng}
+\email{seekiong@nus.edu.sg}
+\affiliation{%
+	\institution{National University of Singapore}
+	% \streetaddress{800 Dongchuan Road}
+	\city{Singapore}
+	\state{Singapore}
+	\country{Singapore}
+	\postcode{119077}}
+
+\author{Xia Liang}\authornote{Corresponding author}
+\email{xia.liang@hit.edu.cn}
+\author{Ming Liu}\authornotemark[2]
+\email{mliu@ir.hit.edu.cn}
+\author{Bing Qin}
+\email{qinb@ir.hit.edu.cn}
+\affiliation{%
+	\institution{Harbin Institute of Technology}
+	% \streetaddress{800 Dongchuan Road}
+	\city{Harbin}
+	\state{Heilongjiang}
+	\country{China}
+	\postcode{150001}}
+    
+
+%%
+%% By default, the full list of authors will be used in the page
+%% headers. Often, this list is too long, and will overlap
+%% other information printed in the page headers. This command allows
+%% the author to define a more concise list
+%% of authors' names for this purpose.
+\renewcommand{\shortauthors}{Liang, et al.}
+
+%%
+%% The abstract is a short summary of the work to be presented in the
+%% article.
+\begin{abstract}
+Memory serves as the pivotal nexus bridging past and future, providing both humans and AI systems with invaluable concepts and experience to navigate complex tasks. 
+Recent research on autonomous agents has increasingly focused on designing efficient memory workflows by drawing on cognitive neuroscience.
+However, constrained by interdisciplinary barriers, existing works struggle to assimilate the essence of human memory mechanisms. 
+To bridge this gap, this survey systematically synthesizes interdisciplinary knowledge of memory, connecting insights from cognitive neuroscience with LLM-driven agents. 
+Specifically, we first elucidate the definition and function of memory along a progressive trajectory from cognitive neuroscience through LLMs to agents. 
+We then provide a comparative analysis of memory taxonomy, storage mechanisms, and the complete management lifecycle from both biological and artificial perspectives. 
+Subsequently, we review the mainstream benchmarks for evaluating agent memory. 
+Additionally, we explore memory security from dual perspectives of attack and defense. 
+Finally, we envision future research directions, with a focus on multimodal memory systems and skill acquisition.
+\textcolor{blue}{Code: \href{https://github.com/AgentMemory/Huaman-Agent-Memory}{https://github.com/AgentMemory/Huaman-Agent-Memory}}
+\end{abstract}
+
+%%
+%% The code below is generated by the tool at http://dl.acm.org/ccs.cfm.
+%% Please copy and paste the code instead of the example below.
+%%
+% \begin{CCSXML}
+% <ccs2012>
+%    <concept>
+%        <concept_id>10010147.10010178.10010179.10010182</concept_id>
+%        <concept_desc>Computing methodologies~Natural language generation</concept_desc>
+%        <concept_significance>500</concept_significance>
+%        </concept>
+%    <concept>
+%        <concept_id>10002944.10011122.10002945</concept_id>
+%        <concept_desc>General and reference~Surveys and overviews</concept_desc>
+%        <concept_significance>500</concept_significance>
+%        </concept>
+%  </ccs2012>
+% \end{CCSXML}
+
+% \ccsdesc[500]{Computing methodologies~Natural language generation}
+% \ccsdesc[500]{General and reference~Surveys and overviews}
+
+%%
+%% Keywords. The author(s) should pick words that accurately describe
+%% the work being presented. Separate the keywords with commas.
+% \keywords{Large Language Models, Hallucination, Factuality, Faithfulness}
+
+% \received{20 February 2007}
+% \received[revised]{12 March 2009}
+% \received[accepted]{5 June 2009}
+
+%%
+%% This command processes the author and affiliation and title
+%% information and builds the first part of the formatted document.
+\maketitle
+
+\input{1_Introduction}
+\input{2_Definition}
+\input{3_Utility}
+\input{4_Taxonomy}
+\input{5_Storage}
+\input{6_Management}
+\input{7_Benchmark}
+\input{8_Security}
+\input{9_Future}
+\input{10_Conclusion}
+
+
+%%
+%% The next two lines define the bibliography style to be used, and
+%% the bibliography file.
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{custom}
+
+%%
+%% If your work has an appendix, this is the place to put it.
+
+\end{document}
+\endinput
+%%
+%% End of file `sample-manuscript.tex'.
