@@ -1,0 +1,68 @@
+% \begin{sidewaystable} % final form of the table.
+\begin{landscape}
+\begin{table*}[t]
+    \centering
+    \caption{
+    \textbf{Summary of the existing studies on Horizontal Continual Pre-Training of LLMs,} where the papers are organized in the chronological order. 
+    In the table, \emph{Dist.~Shift} denotes what type(s) of distributional shifts the study considers and is dedicated to solve, including (i)~temporal shift, (ii)~content shift, and (iii)~language shift.$^1$
+    In the section of \textbf{Continual Learning Techniques}$^2$, we mainly categorize three types of continual learning techniques that are studied in the paper: \emph{Rehearsal}, \emph{Parameter Regularization}, and \emph{Architecture Expansion}. 
+    We use ``\cmark'', ``\xmark'', and ``\club'' to denote ``deployed in the proposed method'', ``not studied in the paper'', and ``studied as a baseline method'', respectively.
+    It is noteworthy that we do not include naive sequential fine-tuning in this table, as it is universally studied as the most important baseline method in all of the papers we investigate. 
+    The papers with only ``\club''~\cite{jin2022lifelong,jang2022temporalwiki,jang2022towards} means that merely existing CL techniques are studied in them, and the papers with only ``\xmark''~\cite{gupta2023continual,gogoulou2024continual} means that no CL techniques but special aspects of fine-tuning are studied, e.g., model (re)warming via learning rate scheduling~\cite{gupta2023continual}.
+    }
+    \label{tab:cpt-big}
+    \resizebox{1\linewidth}{!}{%
+\begin{tabular}{ccccc ccccc ccccc cc}
+	\toprule
+	\multirow{3}{*}{\textbf{Method}} & 
+    \multicolumn{2}{c}{\textbf{Scenario}} & 
+    \multicolumn{10}{c}{\textbf{{Continual Learning Techniques}}} & 
+    \multirow{3}{*}{\textbf{{LLM Arch.}}} & 
+    \multicolumn{3}{c}{\textbf{{Evaluation}}} \\
+    \cmidrule(lr){2-3}\cmidrule(lr){4-13}\cmidrule(lr){15-17}
+    & \multirow{2}{*}{\emph{Dist. Shift}} & \multirow{2}{*}{\emph{\#Domains}} &  \multicolumn{3}{c}{\emph{Rehearsal}} &  \multicolumn{2}{c}{\emph{Parameter Regularization}} &  \multicolumn{5}{c}{\emph{Architecture Expansion}} & &  \multicolumn{2}{c}{\emph{Pre-Training}} & \emph{Downstream} \\
+    \cmidrule(lr){4-6}\cmidrule(lr){7-8}\cmidrule(lr){9-13}\cmidrule(lr){15-16}\cmidrule(lr){17-17}
+    & & & \small{ER} & \small{KD} & \small{Pseudo-ER} & \small{Param. Freezing} & \small{Imp.-based Reg.} & \small{Vocab. Exp.} & \small{Prompt Tuning} & \small{Layer Exp.} & \small{LoRA} & \small{Adapter} & & \small{Perp.} & \small{ZS/FS} & \small{FT Perf.}\\
+	%  &
+    \midrule
+    \midrule
+    \cite{sun2020ernie} & Content & 4 & \cmark\club & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & ERNIE & \xmark & \xmark & \cmark \\
+    \midrule
+	\cite{amba2021dynamic} & Temporal & 7 & \xmark & \xmark & \xmark & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark & \xmark &  BERT & \xmark & \xmark & \cmark \\
+    \midrule
+    \cite{cossu2022continual} & Content & 5 & \xmark & \xmark & \xmark & \xmark  & \xmark & \cmark & \xmark & \xmark & \xmark & \xmark & \makecell{BERT \& \\ RoBERTa} & \xmark & \xmark & \cmark\\
+    \midrule
+    % \cite{jin2022lifelong}  & \makecell{\underline{Temporal} \\ Content} & \makecell{\underline{4} \\ 8} & \club & \club & \xmark & \xmark & \club & \xmark & \xmark & \club & \xmark & \club & RoBERTa & \cmark & \xmark & \cmark \\
+    \multirow{2}{*}{\cite{jin2022lifelong}} & Temporal & 4 & \multirow{2}{*}{\club} & \multirow{2}{*}{\club} & \multirow{2}{*}{\xmark} & \multirow{2}{*}{\xmark} & \multirow{2}{*}{\club} & \multirow{2}{*}{\xmark} & \multirow{2}{*}{\xmark} & \multirow{2}{*}{\club} & \multirow{2}{*}{\xmark} & \multirow{2}{*}{\club} & \multirow{2}{*}{RoBERTa} & \multirow{2}{*}{\cmark} & \multirow{2}{*}{\xmark} & \multirow{2}{*}{\cmark} \\
+    \cmidrule(lr){2-3}
+    & Content & 8 \\
+    \midrule
+    \cite{gururangan2022demix} & Content & 8 & \xmark &\xmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & \cmark & GPT-3 & \cmark & \xmark & \cmark \\
+    \midrule
+    \cite{dhingra2022time} & Temporal & 1 & \xmark & \xmark & \xmark & \xmark & \xmark & \cmark &  \xmark & \xmark & \xmark & \xmark & T5 & \xmark & \xmark & \cmark \\
+    \midrule
+    \cite{jang2022towards} & Temporal & 1 & \club & \xmark & \xmark & \club & \club & \xmark & \xmark & \xmark & \club & \club & T5 & \xmark & \cmark & \cmark \\
+    \midrule
+    \cite{jang2022temporalwiki} & Temporal & 5 & \club & \xmark & \xmark & \club & \club & \xmark & \xmark & \xmark & \club & \club & GPT-2 & \cmark & \cmark & \cmark \\
+    \midrule
+    \cite{qin2022elle} & Content & 5 & \cmark\club & \club & \xmark & \cmark & \club & \xmark & \cmark & \cmark & \xmark & \club & \makecell{BERT \& \\ GPT} & \cmark & \xmark & \cmark \\
+    \midrule
+    \cite{ke2022continual-train} & Content & 4 & \club & \club & \xmark & \club & \cmark\club & \xmark & \club & \xmark & \xmark & \club & RoBERTa & \xmark & \cmark & \xmark \\
+    \midrule
+    \cite{qin2023recyclable} & Content & 4 & \cmark & \cmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & \cmark & RoBERTa  & \xmark & \xmark & \cmark\\
+    \midrule
+    \cite{chen2023lifelong} & Content & 3 & \club & \cmark & \xmark & \cmark & \club & \xmark & \xmark & \xmark & \xmark & \cmark & GLaM & \cmark & \xmark & \cmark\\
+    \midrule
+    \cite{gupta2023continual}  & Content & 1 & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & Pythia & \cmark & \xmark & \xmark \\
+    \midrule
+    \cite{gogoulou2024continual} & Language & 3 & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & GPT & \cmark & \xmark & \xmark \\
+    \midrule
+    \cite{li2024examining} & Language & 1 & \xmark & \xmark & \xmark & \club & \xmark & \xmark & \xmark & \xmark & \club & \club & Llama2 & \xmark & \cmark & \cmark \\
+	\bottomrule
+	\end{tabular}
+	}
+\end{table*} 
+\footnotetext[1]{We provide some examples to better illustrate different types of distributional shifts. \emph{Temporal Shift}: news in year 2021~$\rightarrow$~ news in year 2022; \emph{Content Shift}: papers in chemistry~$\rightarrow$~papers in biology; \emph{Language Shift}: corpus in English~$\rightarrow$~corpus in Chinese.}
+\footnotetext[2]{For more information about the categorization of different continual learning techniques, we refer the readers to the work \emph{``A Comprehensive Survey of Continual Learning: Theory, Method and Application''}~\cite{wang2024comprehensive}.}
+\footnotetext[3]{In \cite{ke2022continual-train}, the evaluation of the LLMs after domain-adaptive pre-training is carried out following \cite{gu2022ppt}: prompt tuning for few-shot learning, categorized as \emph{ZS / FT}. Although the authors of the original paper categorized their work in ``domain-adaptive pre-training'', sequentially pre-training the LLMs on different topics of domains is considered as continual pre-training.}
+\end{landscape}

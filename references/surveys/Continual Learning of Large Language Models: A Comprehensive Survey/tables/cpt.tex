@@ -1,0 +1,333 @@
+% \begin{table*}[t]
+% \caption{
+%     \textbf{Summary of the existing studies on Horizontal Continual Pre-training of LLMs,} where the papers are organized based on their type, where: (i)~no continual learning techniques are studied, (ii)~continual learning techniques are studied as solely baselines, and (iii)~new approaches are proposed, containing some of the continual learning techniques. 
+%     In the table, \emph{Dist.~Shift} denotes what type(s) of distributional shifts this particular study considers and is dedicated to solve.
+%     In the section of \textbf{Continual Learning Tech.}, we mainly categorize three types of continual learning techniques that are studied in the paper: rehearsal~(\emph{Rehearsal}), parameter regularization~(\emph{Param.~Reg.}), and architecture expansion~(\emph{Arch. Exp.}). We use ``\cmark'', ``\xmark'', and ``\club'' to denote ``deployed in the proposed method'', ``not studied in the paper'', and ``studied as a baseline method'', respectively; and use ``\cmark$^*$'' to represent the vocabulary expansion and replacement. 
+%     It is noteworthy that we do not include naive sequential fine-tuning in this table, as it is universally studied as the important baseline method in all of the papers in the table. 
+%     The papers with only ``\club''~\cite{jin2022lifelong,jang2022temporalwiki,jang2022towards} means that merely existing CL techniques are studied in them, and the papers with only ``\xmark''~\cite{gupta2023continual,gogoulou2024continual} means that no CL techniques but special aspects of fine-tuning are studied, e.g., model (re)warming via learning rate scheduling~\cite{gupta2023continual}.
+%     For a more detailed summary, please refer to \Tabref{tab:cpt-big}.
+% }
+% \begin{center}
+% \resizebox{1\linewidth}{!}{%
+% \begin{tabular}{ccccc cCcc}
+% 	\toprule[0.12em]
+% 	\multirow{2}{*}{\textbf{Method}} & 
+%     \multicolumn{2}{c}{\textbf{Scenario}} & 
+%     \multicolumn{3}{c}{\textbf{{Continual Learning Tech.}}} & 
+%     \multirow{2}{*}{\textbf{{LLM Arch.}}} & 
+%     \multicolumn{2}{c}{\textbf{{Evaluation}}} \\
+%     \cmidrule(lr){2-3}\cmidrule(lr){4-6}\cmidrule(lr){8-9}
+%     & \emph{Dist. Shift} & \emph{\#Domains} & \emph{Rehearsal} & \emph{Param. Reg.} & \emph{Arch. Exp.} & & \emph{Pre-Training} & \emph{Downstream} \\
+% 	%  &
+%     \cmidrule[0.12em]{1-9}
+%     TimeLMs~\cite{loureiro2022timelms} & Temporal & 8 & \xmark & \xmark & \xmark & RoBERTa & \cmark & \cmark \\
+%     \midrule
+%     \cite{gupta2023continual}  & Content & 1 & \xmark & \xmark & \xmark & Pythia & \cmark & \xmark \\
+%     \midrule
+%     \cite{gogoulou2024continual} & Language & 3 & \xmark & \xmark & \xmark & GPT & \cmark & \xmark \\
+%     \midrule
+%     \midrule
+%     \rowcolor{gray2}
+%     \cite{li2024examining} & Language & 1 & \xmark & \club & \club & Llama2 & \cmark & \cmark \\
+%     \midrule
+%     \rowcolor{gray2}
+%     CKL~\cite{jang2022towards} & Temporal & 1 & \club & \club & \club & T5 & \xmark & \cmark \\
+%     \midrule
+%     \rowcolor{gray2}
+%     & Temporal  & 4 & & & & & & \\
+%     \cline{2-3}
+%     \rowcolor{gray2}
+%     \multirow{-2}{*}{LLPT~\cite{jin2022lifelong}} & Content & 8 & \multirow{-2}{*}{\club} & \multirow{-2}{*}{\club} & \multirow{-2}{*}{\club} & \multirow{-2}{*}{RoBERTa} & \multirow{-2}{*}{\cmark} & \multirow{-2}{*}{\cmark} \\
+%     \midrule
+%     \rowcolor{gray2}
+%     TemporalWiki~\cite{jang2022temporalwiki} & Temporal & 5 & \club & \club & \club & GPT-2 & \cmark & \cmark\\
+%     \midrule
+%     \midrule
+%     \rowcolor{gray3}
+%     CPT~\cite{ke2022continual-train} & Content & 4 & \club & \cmark\club & \club & RoBERTa & \cmark & \xmark \\
+%     \midrule
+%     \rowcolor{gray3}
+%     ERNIE~2.0~\cite{sun2020ernie} & Content & 4 & \cmark\club & \xmark & \xmark & ERNIE & \xmark & \cmark \\
+%     \midrule
+%     \rowcolor{gray3}
+% 	\cite{amba2021dynamic} & Temporal & 7 & \xmark & \cmark & \cmark$^*$ & BERT & \xmark & \cmark \\
+%     \midrule
+%     \rowcolor{gray3}
+%     \cite{cossu2022continual} & Content & 5 & \xmark & \xmark & \cmark & BERT RoBERTa & \xmark & \cmark\\
+%     \midrule
+%     \rowcolor{gray3}
+%     DEMix~\cite{gururangan2022demix} & Content & 8 & \xmark & \xmark & \cmark & GPT-3 & \cmark & \cmark \\
+%     \midrule
+%     \rowcolor{gray3}
+%     TempoT5~\cite{dhingra2022time} & Temporal & 1 & \cmark & \xmark & \cmark$^*$ & T5 & \xmark & \cmark \\
+%     \midrule
+%     \rowcolor{gray3}
+%     RecTuning~\cite{qin2023recyclable} & Content & 4 & \cmark & \xmark & \cmark & RoBERTa  & \xmark & \cmark\\
+%     \midrule
+%     \rowcolor{gray3}
+%     Lifelong-MoE~\cite{chen2023lifelong} & Content & 3 & \cmark & \cmark & \cmark & GLaM & \cmark & \cmark\\
+%     \midrule
+%     \rowcolor{gray3}
+%     ELLE~\cite{qin2022elle} & Content & 5 & \cmark\club & \cmark\club & \cmark\club & BERT\quad \quad GPT & \cmark & \cmark \\
+%     \midrule
+% 	\bottomrule[0.12em]
+% 	\end{tabular}
+% 	}
+% \end{center}
+% \label{tab:cpt-small}
+% \end{table*}
+
+
+% Detailed version
+\begin{table*}[t]
+\caption{
+    \textbf{Summary of existing studies on Continual Pre-training of LLMs.} The papers are organized based on their relation to CL: (i)~no CL techniques are studied, (ii)~CL techniques are studied as solely baselines, and (iii)~new CL approaches are proposed. 
+    In the table, \emph{Dist.~Shift} denotes what type(s) of distributional shifts this particular study considers and is dedicated to solve.
+    In the section of \textbf{Continual Learning Tech.}, we mainly categorize three types of continual learning techniques that are studied in the paper: rehearsal~(\emph{Rehearsal}), parameter regularization~(\emph{Param.~Reg.}), and architecture expansion~(\emph{Arch. Exp.}). We use ``\cmark'', ``\xmark'', and ``\club'' to denote ``deployed in the proposed method'', ``not studied in the paper'', and ``studied as a baseline method'', respectively. 
+    Note that we do not include naive sequential fine-tuning in this table, as it is universally studied as the important baseline method in all of the papers in the table. 
+    The papers with only ``\club''~\cite{jin2022lifelong,jang2022temporalwiki,jang2022towards} means that 
+    only existing CL techniques are studied, without proposing new ones, 
+    % no new but only existing CL techniques are studied in them, 
+    and the papers with only ``\xmark''~\cite{gupta2023continual,gogoulou2024continual} means that 
+    special aspects of fine-tuning are studied, without using CL techniques. 
+    % no CL techniques but special aspects of fine-tuning are studied.
+    % For a more detailed summary, please refer to \Tabref{tab:cpt-big}.
+}
+\vspace{-0.5em}
+\begin{center}
+\resizebox{1\linewidth}{!}{%
+\setlength{\tabcolsep}{9pt}
+\begin{tabular}{cCCCC CCcc}
+	\toprule[0.12em]
+	\multirow{2}{*}{\textbf{Method}} & 
+    \multicolumn{2}{c}{\textbf{Scenario}} & 
+    \multicolumn{3}{c}{\textbf{{Continual Learning Tech.}}} & 
+    \multirow{2}{*}{\textbf{{LLM Arch.}}} & 
+    \multicolumn{2}{c}{\textbf{{Evaluation}}} \\
+    \cmidrule(lr){2-3}\cmidrule(lr){4-6}\cmidrule(lr){8-9}
+    & \emph{Dist. Shift} & \emph{\#Domains} & \emph{Rehearsal} & \emph{Param. Reg.} & \emph{Arch. Exp.} & & \emph{Pre-Training} & \emph{Downstream} \\
+	%  &
+    \cmidrule[0.12em]{1-9}
+    
+    TimeLMs~\cite{loureiro2022timelms} & Temporal & 8 & \xmark & \xmark & \xmark & RoBERTa & \cmark & \cmark \\
+    \hline
+
+    \cite{yildiz2024investigating} 
+    & Content & 159 
+    & \xmark 
+    & \xmark 
+    & \xmark
+    & RoBERTa GPT-2
+    & \cmark 
+    & \xmark \\
+    \hline 
+
+    \cite{gupta2023continual}  & Content & 1 & \xmark & \xmark & \xmark & Pythia & \cmark & \xmark \\
+    \hline
+
+    
+    \cite{gogoulou2024continual} & Language & 3 & \xmark & \xmark & \xmark & GPT & \cmark & \xmark \\
+    \hline
+
+   
+    RHO-1~\cite{lin2024rho} 
+    & Other
+    & 1
+    & \xmark 
+    & \xmark 
+    & \xmark
+    & TinyLlama Mistral
+    & \cmark & \cmark
+    \\
+
+    \midrule
+    \midrule
+
+
+    
+    % \rowcolor{gray2}
+    \cite{li2024examining} 
+    & Language & 1 
+    & \cellcolor{gray2}\xmark 
+    & \cellcolor{gray2}P-Freeze$^\text{\club}$ 
+    & \cellcolor{gray2}Adapter$^\text{\club}$ LoRA$^\text{\club}$ 
+    & Llama2 
+    & \cmark & \cmark \\
+    \hline
+
+    
+    % \rowcolor{gray2}
+    CKL~\cite{jang2022towards} 
+    & Temporal & 1 
+    & \cellcolor{gray2} Mix-Review$^\text{\club}$ 
+    & \cellcolor{gray2} P-Freeze$^\text{\club}$ RecAdam$^\text{\club}$  
+    & \cellcolor{gray2} LoRA$^\text{\club}$ K-Adapter$^\text{\club}$ 
+    & T5 
+    & \xmark & \cmark \\
+    \hline
+
+
+    % \rowcolor{gray2}
+    LLPT~\cite{jin2022lifelong} 
+    & \makecell{Temporal \\ \rule[0.5ex]{1\linewidth}{0.4pt} \\ Content} 
+    & \makecell{4 \\ \rule[0.5ex]{1\linewidth}{0.4pt} \\ 8} 
+    & \cellcolor{gray2} ER$^\text{\club}$ Logit-KD$^\text{\club}$ Rep-KD$^\text{\club}$ Contrast-KD$^\text{\club}$ SEED-KD$^\text{\club}$ 
+    & \cellcolor{gray2} oEWC$^\text{\club}$ 
+    & \cellcolor{gray2} Adapter$^\text{\club}$ Layer~Exp.$^\text{\club}$ 
+    & RoBERTa 
+    & \cmark & \cmark \\
+    \hline
+
+
+    
+    % \rowcolor{gray2}
+    TemporalWiki~\cite{jang2022temporalwiki} 
+    & Temporal & 5 
+    & \cellcolor{gray2} Mix-Review$^\text{\club}$ 
+    & \cellcolor{gray2} P-Freeze$^\text{\club}$ RecAdam$^\text{\club}$  
+    & \cellcolor{gray2} LoRA$^\text{\club}$ K-Adapter$^\text{\club}$ 
+    & GPT-2 
+    & \cmark & \cmark\\
+    \midrule
+    \midrule
+
+    
+    % \rowcolor{gray3}
+    CPT$^*$~\cite{ke2022continual-train} 
+    & Content & 4 
+    & \cellcolor{gray3} DER++$^\text{\club}$\qquad KD$^\text{\club}$ 
+    & \cellcolor{gray3}CPT$^\text{\cmark}$\qquad EWC$^\text{\club}$\qquad HAT$^\text{\club}$ 
+    & \cellcolor{gray3}Adapter$^\text{\club}$ DEMix$^\text{\club}$ 
+    & RoBERTa 
+    & \cmark & \xmark \\
+    \hline
+
+    
+    % \rowcolor{gray3}
+    ERNIE~2.0~\cite{sun2020ernie} 
+    & Content & 4 
+    & \cellcolor{gray3} ER$^\text{\cmark\club}$ 
+    & \cellcolor{gray3} \xmark 
+    & \cellcolor{gray3} \xmark 
+    & ERNIE 
+    & \xmark & \cmark \\
+    \hline
+
+    
+    % \rowcolor{gray3}
+	\cite{amba2021dynamic} 
+    & Temporal & 7
+    & \cellcolor{gray3} \xmark 
+    & \cellcolor{gray3} P-Freeze$^\text{\cmark}$ 
+    & \cellcolor{gray3} Vocab. Exp.$^\text{\cmark}$ 
+    & BERT 
+    & \xmark & \cmark \\
+    \hline
+
+    
+    % \rowcolor{gray3}
+    \cite{cossu2022continual} 
+    & Content & 5 
+    & \cellcolor{gray3} \xmark 
+    & \cellcolor{gray3} \xmark 
+    & \cellcolor{gray3} Vocab. Exp.$^\text{\cmark}$ 
+    & BERT\qquad RoBERTa 
+    & \xmark & \cmark \\
+    \hline
+
+    
+    % \rowcolor{gray3}
+    DEMix~\cite{gururangan2022demix} 
+    & Content & 8 
+    & \cellcolor{gray3} \xmark 
+    & \cellcolor{gray3} \xmark 
+    & \cellcolor{gray3} MoE$^\text{\cmark}$ 
+    & GPT-3 
+    & \cmark & \cmark \\
+    \hline
+
+    
+    % \rowcolor{gray3}
+    TempoT5~\cite{dhingra2022time} 
+    & Temporal & 1 
+    & \cellcolor{gray3} \xmark 
+    & \cellcolor{gray3} \xmark 
+    & \cellcolor{gray3} Vocab. Exp.$^\text{\cmark}$ Prompt$^\text{\cmark}$ 
+    & T5 
+    & \xmark & \cmark \\
+    \hline
+
+    
+    % \rowcolor{gray3}
+    RecTuning~\cite{qin2023recyclable} 
+    & Content & 4 
+    & \cellcolor{gray3} ER$^\text{\cmark}$\qquad \qquad KD$^\text{\cmark}$ 
+    & \cellcolor{gray3} \xmark 
+    & \cellcolor{gray3} Adapter$^\text{\cmark}$ 
+    & RoBERTa  
+    & \xmark & \cmark\\
+    \hline
+
+    
+    % \rowcolor{gray3}
+    Lifelong-MoE~\cite{chen2023lifelong} 
+    & Content & 3 
+    & \cellcolor{gray3} ER$^\text{\club}$\qquad \qquad KD$^\text{\cmark}$ 
+    & \cellcolor{gray3} P-Freeze$^\text{\cmark}$\qquad L2$^\text{\club}$ 
+    & \cellcolor{gray3} MoE$^\text{\cmark}$ 
+    & GLaM 
+    & \cmark & \cmark\\
+    \hline
+
+    
+    % \rowcolor{gray3}
+    ELLE~\cite{qin2022elle} 
+    & Content & 5 
+    & \cellcolor{gray3} ER$^\text{\cmark\club}$\qquad KD$^\text{\club}$ 
+    & \cellcolor{gray3} P-Freeze$^\text{\cmark}$ 
+    & \cellcolor{gray3} Prompt$^\text{\cmark}$\qquad Layer~Exp.$^\text{\cmark}$ Adapter$^\text{\club}$ 
+    & BERT\qquad \qquad GPT 
+    & \cmark & \cmark \\
+    \hline
+
+
+    \cite{ibrahim2024simple} 
+    & Content Language & 2
+    & \cellcolor{gray3} ER$^\text{\cmark}$ 
+    & \cellcolor{gray3} \xmark
+    & \cellcolor{gray3} \xmark
+    & GPT-NeoX
+    & \cmark & \cmark\\
+    \hline
+
+
+    CEM~\cite{zhao2024large} 
+    & Other
+    & 1 
+    & \cellcolor{gray3} ER$^\text{\cmark}$
+    & \cellcolor{gray3} \xmark
+    & \cellcolor{gray3} \xmark
+    & CuteGPT ChatGLM Qwen-Chat
+    & \xmark
+    & \cmark
+    \\
+    \hline
+    
+    IR-DRO~\cite{chen2024take}
+    & Other
+    & 1
+    & \cellcolor{gray3} ER$^\text{\cmark}$
+    & \cellcolor{gray3} \xmark
+    & \cellcolor{gray3} \xmark
+    & OPT
+    & \xmark
+    & \cmark 
+    \\
+    
+	\bottomrule[0.12em]
+	\end{tabular}
+	}
+\end{center}
+\vspace{-1.5em}
+\label{tab:cpt-small}
+\end{table*}

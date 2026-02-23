@@ -1,0 +1,86 @@
+\begin{sidewaystable}
+% \begin{landscape}
+% \begin{table*}[h]
+    \centering
+    \caption{
+    \textbf{Summary of the existing benchmarks publicly available for Continual Learning LLMs.} 
+    In the column of \textbf{Name}, we use the superscript ``$^*$'' to denote the lack of the dataset name and the name shown is that of the original paper. 
+    In this table, we deliberately omit the datasets used for domain-adaptive pre-training the vertical LLMs, as their main focus of development is not on continual learning. We also omit the datasets used for general continual fine-tuning, as they are extensively discussed in other existing surveys~\cite{biesialska2020continual,ke2023continual}. 
+    }
+    \label{tab:datasets}
+    \resizebox{1\linewidth}{!}{
+\begin{tabular}{ccccc ccccc }
+	\toprule[0.15em]
+    \textbf{Name} & \textbf{Type} & \textbf{Shift}  & \textbf{Domain} & \textbf{\#Stages} & \textbf{Scale} & \textbf{Sources} & \textbf{Applications} & \textbf{Comment} \\
+    \midrule
+    \midrule
+    $^*$TimeLMs~\cite{loureiro2022timelms} & CPT & Temporal & Social Media & 8 & \#Examples: 123.86M  & Tweets & \cite{loureiro2022timelms} & \href{https://github.com/cardiffnlp/timelms}{code}\\
+    \midrule
+    CC-RecentNews~\cite{jang2022towards} & CPT & Temporal & News & 1 & \#Tokens: $\sim$168M & Web & \cite{jang2022towards} & \href{https://github.com/joeljang/continual-knowledge-learning}{code}\\
+    \midrule
+    TWiki~\cite{jang2022temporalwiki} & CPT & Temporal & General Knowledge & 5 & \#Tokens: 4.7B & Wikipedia & \cite{jang2022temporalwiki} & \href{https://github.com/joeljang/temporalwiki}{code} \\
+    \midrule
+    $^*$DAPT~\cite{gururangan2020dont} & \makecell{CPT \\ DAP} & Content & Multi-Domain & 4 & Size: 160GB & \makecell{BioMed~\cite{lo2020s2orc}, CS~\cite{lo2020s2orc}, News~\cite{zellers2019defending}, Reviews~\cite{he2016ups}} & \makecell{\cite{gururangan2020dont} \\ \cite{qin2023recyclable} \\ \cite{qin2022elle}} & \href{https://github.com/allenai/dont-stop-pretraining}{code} \\
+    \midrule
+    $^*$CPT~\cite{ke2022continual-train} & CPT & Content & Multi-Domain & 4 & \#Examples: 3.12M & \makecell{Yelp~\cite{xu2019bert}, S2ORC~\cite{lo2020s2orc}, AG-News~\cite{zhang2015character}} & \cite{ke2022continual-train} & \href{https://github.com/UIC-Liu-Lab/CPT}{code} \\
+    \midrule
+    $^*$DEMix~\cite{gururangan2022demix} & CPT & Content & Multi-Domain & 8 & \#Tokens: 73.8B & \makecell{1B~\cite{chelba2014billion}, CS~\cite{lo2020s2orc}, Legal~\cite{caselaw2018}, Med~\cite{lo2020s2orc}\\ WebText~\cite{gokaslan2019OpenWeb}, RealNews~\cite{zellers2019defending}, Reddit~\cite{baumgartner2020pushshift}, Reviews~\cite{ni2019justifying}} & \cite{gururangan2022demix} & \href{https://github.com/kernelmachine/demix}{code} \\
+    % \midrule
+    % $^*$ELLE~\cite{qin2022elle} & CPT & Content & Multi-Domain & 4 & \#Tokens: $\sim$13.6B & \makecell{Bio~\cite{lo2020s2orc}, Review~\cite{he2016ups} \\ CS~\cite{lo2020s2orc}, News~\cite{zellers2019defending}} & \makecell{\cite{qin2023recyclable} \\ \cite{qin2022elle}} & \href{https://github.com/thunlp/RecyclableTuning}{code} \\
+    \midrule
+    $^*$DAS~\cite{ke2022continual-pre} & \makecell{CPT \\ DAP} & Content & Multi-Domain & 6 & Size: 4.16GB & \makecell{Yelp~\cite{xu2019bert}, Reviews~\cite{ni2019justifying}, Papers~\cite{lo2020s2orc}, PubMed} & \cite{ke2022continual-pre} & \href{https://github.com/UIC-Liu-Lab/ContinualLM}{code} \\
+    % \cite{gupta2023continual} & CPT & Content & Mutli-Domain & 1 & - & 296.86 B & SlimPajama~\cite{cerebras2023slimpajama} & - & -\\
+    \midrule
+    SuperNI~\cite{wang2022supernaturalinstructions} & CIT & Content & Mutli-Domain & 16 & \makecell{\#Tasks: 1616 \\ \#Examples: $\sim$5M} & GitHub & \cite{zhang2023citb,wang2024inscl} & \href{https://github.com/allenai/natural-instructions}{code} \\
+
+    \midrule
+    CITB~\cite{zhang2023citb} & CIT & Content & Mutli-Domain & 19 & \#Tasks: 38 & SuperNI~\cite{wang2022supernaturalinstructions}  & \cite{zhang2023citb} & \href{https://github.com/hyintell/CITB}{code} \\
+
+    \midrule
+    CoIN~\cite{chen2024coin} & CIT & Content & Multi-Domain & 8 &\#Examples: $\sim$1.14M & \makecell{RefCOCO~\cite{kazemzadeh-etal-2014-referitgame},RefCOCO+~\cite{mao2016generation},RefCOCOg~\cite{mao2016generation} \\ ImageNet~\cite{imagenet_cvpr09}, VQAv2~\cite{goyal2017making}, ScienceQA~\cite{lu2022learn} \\ 
+    TextVQA ~\cite{singh2019vqa}, GQA~\cite{hudson2019gqa}, VizWiz ~\cite{gurari2018vizwiz}, OCR-VQA~\cite{mishraICDAR19}} & \cite{chen2024coin} & \href{https://github.com/zackschen/CoIN}{code} \\
+    \midrule
+    TRACE~\cite{wang2023trace} & CIT & Content & Mutli-Domain & 8 &  \#Examples: 56,000  & \makecell{ScienceQA~\cite{lu2022learn}, FOMC~\cite{shah2023trillion}, MeetingBank~\cite{hu2023meetingbank}\\ 
+    C-STANCE~\cite{zhao-etal-2023-c}, 20Minuten~\cite{kew-etal-2023-20}, CodeXGLUE~\cite{lu2021codexglue}, NumGLUE\cite{mishra2022numglue}} & \cite{wang2023trace} & \href{https://github.com/BeyonderXX/TRACE}{code} \\
+    \midrule
+    NATURAL-INSTRUCTION~\cite{mishra2021natural} & CIT & Content & Mutli-Domain & 6 &   \#Examples: 193k & \makecell{CosmosQA~\cite{huang2019cosmos}, DROP~\cite{dua2019drop}, Essential-Terms~\cite{khashabi-etal-2017-learning} \\ MCTACO~\cite{zhou2019goingvacationtakeslonger}, MultiRC~\cite{khashabi-etal-2018-looking}, QASC~\cite{khot2020qasc} \\ Quoref\cite{dasigi-etal-2019-quoref}~, ROPES~\cite{lin2019reasoning} , Winogrande~\cite{sakaguchi2019winogrande}} & \cite{mishra2021natural} & \href{https://github.com/allenai/natural-instructions-v1}{code} \\
+    \midrule
+    IMDB~\cite{maas2011learning} & CMA & Content &Social Media&1&Size: 217.35 MB& IMDB& \cite{zhang2023copf} & \href{https://huggingface.co/datasets/stanfordnlp/imdb}{code}\\
+    \midrule 
+    HH-RLHF~\cite{bai2022training} & CMA & Content &General Knowledge&1&Size: 28.1 MB& Human Feedback& \cite{zhang2023copf} & \href{https://github.com/anthropics/hh-rlhf}{code}\\
+    \midrule
+    Reddit TL;DR~\cite{volske2017tl} & CMA & Content&Social Media&2&Size: 19.6 GB&Reddit & \cite{zhang2023copf,zhangcppo} &\href{https://zenodo.org/records/1043504}{code}\\
+    \midrule
+    \makecell{Common Sense QA~\cite{lin2024mitigating} \\ Reading Comprehension~\cite{lin2024mitigating}\\ 
+    %7787+97867+16000+107785+96000+40836876
+    Translation~\cite{lin2024mitigating}} & CMA & Content &Multi-Domain&6& \#Examples: $\sim$ 41.16M&  \makecell{ARC Easy and Challenge~\cite{clark2018think}, Race~\cite{lai2017race}, PIQA~\cite{bisk2020piqa} \\ SQuAD~\cite{rajpurkar2018know}, DROP~\cite{dua2019drop} \\
+    WMT 2014 French to English~\cite{bojar2014findings}
+    }& \cite{lin2024mitigating} & see sources \\
+    \midrule
+    FEVER~\cite{fever} & CMR & Content & General Knowledge & 1 & \#Examples: 420k &  Wikipedia & \cite{de2021editing, hase2021language} & \href{https://fever.ai/resources.html}{code} \\
+    \midrule
+    VitaminC~\cite{vitaminC} & CMR & Content & General Knowledge & 1 & \#Examples: 450k &  Wikipedia & \cite{mitchell2022memory} & \href{https://github.com/TalSchuster/VitaminC}{code} \\
+    \midrule
+    zsRE~\cite{zsRE} & CMR & Content & General Knowledge & 1 & \#Examples: 120M &  Wikireading~\cite{Wikireading} & \cite{hase2021language, meng2022locating, meng2022mass, hase2023does, hartvigsen2023aging, das2024larimar} & - \\
+    \midrule
+    T-rex~\cite{T-rex} & CMR & Content & General Knowledge & 1 & \#Examples: 11M &  Dbpedia abstracts~\cite{Dbpedia} & \cite{li2022large, dong2022calibrating} & \href{https://hadyelsahar.github.io/t-rex/}{code} \\
+    \midrule
+    NQ~\cite{nq} & CMR & Content & General Knowledge & 1 & \#Examples: 320k &  Google queries, Wikipedia & \cite{hartvigsen2023aging} & \href{https://ai.google.com/research/NaturalQuestions}{code} \\
+    \midrule
+    CounterFact~\cite{meng2022locating} & CMR & Content & General Knowledge & 1 & \#Examples: 22k & zsRE \cite{zsRE} & \cite{meng2022locating, yu2023melo, hu2024wilke, das2024larimar} & \href{https://github.com/kmeng01/rome}{code} \\
+    \midrule
+    SCOTUS~\cite{scotus} & CMR & Temporal & Law & 1 & \#Examples: 9.2k &  Supreme Court Database & \cite{hartvigsen2023aging} & \href{https://github.com/coastalcph/fairlex}{code} \\
+    % \multirow{2}{*}[-0.6em]{\textbf{CFT Type}} & 
+    % \multirow{2}{*}[-0.6em]{\textbf{Method}} & 
+    % \multirow{2}{*}[-0.6em]{\textbf{X-IL}} & 
+    % \multirow{2}{*}[-0.6em]{\textbf{LLM Arch.}} & 
+    % \multicolumn{4}{c}{\textbf{{Continual Learning Tech.}}} & 
+    % \multicolumn{3}{c}{\textbf{{Continual Learning Eval.}}} \\
+    % \cmidrule(lr){5-8}\cmidrule(lr){9-11}
+    % & & & & \emph{Rehearsal} & \emph{Param. Reg.} & \emph{Arch. Exp.} & \emph{Others} & \emph{\makecell{Avg. \\Acc.}} & \emph{\makecell{Bwd. \\Trans.}} & \emph{\makecell{Fwd. \\Trans.}} \\
+	\bottomrule[0.15em]
+	\end{tabular}
+	}
+% \end{table*}
+% \end{landscape}
+\end{sidewaystable}
