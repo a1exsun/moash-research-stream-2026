@@ -8,7 +8,7 @@ My guess is that the dense nature of the Transformer architecture might physical
 
 Also, the most important continual learning mechanism in the brain comes from the separation of the neocortex and the hippocampus. The brain replays short-term memories from the hippocampus to the neocortex during sleep to save them. Although I have seen some papers trying to simulate this process (e.g., mixing old and new data during fine-tuning to simulate experience replay), I find it hard to find a clear, quantitative conclusion on how much these processes actually help a model's continual learning.
 
-So I think maybe we can design an ablation experiment, based on a small-scale model like nanoGPT, to systematically study these issues and give quantitative results. I think this has value because nanoGPT and SOTA models share similar architecture features, and we can use scaling to guess how SOTA models will perform.
+So I think maybe we can design an ablation experiment, based on a small-scale model like nanochat, to systematically study these issues and give quantitative results. I think this has value because nanochat and SOTA models share similar architecture features, and we can use scaling to guess how SOTA models will perform.
 
 Based on this hypothesis, I prepared Proposal 01.
 
