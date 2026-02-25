@@ -64,7 +64,7 @@ Looking at the latest LLM trends, I noticed that NSA is becoming the core trend 
 
 I noticed that DSA's design—decoupling attention into a "compressed global flow" and a "selective fine-grained flow"—might be the key to solving catastrophic forgetting. If we use this asymmetrically during fine-tuning (only update the selective flow and freeze or slow down the compressed flow), large models might become very resistant to forgetting.
 
-However, while preparing this proposal, I found I couldn't control the compute budget. All open-source sparse models are too big, and I haven't found a good way to move forward yet.
+However, I found that the compute budget requirements for this direction are too high. All open-source sparse attention models are too big, so I haven't found a good way to move forward yet.
 
 ## Small-scale Validation
 
