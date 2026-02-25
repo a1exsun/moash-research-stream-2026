@@ -1,4 +1,4 @@
-# Proposal 05: Compression-Writability Bound
+# Proposal 03: Compression-Writability Bound
 
 ## 一句话说清楚本研究要干什么
 

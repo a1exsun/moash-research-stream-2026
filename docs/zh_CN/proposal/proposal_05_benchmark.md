@@ -1,4 +1,4 @@
-# Proposal 04: 基于 Human Feedback 的长程持续学习 Arena 评测基准
+# Proposal 05: 基于 Human Feedback 的长程持续学习 Arena 评测基准
 
 ## 核心主张与目标
 

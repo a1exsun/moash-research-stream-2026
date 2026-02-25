@@ -1,8 +1,8 @@
-# Proposal 08: 面向持续学习的 Tiny-DSA 沙盒预训练验证 (Tiny-DSA Sandbox Pre-training)
+# Proposal 06: 面向持续学习的 Tiny-DSA 沙盒预训练验证 (Tiny-DSA Sandbox Pre-training)
 
 ## 核心洞察 (Core Insight)
 
-如果我们认为“后天修改（如 Proposal 07 提到的）既有模型的注意力结构”会面临预训练分布和新机制在微结构上的耦合阻抗（Impedance Mismatch），从而缺乏“原汁原味”的说服力；那么，从零开始（From-Scratch）构建一个基于 DeepSeek 原生动态稀疏注意力（DSA: Dynamic Sparse Attention）架构的极小沙盒模型（Toy Model / Sandbox），将是最纯粹的机制验证路径。
+如果我们认为“后天修改（如 Proposal 04 提到的）既有模型的注意力结构”会面临预训练分布和新机制在微结构上的耦合阻抗（Impedance Mismatch），从而缺乏“原汁原味”的说服力；那么，从零开始（From-Scratch）构建一个基于 DeepSeek 原生动态稀疏注意力（DSA: Dynamic Sparse Attention）架构的极小沙盒模型（Toy Model / Sandbox），将是最纯粹的机制验证路径。
 
 由于仅需证明“分离的注意力通路天然免疫遗忘现象”这一**网络拓扑的物理假说**，我们在顶会级别的理论论证中，可以脱离生产级的大参数模型，转而在极小尺度（~100M 参数）的语料集（如 TinyStories）上进行全链路、端到端（End-to-End）的首创验证。
 
