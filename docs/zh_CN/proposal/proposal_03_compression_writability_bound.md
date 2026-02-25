@@ -1,14 +1,10 @@
 # Proposal 03: Compression-Writability Bound
 
-## 一句话说清楚本研究要干什么
+## 核心洞察
 
 我们想证明一件事：**任何只用一套激活模式的持续学习系统，学习能力都有一个硬上界。想突破这个上界，至少需要两套不同稀疏度的系统配合（类似大脑的海马体 + 新皮层）。**
 
 先在 Hopfield 网络上做严格数学证明，再到 Transformer 上做实验看这个结论定性上还成不成立。
-
----
-
-## 为什么要做这个
 
 ### 研究背景与关键假设
 
@@ -18,17 +14,13 @@
 4. **Activation sparsity 才是关键**（不是 weight sparsity）：海马体通过极端的 activation sparsity（DG 只激活 2-5% 的神经元）实现 pattern separation
 5. 研究问题变成了：**activation sparsity 怎样决定持续学习的容量上限？**
 
----
-
-## 三个研究问题
+### 三个研究问题
 
 1. Activation sparsity 和写入干扰之间是不是单调关系？（越稀疏干扰越小？）
 2. 如果一个系统只用一种固定的 activation sparsity（single-regime），它能学的任务数有没有上限？
 3. 两套不同稀疏度的系统（dual-regime）加上巩固机制，能不能突破这个上限？
 
----
-
-## 三个假说
+## 假设
 
 ### H1: 越稀疏，干扰越小
 
@@ -68,11 +60,11 @@ $$C_{\text{dual}}(\epsilon) > \max_s C_{\text{single}}(s, \epsilon)$$
 
 注意：这里只证明 dual-regime 是**充分条件**（它能行），不是**必要条件**（不是说它是唯一的办法）。
 
----
+## 方案
 
-## 理论框架
+### 理论框架
 
-### 核心定义
+#### 核心定义
 
 - **模型**：$f_\theta: \mathcal{X} \to \mathcal{Y}$，$d$ 个参数，隐层表征 $h(x;\theta) \in \mathbb{R}^m$
 - **Activation sparsity**：$s(\theta) = 1 - \mathbb{E}_x[\|h(x;\theta)\|_0 / m]$（直觉：$s=0.95$ 表示平均只有 5% 的神经元被激活）
@@ -85,11 +77,11 @@ $$C_{\text{dual}}(\epsilon) > \max_s C_{\text{single}}(s, \epsilon)$$
 
 注：$B(s)$ 之前用互信息定义，但那玩意儿在深度网络上算不出来。改用 loss reduction 更好操作，而且在 Hopfield 上可以精确关联到 pattern 容量。
 
-### 证明分三层
+#### 证明分三层
 
 **核心贡献是第一层（Hopfield 上的严格证明），后两层靠实验验证。**
 
-#### 第一层：在 Hopfield 网络上严格证明
+##### 第一层：在 Hopfield 网络上严格证明
 
 为什么选 Hopfield：
 
@@ -137,19 +129,17 @@ $$\mathbb{E}[\xi_i^t \xi_i^{t'}] = a^2, \quad \text{Var}[\xi_i^t \xi_i^{t'}] = a
 - 快速区 reset，继续接新任务
 - 总容量 = 循环次数 × $C_1$，全部存在慢速区里
 
-#### 第二层：Linear Network（待做）
+##### 第二层：Linear Network（待做）
 
 把第一层的结论推广到线性网络。预期通过分析梯度子空间的重叠能得到类似的 $C \cdot B$ bound。
 
-#### 第三层：Deep Nonlinear Network（猜想 + 实验验证）
+##### 第三层：Deep Nonlinear Network（猜想 + 实验验证）
 
 **我们的猜想**：第一层和第二层的定性结论（单系统有天花板、双系统能突破）在深度 Transformer 里仍然成立。
 
 **我们不 claim** Hopfield 的具体数值 bound 能直接用到 Transformer 上。我们只 claim **定性结构**（tradeoff 存在、dual-regime 有优势）。
 
----
-
-## 跟现有工作的关系
+### 跟现有工作的关系
 
 | 别人做了什么                                            | 我们有什么不一样                                                                                                               |
 | :------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------- |
@@ -160,7 +150,7 @@ $$\mathbb{E}[\xi_i^t \xi_i^{t'}] = a^2, \quad \text{Var}[\xi_i^t \xi_i^{t'}] = a
 | **Stability-Plasticity Dilemma**                        | 以前这只是个 informal 的说法，我们把它变成了有数学证明的 capacity bound                                                        |
 | **各种 dual-memory CL 方法**                            | 大多用非参数化的 episodic memory buffer，不是真正的参数化双系统。我们要求两个子系统都是参数化的，靠 activation sparsity 来区分 |
 
-### 需要认真讨论的：MoE
+#### 需要认真讨论的：MoE
 
 MoE 通过 routing 实现了 **conditional activation sparsity**（不同输入激活不同 expert）。问题是：这算不算 regime differentiation？
 
@@ -171,11 +161,11 @@ MoE 通过 routing 实现了 **conditional activation sparsity**（不同输入�
 - 但如果 MoE 在持续学习中确实表现更好，那这支持我们关于 activation sparsity 的核心理论
 - **实验里应该加个 MoE baseline**，看看它的 $C \cdot B$ 表现
 
-### Progressive Neural Networks（Rusu et al. 2016）
+#### Progressive Neural Networks（Rusu et al. 2016）
 
 通过不断增加新模块来避免遗忘。本质上是在**增加 $\Phi(d)$**（参数量变大了天花板当然高），跟我们研究的"在固定参数量下突破单系统 ceiling"是不同的问题。
 
-### 跟 CLS 的对应
+#### 跟 CLS 的对应
 
 | 我们的概念                       | 大脑里对应什么                             |
 | :------------------------------- | :----------------------------------------- |
@@ -187,19 +177,17 @@ MoE 通过 routing 实现了 **conditional activation sparsity**（不同输入�
 
 **实话实说**：这个理论的构建过程就是受 CLS 启发的，所以结论跟 CLS 对应上**不能**算独立的 convergent evidence。但核心结果（$C \cdot B$ bound）是从 activation sparsity 与 interference 的数学关系直接推出来的，不依赖 CLS 类比。CLS 只是事后的解读框架。
 
----
+### 实验设计
 
-## 实验设计
-
-### 实验的原则
+#### 实验的原则
 
 实验不是为了刷分，是为了**验证理论预测**。所以用最小化设计，控制变量优先。
 
-### 实验平台
+#### 实验平台
 
-小型 Transformer（~50-100M 参数，nanoGPT 规模）。理论验证不需要大模型，但需要大量 runs（≥3 seeds × 多个 sparsity levels × 多个任务序列长度）。
+Transformer（约 561M 参数，nanochat 规模）。理论验证不需要大模型，但需要大量 runs（≥3 seeds × 多个 sparsity levels × 多个任务序列长度）。
 
-### Exp 1: Activation Sparsity → 干扰曲线
+#### Exp 1: Activation Sparsity → 干扰曲线
 
 **要回答的问题**：Hopfield 上证明的"越稀疏干扰越小"，在 Transformer 里定性上还成不成立？
 
@@ -215,7 +203,7 @@ MoE 通过 routing 实现了 **conditional activation sparsity**（不同输入�
 
 **什么情况算推翻**：如果 $I(s)$ 非单调（比如某个中间 sparsity 的干扰反而更高），那 Theorem 1 在深度网络上就不成立。
 
-### Exp 2: 单系统容量天花板
+#### Exp 2: 单系统容量天花板
 
 **要回答的问题**：不同 sparsity level 下，能学的任务数和每任务学习效果之间是不是真的有 tradeoff？$C \cdot B$ 有没有上界？
 
@@ -235,7 +223,7 @@ MoE 通过 routing 实现了 **conditional activation sparsity**（不同输入�
 
 **什么情况算推翻**：$C \cdot B$ 随 $s$ 单调变化没有 tradeoff，或者不同 sparsity 的 $C \cdot B$ 差异极大且无收敛趋势。
 
-### Exp 3: 双系统初步验证
+#### Exp 3: 双系统初步验证
 
 **要回答的问题**：双系统在 Transformer 上能不能展示出超过单系统的容量优势？
 
@@ -255,9 +243,111 @@ MoE 通过 routing 实现了 **conditional activation sparsity**（不同输入�
 
 **什么情况算推翻**：$C_{\text{dual}} \leq C_{\text{B1}}$，说明 H3 在深度网络上不成立，或者实现方案有根本性问题。
 
----
+### 风险和对策
 
-## 预期贡献
+#### 风险 1: Hopfield 的结论跟 Transformer 有什么关系？
+
+Reviewer 肯定会问。
+
+**对策**：
+
+- Exp 1 和 Exp 2 直接在 Transformer 上验证定性预测
+- 论文结构讲清楚：Hopfield 上 exact theorem + 深度网络上 empirical conjecture，不混为一谈
+- 有先例：Hopfield 网络的容量理论（Cover 1965, Tsodyks & Feigelman 1988）到今天还是理解联想记忆的基础工具，虽然现代网络比 Hopfield 复杂得多
+
+#### 风险 2: $C \cdot B$ bound 不够 tight
+
+$C \cdot B$ 对 $a$ 有弱依赖（$\propto a^2$），不是严格常数。这可能让"tradeoff"的故事没那么漂亮。
+
+**对策**：
+
+- 如实报告 bound 的形式，不装它是常数
+- 核心 claim 调整为：**存在最优 $a^*$，且 $C(a^*) \cdot B(a^*)$ 有上界**——调 $a$ 不能无限提升 throughput
+- 实验里直接画 $C \cdot B$ vs $s$ 曲线
+
+#### 风险 3: k-WTA 引入 artifact
+
+k-WTA 的硬约束可能导致训练不稳定，实验结果反映的是 k-WTA 的毛病而不是 activation sparsity 的本质。
+
+**对策**：
+
+- 同时用 L1 正则化做 soft enforcement
+- 两种实现的 $I(s)$ 曲线定性一致 → artifact 风险低
+- 不一致 → 分析原因，可能需要第三种实现
+
+#### 风险 4: 双系统的优势来自参数量更多而不是 regime 分化
+
+**对策**：
+
+- 控制总参数量相同
+- B1-same 基线：同参数量但两个区域用相同 sparsity
+- 如果 B1-same ≈ dual-regime，那优势来自参数分配而不是 differentiation，H3 要重新审视
+
+### 时间线
+
+#### Phase 1: 理论（核心，决定成败）
+
+- Hopfield 上 Theorem 1 和 Theorem 2 的严格证明
+- Proposition 1 的构造性证明
+- 跟 Tsodyks & Feigelman (1988) 的结果对接
+- 搞清楚 bound 的 tightness 和适用范围
+
+#### Phase 2: 实验
+
+- Exp 1: $I(s)$ 曲线
+- Exp 2: Single-regime Pareto frontier
+- Exp 3: Dual-regime sanity check
+
+#### Go/No-Go 判定
+
+**继续做的条件**：
+
+- Hopfield 上的证明搞得出来且 clean
+- Exp 1 和 Exp 2 定性上支持理论预测（单调性成立、tradeoff 存在）
+
+**不做了的条件**：
+
+- Hopfield 证明需要太强的假设，结果变得 trivial
+- Exp 1 里 $I(s)$ 非单调，或 Exp 2 里 $C \cdot B$ 没有收敛趋势
+
+### 论文结构（到时候写的话）
+
+```
+1. Introduction: stability-plasticity dilemma 缺形式化 → 我们给 capacity bound
+2. Preliminaries: activation sparsity / write interference / forgetting 的定义
+3. Theory (核心):
+   3.1 Theorem 1: I(s) 单调递减 (Hopfield, exact)
+   3.2 Theorem 2: Single-regime C·B bound (Hopfield, exact)
+   3.3 Proposition 1: Dual-regime 突破 bound (constructive)
+   3.4 Conjecture: 定性结论推广到深度网络
+4. Experiments:
+   4.1 Exp 1: I(s) curve in Transformer → 验证 Theorem 1
+   4.2 Exp 2: Pareto frontier → 验证 Theorem 2
+   4.3 Exp 3: Dual-regime sanity check → 支持 Proposition 1
+5. Discussion: CLS 对应、现有方法的 ceiling 解释、局限性
+6. Future Work
+```
+
+### 将来可以做但这次不做的事
+
+1. **完整的参数化 CLS 系统**：最优巩固调度、自适应 sparsity、快速区容量管理——独立的系统工程问题
+2. **$\Phi(d)$ 的 scaling 分析**：capacity bound 怎么随模型规模变？有没有 scaling law？
+3. **MoE 跟 conditional sparsity 的关系**
+4. **第二层证明**：线性网络上的严格证明
+5. **快速区和慢速区最优 activity level 的理论分析**
+
+## 算力成本评估
+
+nanochat 规模（约 561M 参数），核心开销集中在 Exp 2 的大量组合实验上。
+
+- Exp 1: 6 sparsity levels × 2 实现方式 × 3 seeds = 36 runs
+- Exp 2: 6 sparsity levels × 4 任务序列长度 × 2 实现方式 × 3 seeds = 144 runs
+- Exp 3: 4 配置（dual + 3 baselines）× 3 seeds = 12 runs
+- 单次 run 在 A100 上约 8-12 小时
+- 总计约 ~1500-2300 A100 GPU 小时，8×H100 集群约 2-3 周
+- 云端成本约 $3000-4500
+
+## 预期产出
 
 ### 理论
 
@@ -278,109 +368,6 @@ MoE 通过 routing 实现了 **conditional activation sparsity**（不同输入�
 - 为 EWC/GPM/replay 等方法在长序列上退化提供了定量解释
 - 指出一个被忽视的方向：**activation sparsity 的 regime 分化**（而不是只在一套 regime 里优化更新规则）
 - 提供可证伪的预测：测量任何 single-regime CL 方法的 activation sparsity，就能预测它的容量天花板
-
----
-
-## 风险和对策
-
-### 风险 1: Hopfield 的结论跟 Transformer 有什么关系？
-
-Reviewer 肯定会问。
-
-**对策**：
-
-- Exp 1 和 Exp 2 直接在 Transformer 上验证定性预测
-- 论文结构讲清楚：Hopfield 上 exact theorem + 深度网络上 empirical conjecture，不混为一谈
-- 有先例：Hopfield 网络的容量理论（Cover 1965, Tsodyks & Feigelman 1988）到今天还是理解联想记忆的基础工具，虽然现代网络比 Hopfield 复杂得多
-
-### 风险 2: $C \cdot B$ bound 不够 tight
-
-$C \cdot B$ 对 $a$ 有弱依赖（$\propto a^2$），不是严格常数。这可能让"tradeoff"的故事没那么漂亮。
-
-**对策**：
-
-- 如实报告 bound 的形式，不装它是常数
-- 核心 claim 调整为：**存在最优 $a^*$，且 $C(a^*) \cdot B(a^*)$ 有上界**——调 $a$ 不能无限提升 throughput
-- 实验里直接画 $C \cdot B$ vs $s$ 曲线
-
-### 风险 3: k-WTA 引入 artifact
-
-k-WTA 的硬约束可能导致训练不稳定，实验结果反映的是 k-WTA 的毛病而不是 activation sparsity 的本质。
-
-**对策**：
-
-- 同时用 L1 正则化做 soft enforcement
-- 两种实现的 $I(s)$ 曲线定性一致 → artifact 风险低
-- 不一致 → 分析原因，可能需要第三种实现
-
-### 风险 4: 双系统的优势来自参数量更多而不是 regime 分化
-
-**对策**：
-
-- 控制总参数量相同
-- B1-same 基线：同参数量但两个区域用相同 sparsity
-- 如果 B1-same ≈ dual-regime，那优势来自参数分配而不是 differentiation，H3 要重新审视
-
----
-
-## 时间线
-
-### Phase 1: 理论（核心，决定成败）
-
-- Hopfield 上 Theorem 1 和 Theorem 2 的严格证明
-- Proposition 1 的构造性证明
-- 跟 Tsodyks & Feigelman (1988) 的结果对接
-- 搞清楚 bound 的 tightness 和适用范围
-
-### Phase 2: 实验
-
-- Exp 1: $I(s)$ 曲线
-- Exp 2: Single-regime Pareto frontier
-- Exp 3: Dual-regime sanity check
-
-### Go/No-Go 判定
-
-**继续做的条件**：
-
-- Hopfield 上的证明搞得出来且 clean
-- Exp 1 和 Exp 2 定性上支持理论预测（单调性成立、tradeoff 存在）
-
-**不做了的条件**：
-
-- Hopfield 证明需要太强的假设，结果变得 trivial
-- Exp 1 里 $I(s)$ 非单调，或 Exp 2 里 $C \cdot B$ 没有收敛趋势
-
----
-
-## 论文结构（到时候写的话）
-
-```
-1. Introduction: stability-plasticity dilemma 缺形式化 → 我们给 capacity bound
-2. Preliminaries: activation sparsity / write interference / forgetting 的定义
-3. Theory (核心):
-   3.1 Theorem 1: I(s) 单调递减 (Hopfield, exact)
-   3.2 Theorem 2: Single-regime C·B bound (Hopfield, exact)
-   3.3 Proposition 1: Dual-regime 突破 bound (constructive)
-   3.4 Conjecture: 定性结论推广到深度网络
-4. Experiments:
-   4.1 Exp 1: I(s) curve in Transformer → 验证 Theorem 1
-   4.2 Exp 2: Pareto frontier → 验证 Theorem 2
-   4.3 Exp 3: Dual-regime sanity check → 支持 Proposition 1
-5. Discussion: CLS 对应、现有方法的 ceiling 解释、局限性
-6. Future Work
-```
-
----
-
-## 将来可以做但这次不做的事
-
-1. **完整的参数化 CLS 系统**：最优巩固调度、自适应 sparsity、快速区容量管理——独立的系统工程问题
-2. **$\Phi(d)$ 的 scaling 分析**：capacity bound 怎么随模型规模变？有没有 scaling law？
-3. **MoE 跟 conditional sparsity 的关系**
-4. **第二层证明**：线性网络上的严格证明
-5. **快速区和慢速区最优 activity level 的理论分析**
-
----
 
 ## 参考文献
 
@@ -418,5 +405,3 @@ k-WTA 的硬约束可能导致训练不稳定，实验结果反映的是 k-WTA �
 ### 信息论基础
 
 - Cover & Thomas (2006). _Elements of Information Theory_. Wiley.
-
----
