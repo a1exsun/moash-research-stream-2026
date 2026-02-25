@@ -1,6 +1,6 @@
 # Proposal 05: Compression-Writability Bound
 
-## 一句话说清楚这个 proposal 要干什么
+## 一句话说清楚本研究要干什么
 
 我们想证明一件事：**任何只用一套激活模式的持续学习系统，学习能力都有一个硬上界。想突破这个上界，至少需要两套不同稀疏度的系统配合（类似大脑的海马体 + 新皮层）。**
 
@@ -10,7 +10,7 @@
 
 ## 为什么要做这个
 
-### 从之前讨论中得出的几个关键结论
+### 研究背景与关键假设
 
 1. 持续学习有三个本质问题：**写到哪**（定位）、**放得下多少**（容量）、**怎么找回来**（检索）
 2. **Superposition 是灾难性遗忘的根源**：模型把多个概念压缩编码到同一组参数里（superposition），压缩率越高，塞得越多但也越难安全写入新东西
@@ -405,7 +405,7 @@ k-WTA 的硬约束可能导致训练不稳定，实验结果反映的是 k-WTA �
 
 ### 稀疏性与表征理论
 
-- Tsodyks & Feigelman (1988). Enhanced storage capacity with low activity level. _Europhysics Letters_. [**本 proposal 的直接基础**]
+- Tsodyks & Feigelman (1988). Enhanced storage capacity with low activity level. _Europhysics Letters_. [**本研究的直接基础**]
 - Frankle & Carlin (2019). The lottery ticket hypothesis. _ICLR_.
 - Elhage et al. (2022). Toy models of superposition. _Anthropic_.
 

@@ -1,4 +1,4 @@
-# Proposal 03（Merged）: 原生稀疏预训练能否移动持续学习干扰临界边界
+# Proposal 03: 原生稀疏预训练能否移动持续学习干扰临界边界
 
 ## 顶会定位
 
@@ -68,11 +68,11 @@
 
 1. `M1`：Dense baseline
 2. `M2`：Native Sparse Pretrain（2:4）
-3. `M3`：Dense + CDCL（Proposal 04）
+3. `M3`：Dense + CDCL（对比基线）
 
 扩展组（附录优先）：
 
-1. `M4`：Sparse + Selective Write（Proposal 01）
+1. `M4`：Sparse + Selective Write（额外机制组合）
 
 扫描维度（先小后大）：
 
@@ -159,13 +159,3 @@ No-Go（快速降级，避免过度投入）：
 ### 风险3：被质疑“冲突强度与任务难度混淆”
 
 应对：预先做可分性/难度标定，保证冲突分档独立可解释。
-
----
-
-## 与其他提议的关系
-
-1. Proposal 01：提供 Selective Write 等可组合机制（优先放附录或扩展）
-2. Proposal 02：提供后稀疏化实用路线对照（Phase A 中的 `PD->S`）
-3. Proposal 04：提供 CDCL 机制对照（Phase B 主矩阵）
-
-本提议作为主线后，其他提议转为“机制插件或工程对照”，服务于同一顶会叙事。
