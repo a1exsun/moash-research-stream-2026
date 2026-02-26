@@ -12,7 +12,7 @@ Furthermore, the most crucial continual learning mechanism in the human brain st
 
 Therefore, I think we could design an ablation study based on a small-scale model like nanochat to systematically investigate these questions and gather initial quantitative evidence. I believe this has value because nanochat shares similar architectural characteristics with SOTA models, which could optionally provide insights for subsequent scaling research.
 
-Based on this hypothesis, I formulated **Proposal 01**.
+Based on this hypothesis, I formulated **[Proposal 01](proposal_01_ablation_experiments.md)**.
 
 ## The Cross-over Hypothesis
 
@@ -24,7 +24,7 @@ Extrapolating further, I propose a central "cross-over hypothesis": A continual 
 
 This is not standard domain fine-tuning, nor is it merely a domain-specific model; it is a model equipped with true continual learning capabilities. Compared to traditional domain fine-tuning or domain models, it can continuously absorb new knowledge within the target domain without being forced to learn entirely disparate fields every day. I think this resembles human learning. For example, my first job was in Java development, but after years without writing Java code, I have forgotten most of its syntax and frameworks. I can assume that if I step away from development or research for years, I would continue to forget most knowledge in this domain.
 
-Based on this hypothesis, I formulated **Proposal 02**.
+Based on this hypothesis, I formulated **[Proposal 02](proposal_02_nanogpt_pretrain_dense_vs_sparse.md)**.
 
 ## Potential Sparsity in Scaled Dense Models
 
@@ -34,7 +34,7 @@ Under the ongoing expansion of scaling laws, could implicit sparsity emerge with
 
 I think this is also worth investigating deeply. However, rather than simply constructing an experiment, I believe a viable strategy for dealing with SOTA models is to directly design a fine-tuning architectural modification oriented around the continual learning problem, and to verify whether this sparsity actually exists in the process.
 
-Based on this hypothesis, I formulated **Proposal 03**.
+Based on this hypothesis, I formulated **[Proposal 03](proposal_03_sota_sparse_conversion.md)**.
 
 ## Benchmark
 
@@ -42,7 +42,7 @@ In my broad review of relevant papers, I found that evaluation frameworks for co
 
 My thought is that, in applied scenarios, static benchmark scores are often insufficient. We typically refer to real user feedback, such as LLM Arena or Reddit/X discussions. Currently, such evaluation systems are rare in the continual learning field. I think it might be worth attempting to build one. Coincidentally, I have developed an AI companionship application centered on structured narratives. It might be possible to build an evaluation system relying on Human Feedback upon this foundation (since users inherently care about which LLM best aligns with plot frameworks and retains historical memory during long-range narratives, making their perception highly accurate).
 
-Based on this hypothesis, I formulated **Proposal 04**.
+Based on this hypothesis, I formulated **[Proposal 04](proposal_04_benchmark.md)**.
 
 ## NSA (Native Sparse Attention)
 
@@ -64,4 +64,4 @@ Native DSA open-source models are typically large, meaning the experimental comp
 
 Therefore, I think we could potentially leverage open-source DSA / Indexer operators to pre-train a small-scale DSA architecture (e.g., ~0.1B scale) from scratch on a small dataset, and then run a controlled experiment against a conventional Transformer.
 
-Based on this hypothesis, I formulated **Proposal 05**.
+Based on this hypothesis, I formulated **[Proposal 05](proposal_05_dsa_tiny_sandbox.md)**.
