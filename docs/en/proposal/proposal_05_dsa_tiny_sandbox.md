@@ -1,8 +1,8 @@
-# Proposal 06: Tiny-DSA Sandbox Pre-training Validation for Continual Learning
+# Proposal 05: Tiny-DSA Sandbox Pre-training Validation for Continual Learning
 
 ## Research Motivation
 
-If "retrofitting attention structures onto existing models" (as discussed in Proposal 04) faces incompatibility between the pre-trained distribution and new mechanisms—thereby lacking the persuasiveness of controlled experiments—then building a minimal sandbox model from scratch based on DeepSeek's native Dynamic Sparse Attention (DSA) architecture may offer a cleaner path for mechanism validation.
+If "retrofitting attention structures onto existing models" (as discussed in Proposal 03) faces incompatibility between the pre-trained distribution and new mechanisms—thereby lacking the persuasiveness of controlled experiments—then building a minimal sandbox model from scratch based on DeepSeek's native Dynamic Sparse Attention (DSA) architecture may offer a cleaner path for mechanism validation.
 
 Since the core objective is to test the hypothesis that "separated attention pathways help mitigate forgetting," we can decouple from production-scale large models and conduct end-to-end preliminary validation at a minimal scale (~100M parameters) on compact corpora such as TinyStories.
 

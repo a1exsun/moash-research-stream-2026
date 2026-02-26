@@ -1,4 +1,4 @@
-# Proposal 04: Exploring Implicit Sparsity in SOTA Models and Sparse-Aware Fine-Tuning for Continual Learning
+# Proposal 03: Exploring Implicit Sparsity in SOTA Models and Sparse-Aware Fine-Tuning for Continual Learning
 
 ## Research Motivation
 

@@ -1,4 +1,4 @@
-# Proposal 05: Exploring Dynamic Evaluation for Continual Learning Based on Long-Horizon Human Interaction
+# Proposal 04: Exploring Dynamic Evaluation for Continual Learning Based on Long-Horizon Human Interaction
 
 ## Research Background and Core Motivation
 
