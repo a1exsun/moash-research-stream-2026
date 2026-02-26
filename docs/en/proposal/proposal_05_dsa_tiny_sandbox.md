@@ -4,7 +4,7 @@
 
 If "retrofitting attention structures onto existing models" (as discussed in Proposal 03) faces incompatibility between the pre-trained distribution and new mechanisms—thereby lacking the persuasiveness of controlled experiments—then building a minimal sandbox model from scratch based on DeepSeek's native Dynamic Sparse Attention (DSA) architecture may offer a cleaner path for mechanism validation.
 
-Since the core objective is to test the hypothesis that "separated attention pathways help mitigate forgetting," we can decouple from production-scale large models and conduct end-to-end preliminary validation at a minimal scale (~100M parameters) on compact corpora such as TinyStories.
+**Why can't we simply use existing models?** As of February 2026, the smallest publicly available model with a native conditional sparse routing architecture (MoE + Gated Delta Networks) is the recently released **Qwen3.5-35B-A3B** (35B total parameters / 3B active parameters). Even at this "smallest" scale, the compute requirements remain substantial (see the estimate in Proposal 03). Other models, such as DeepSeek-v3.2 and Kimi-K2.5, are far larger in parameter count, making it infeasible to pursue this line of research with them.
 
 ### Research Question in One Sentence
 

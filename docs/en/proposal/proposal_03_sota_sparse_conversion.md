@@ -22,7 +22,9 @@ While preserving the dense architecture, introducing **"sparse-aware / orthogona
 
 ### Base Configuration
 
-- **Base model selection**: Select open-source SOTA models with "emergent-capability-level" scale and stable frontier architectures (e.g., Llama-3-8B and above, or comparable open-source Qwen/Mistral scales).
+- **Base model selection**: Select open-source SOTA models with "emergent-capability-level" scale and frontier architectures. Two specific candidates are under consideration:
+  - **Qwen3.5-27B (Dense)**: A 27B fully dense architecture where all parameters are activated during every forward pass, yielding the highest inference density. Suitable as a dense baseline for probing implicit sparsity.
+  - **Qwen3.5-35B-A3B (MoE)**: 35B total parameters / 3B active parameters, employing a Gated Delta Networks + MoE hybrid architecture. Its built-in conditional sparse routing allows direct observation of the correspondence between expert routing and tasks, providing a more natural entry point for sparse-aware fine-tuning.
 - **Task sequence**: Multi-domain sequential setup (Code -> Math -> Medical -> General conversational reasoning).
 
 ### Fine-Tuning Architecture Modification Design
@@ -41,13 +43,24 @@ Beyond standard task-score evaluation across domains, dedicated probes should be
 
 ## Compute Cost Estimate
 
-Base model is an 8B+ parameter open-source SOTA model. Fine-tuning uses PEFT (LoRA/Adapter); inference requires forward passes for activation probing.
+Fine-tuning uses PEFT (LoRA/Adapter); inference requires forward passes for activation probing. Below are resource estimates for each candidate base model:
 
-- Activation probing (per domain): single forward pass ~2–4 A100 GPU hours
-- Fine-tuning (per domain): LoRA fine-tuning ~8–16 A100 GPU hours
-- Full experiment across 4 domains + probing analysis: ~80–120 A100 GPU hours
-- Cloud cost: ~$200–300
-- The above are rough estimates; actual costs may vary due to data cleaning, reruns, and hyperparameter tuning
+### Option A: Qwen3.5-27B (Dense)
+
+- **Memory footprint**: BF16 weights ~54 GB; LoRA fine-tuning + activation cache ~70–90 GB; feasible on 1×A100-80GB (with gradient checkpointing enabled)
+- Activation probing (per domain): single forward pass ~4–8 A100 GPU hours
+- Fine-tuning (per domain): LoRA fine-tuning ~16–32 A100 GPU hours
+- Full experiment across 4 domains + probing analysis: ~160–320 A100 GPU hours
+- Cloud cost: ~$400–800
+
+### Option B: Qwen3.5-35B-A3B (MoE)
+
+- **Memory footprint**: Although only 3B parameters are activated, all 35B parameters must be loaded into GPU memory (BF16 ~70 GB); LoRA fine-tuning ~80–100 GB, requiring 1×A100-80GB (tight) or 2×A100-40GB
+- Activation probing (per domain): Since only 3B parameters are activated per token, forward inference is significantly faster than the 27B Dense model, ~3–6 A100 GPU hours
+- Fine-tuning (per domain): Gradients flow only through activated experts; LoRA fine-tuning ~12–24 A100 GPU hours
+- Full experiment across 4 domains + probing analysis: ~120–240 A100 GPU hours
+- Cloud cost: ~$300–600
+- **Additional advantage**: MoE inherently provides expert routing logs, enabling direct analysis of expert selection patterns across different domain data without the need for custom-designed activation probes
 
 ## Expected Outcomes
 
