@@ -26,16 +26,6 @@ This is not standard domain fine-tuning, nor is it merely a domain-specific mode
 
 Based on this hypothesis, I formulated **Proposal 02**.
 
-## Compression-Writability Bound
-
-While exploring the cross-over hypothesis, I realized a deeper underlying issue: the "stability-plasticity dilemma" is frequently mentioned in continual learning, but in the literature I’ve read, it mostly remains a vague qualitative concept. Rarely is it formalized into an empirically provable or falsifiable proposition.
-
-I tried approaching this from the perspective of activation sparsity. The core logical chain is: the model compresses and encodes multiple concepts into the same set of parameters (superposition). Activation sparsity dictates the degree of interference that occurs when writing new knowledge over the old. Therefore, for any system using a single, fixed activation mode (a single-regime system), there may exist a mathematical upper bound (a capacity ceiling) on "the number of tasks × the learning depth per task." If this holds true, having two subsystems with different sparsity levels working in tandem might be a candidate pathway to break this upper bound. This corresponds loosely to the division of labor between the brain's hippocampus (highly sparse, rapid recording) and the neocortex (moderately dense, deep compression).
-
-If this theory is validated, it could explain why existing methods like EWC or GPM degrade over long sequences of tasks—they might inherently operate under the capacity ceiling of a single system. Of course, even if the theory is falsified, it remains a valuable interim conclusion.
-
-Based on this hypothesis, I formulated **Proposal 03**.
-
 ## Potential Sparsity in Scaled Dense Models
 
 As I gained deeper insight into current LLM architectures, I realized that scale itself might be a critical factor.
@@ -44,7 +34,7 @@ Under the ongoing expansion of scaling laws, could implicit sparsity emerge with
 
 I think this is also worth investigating deeply. However, rather than simply constructing an experiment, I believe a viable strategy for dealing with SOTA models is to directly design a fine-tuning architectural modification oriented around the continual learning problem, and to verify whether this sparsity actually exists in the process.
 
-Based on this hypothesis, I formulated **Proposal 04**.
+Based on this hypothesis, I formulated **Proposal 03**.
 
 ## Benchmark
 
@@ -52,7 +42,7 @@ In my broad review of relevant papers, I found that evaluation frameworks for co
 
 My thought is that, in applied scenarios, static benchmark scores are often insufficient. We typically refer to real user feedback, such as LLM Arena or Reddit/X discussions. Currently, such evaluation systems are rare in the continual learning field. I think it might be worth attempting to build one. Coincidentally, I have developed an AI companionship application centered on structured narratives. It might be possible to build an evaluation system relying on Human Feedback upon this foundation (since users inherently care about which LLM best aligns with plot frameworks and retains historical memory during long-range narratives, making their perception highly accurate).
 
-Based on this hypothesis, I formulated **Proposal 05**.
+Based on this hypothesis, I formulated **Proposal 04**.
 
 ## NSA (Native Sparse Attention)
 
@@ -74,4 +64,4 @@ Native DSA open-source models are typically large, meaning the experimental comp
 
 Therefore, I think we could potentially leverage open-source DSA / Indexer operators to pre-train a small-scale DSA architecture (e.g., ~0.1B scale) from scratch on a small dataset, and then run a controlled experiment against a conventional Transformer.
 
-Based on this hypothesis, I formulated **Proposal 06**.
+Based on this hypothesis, I formulated **Proposal 05**.
